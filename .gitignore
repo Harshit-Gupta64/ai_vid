@@ -1,0 +1,42 @@
+Set-Content -Path .gitignore -Value @"
+# Secrets & Environments
+.env
+.env.*
+*.key
+
+# Compiled & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Large Outputs & Intermediate Media
+out/
+state/
+*.mp4
+*.mkv
+*.webm
+*.wav
+*.mp3
+*.ogg
+*.png
+*.jpg
+*.jpeg
+
+# Test Stems & Temp Audio
+test_*
+temp_*
+degraded_scenes.log
+
+# Scratch Logs & Workspace Dumps
+*.log
+scratch/
+.agent/scratch/
+AUDIT_*.md
+PLAN_*.md
+
+# OS Artifacts
+Thumbs.db
+Desktop.ini
+.DS_Store
+"@

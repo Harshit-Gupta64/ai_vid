@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0",
+  "description": "BGM Asset License and Attribution Registry for ai_vid pipeline",
+  "tracks": {
+    "rites.mp3": {
+      "title": "Rites",
+      "artist": "Kevin MacLeod",
+      "source": "Incompetech",
+      "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100346",
+      "license": "CC-BY-4.0",
+      "attribution_required": true,
+      "attribution_text": "'Rites' Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 License http://creativecommons.org/licenses/by/4.0/",
+      "mood_tags": [
+        "dark_suspense",
+        "ancient_ritual",
+        "siege_dread"
+      ],
+      "lufs_integrated": -24.1
+    },
+    "volatile_reaction.mp3": {
+      "title": "Volatile Reaction",
+      "artist": "Kevin MacLeod",
+      "source": "Incompetech",
+      "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400039",
+      "license": "CC-BY-4.0",
+      "attribution_required": true,
+      "attribution_text": "'Volatile Reaction' Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 License http://creativecommons.org/licenses/by/4.0/",
+      "mood_tags": [
+        "percussive_march",
+        "tactical_urgency",
+        "fast_tempo"
+      ],
+      "lufs_integrated": -22.5
+    },
+    "hitman.mp3": {
+      "title": "Hitman",
+      "artist": "Kevin MacLeod",
+      "source": "Incompetech",
+      "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1300013",
+      "license": "CC-BY-4.0",
+      "attribution_required": true,
+      "attribution_text": "'Hitman' Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 License http://creativecommons.org/licenses/by/4.0/",
+      "mood_tags": [
+        "covert_tension",
+        "tactical_anomaly",
+        "driving_bass"
+      ],
+      "lufs_integrated": -22.7
+    },
+    "clash_defiant.mp3": {
+      "title": "Clash Defiant",
+      "artist": "Kevin MacLeod",
+      "source": "Incompetech",
+      "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1500052",
+      "license": "CC-BY-4.0",
+      "attribution_required": true,
+      "attribution_text": "'Clash Defiant' Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 License http://creativecommons.org/licenses/by/4.0/",
+      "mood_tags": [
+        "epic_brass",
+        "naval_clash",
+        "heroic_struggle"
+      ],
+      "lufs_integrated": -23.5
+    },
+    "the_descent.mp3": {
+      "title": "The Descent",
+      "artist": "Kevin MacLeod",
+      "source": "Incompetech",
+      "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100348",
+      "license": "CC-BY-4.0",
+      "attribution_required": true,
+      "attribution_text": "'The Descent' Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 License http://creativecommons.org/licenses/by/4.0/",
+      "mood_tags": [
+        "dark_suspense",
+        "cataclysmic_march",
+        "climax_impact"
+      ],
+      "lufs_integrated": -22.5
+    },
+    "percussive_war.wav": {
+      "title": "Percussive War March",
+      "artist": "ai_vid Pipeline Sound Generator",
+      "source": "Internal Procedural Synthesis",
+      "source_url": "internal://ai_vid/audio/synth",
+      "license": "CC0-1.0",
+      "attribution_required": false,
+      "attribution_text": "Public Domain / CC0 1.0 Universal",
+      "mood_tags": [
+        "percussive_march",
+        "war_drums",
+        "tactical_urgency"
+      ],
+      "lufs_integrated": -21.1
+    },
+    "tense_drone.wav": {
+      "title": "Granular Tense Drone",
+      "artist": "ai_vid Pipeline Sound Generator",
+      "source": "Internal Granular Synthesis",
+      "source_url": "internal://ai_vid/audio/synth",
+      "license": "CC0-1.0",
+      "attribution_required": false,
+      "attribution_text": "Public Domain / CC0 1.0 Universal",
+      "mood_tags": [
+        "dark_suspense",
+        "ambient_ominous",
+        "heavy_timber"
+      ],
+      "lufs_integrated": -21.2
+    },
+    "SCP-x3x.mp3": {
+      "title": "SCP-x3x (Mindgame)",
+      "artist": "Kevin MacLeod",
+      "source": "Incompetech",
+      "source_url": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100236",
+      "license": "CC-BY-4.0",
+      "attribution_required": true,
+      "attribution_text": "'SCP-x3x' Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 License http://creativecommons.org/licenses/by/4.0/",
+      "mood_tags": [
+        "dark_suspense",
+        "mindgame",
+        "tactical_anomaly"
+      ],
+      "lufs_integrated": -23.6
+    },
+    "soundtrack.mp3": {
+      "title": "Battle of Actium Ancient War Drums",
+      "artist": "Royalty-Free Historical Audio Library",
+      "source": "Pixabay / Free Music Archive",
+      "source_url": "https://pixabay.com/music/",
+      "license": "Royalty-Free (Pixabay Content License)",
+      "attribution_required": false,
+      "attribution_text": "Royalty-Free commercial license, no attribution strictly required.",
+      "mood_tags": [
+        "percussive_march",
+        "epic_brass",
+        "naval_clash"
+      ],
+      "lufs_integrated": -23.3
+    },
+    "soundtrack_s1.mp3": {
+      "title": "Tactical Siege Atmosphere S1",
+      "artist": "Royalty-Free Historical Audio Library",
+      "source": "Free Music Archive",
+      "source_url": "https://freemusicarchive.org",
+      "license": "CC-BY-4.0",
+      "attribution_required": true,
+      "attribution_text": "'Tactical Siege Atmosphere' Licensed under Creative Commons Attribution 4.0",
+      "mood_tags": [
+        "siege_engine",
+        "bizarre_invention",
+        "dark_suspense"
+      ],
+      "lufs_integrated": -23.7
+    },
+    "soundtrack_ai.wav": {
+      "title": "Procedural Ambient Underbed",
+      "artist": "ai_vid Pipeline Granular Engine",
+      "source": "Internal Granular Synthesis",
+      "source_url": "internal://ai_vid/audio/synth",
+      "license": "CC0-1.0",
+      "attribution_required": false,
+      "attribution_text": "Public Domain / CC0 1.0 Universal",
+      "mood_tags": [
+        "ambient_ominous",
+        "resolution_loop"
+      ],
+      "lufs_integrated": -23.2
+    }
+  }
+}

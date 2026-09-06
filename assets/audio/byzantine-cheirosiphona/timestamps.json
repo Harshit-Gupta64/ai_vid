@@ -1,0 +1,638 @@
+{
+  "audio_file": "voiceover.wav",
+  "total_duration": 40.76,
+  "sample_rate": 24000,
+  "voice": "en-US-ChristopherNeural",
+  "rate": "+20%",
+  "scenes": [
+    {
+      "scene_id": 1,
+      "start_time": 0.0,
+      "end_time": 2.98,
+      "narration": "A thousand years before modern flamethrowers, Byzantine.",
+      "words": [
+        {
+          "word": "A",
+          "start": 0.05,
+          "end": 0.102
+        },
+        {
+          "word": "thousand",
+          "start": 0.108,
+          "end": 0.525
+        },
+        {
+          "word": "years",
+          "start": 0.571,
+          "end": 0.832
+        },
+        {
+          "word": "before",
+          "start": 0.861,
+          "end": 1.174
+        },
+        {
+          "word": "modern",
+          "start": 1.208,
+          "end": 1.521
+        },
+        {
+          "word": "flamethrowers,",
+          "start": 1.556,
+          "end": 2.233
+        },
+        {
+          "word": "Byzantine.",
+          "start": 2.309,
+          "end": 2.778
+        }
+      ]
+    },
+    {
+      "scene_id": 2,
+      "start_time": 2.98,
+      "end_time": 5.12,
+      "narration": "Armies clashed along the disputed frontier.",
+      "words": [
+        {
+          "word": "Armies",
+          "start": 3.03,
+          "end": 3.313
+        },
+        {
+          "word": "clashed",
+          "start": 3.345,
+          "end": 3.675
+        },
+        {
+          "word": "along",
+          "start": 3.712,
+          "end": 3.948
+        },
+        {
+          "word": "the",
+          "start": 3.974,
+          "end": 4.115
+        },
+        {
+          "word": "disputed",
+          "start": 4.131,
+          "end": 4.509
+        },
+        {
+          "word": "frontier.",
+          "start": 4.551,
+          "end": 4.928
+        }
+      ]
+    },
+    {
+      "scene_id": 3,
+      "start_time": 5.12,
+      "end_time": 8.02,
+      "narration": "Defenders faced overwhelming tactical superior forces.",
+      "words": [
+        {
+          "word": "Defenders",
+          "start": 5.17,
+          "end": 5.626
+        },
+        {
+          "word": "faced",
+          "start": 5.676,
+          "end": 5.929
+        },
+        {
+          "word": "overwhelming",
+          "start": 5.958,
+          "end": 6.565
+        },
+        {
+          "word": "tactical",
+          "start": 6.632,
+          "end": 7.037
+        },
+        {
+          "word": "superior",
+          "start": 7.082,
+          "end": 7.487
+        },
+        {
+          "word": "forces.",
+          "start": 7.532,
+          "end": 7.836
+        }
+      ]
+    },
+    {
+      "scene_id": 4,
+      "start_time": 8.02,
+      "end_time": 10.21,
+      "narration": "Commanders prepared the decisive secret weapon.",
+      "words": [
+        {
+          "word": "Commanders",
+          "start": 8.07,
+          "end": 8.507
+        },
+        {
+          "word": "prepared",
+          "start": 8.555,
+          "end": 8.905
+        },
+        {
+          "word": "the",
+          "start": 8.944,
+          "end": 9.075
+        },
+        {
+          "word": "decisive",
+          "start": 9.089,
+          "end": 9.439
+        },
+        {
+          "word": "secret",
+          "start": 9.478,
+          "end": 9.74
+        },
+        {
+          "word": "weapon.",
+          "start": 9.769,
+          "end": 10.031
+        }
+      ]
+    },
+    {
+      "scene_id": 5,
+      "start_time": 10.21,
+      "end_time": 12.89,
+      "narration": "Engineers primed Cheirosiphona for immediate deployment.",
+      "words": [
+        {
+          "word": "Engineers",
+          "start": 10.26,
+          "end": 10.662
+        },
+        {
+          "word": "primed",
+          "start": 10.706,
+          "end": 10.974
+        },
+        {
+          "word": "Cheirosiphona",
+          "start": 11.004,
+          "end": 11.584
+        },
+        {
+          "word": "for",
+          "start": 11.649,
+          "end": 11.783
+        },
+        {
+          "word": "immediate",
+          "start": 11.798,
+          "end": 12.199
+        },
+        {
+          "word": "deployment.",
+          "start": 12.244,
+          "end": 12.69
+        }
+      ]
+    },
+    {
+      "scene_id": 6,
+      "start_time": 12.89,
+      "end_time": 15.47,
+      "narration": "Forward ranks advanced without suspecting the hidden trap.",
+      "words": [
+        {
+          "word": "Forward",
+          "start": 12.94,
+          "end": 13.24
+        },
+        {
+          "word": "ranks",
+          "start": 13.273,
+          "end": 13.487
+        },
+        {
+          "word": "advanced",
+          "start": 13.511,
+          "end": 13.854
+        },
+        {
+          "word": "without",
+          "start": 13.892,
+          "end": 14.192
+        },
+        {
+          "word": "suspecting",
+          "start": 14.225,
+          "end": 14.654
+        },
+        {
+          "word": "the",
+          "start": 14.701,
+          "end": 14.83
+        },
+        {
+          "word": "hidden",
+          "start": 14.844,
+          "end": 15.101
+        },
+        {
+          "word": "trap.",
+          "start": 15.13,
+          "end": 15.301
+        }
+      ]
+    },
+    {
+      "scene_id": 7,
+      "start_time": 15.47,
+      "end_time": 18.14,
+      "narration": "The vanguard marched directly into the targeted killzone.",
+      "words": [
+        {
+          "word": "The",
+          "start": 15.52,
+          "end": 15.656
+        },
+        {
+          "word": "vanguard",
+          "start": 15.671,
+          "end": 16.034
+        },
+        {
+          "word": "marched",
+          "start": 16.074,
+          "end": 16.392
+        },
+        {
+          "word": "directly",
+          "start": 16.427,
+          "end": 16.79
+        },
+        {
+          "word": "into",
+          "start": 16.831,
+          "end": 17.012
+        },
+        {
+          "word": "the",
+          "start": 17.032,
+          "end": 17.168
+        },
+        {
+          "word": "targeted",
+          "start": 17.183,
+          "end": 17.546
+        },
+        {
+          "word": "killzone.",
+          "start": 17.587,
+          "end": 17.95
+        }
+      ]
+    },
+    {
+      "scene_id": 8,
+      "start_time": 18.14,
+      "end_time": 21.17,
+      "narration": "Defenders unleashed the stratagem with sudden explosive force.",
+      "words": [
+        {
+          "word": "Defenders",
+          "start": 18.19,
+          "end": 18.614
+        },
+        {
+          "word": "unleashed",
+          "start": 18.662,
+          "end": 19.086
+        },
+        {
+          "word": "the",
+          "start": 19.133,
+          "end": 19.275
+        },
+        {
+          "word": "stratagem",
+          "start": 19.291,
+          "end": 19.715
+        },
+        {
+          "word": "with",
+          "start": 19.762,
+          "end": 19.951
+        },
+        {
+          "word": "sudden",
+          "start": 19.972,
+          "end": 20.255
+        },
+        {
+          "word": "explosive",
+          "start": 20.286,
+          "end": 20.711
+        },
+        {
+          "word": "force.",
+          "start": 20.758,
+          "end": 20.994
+        }
+      ]
+    },
+    {
+      "scene_id": 9,
+      "start_time": 21.17,
+      "end_time": 25.69,
+      "narration": "Devastating impact shattered the enemy vanguard, breaking defensive lines across the battlefield.",
+      "words": [
+        {
+          "word": "Devastating",
+          "start": 21.22,
+          "end": 21.729
+        },
+        {
+          "word": "impact",
+          "start": 21.786,
+          "end": 22.063
+        },
+        {
+          "word": "shattered",
+          "start": 22.094,
+          "end": 22.511
+        },
+        {
+          "word": "the",
+          "start": 22.557,
+          "end": 22.696
+        },
+        {
+          "word": "enemy",
+          "start": 22.711,
+          "end": 22.943
+        },
+        {
+          "word": "vanguard,",
+          "start": 22.969,
+          "end": 23.339
+        },
+        {
+          "word": "breaking",
+          "start": 23.38,
+          "end": 23.75
+        },
+        {
+          "word": "defensive",
+          "start": 23.791,
+          "end": 24.208
+        },
+        {
+          "word": "lines",
+          "start": 24.254,
+          "end": 24.486
+        },
+        {
+          "word": "across",
+          "start": 24.511,
+          "end": 24.789
+        },
+        {
+          "word": "the",
+          "start": 24.82,
+          "end": 24.959
+        },
+        {
+          "word": "battlefield.",
+          "start": 24.974,
+          "end": 25.483
+        }
+      ]
+    },
+    {
+      "scene_id": 10,
+      "start_time": 25.69,
+      "end_time": 29.49,
+      "narration": "Panic tore through invading ranks as counter-measures overwhelmed all resistance.",
+      "words": [
+        {
+          "word": "Panic",
+          "start": 25.74,
+          "end": 25.968
+        },
+        {
+          "word": "tore",
+          "start": 25.994,
+          "end": 26.176
+        },
+        {
+          "word": "through",
+          "start": 26.196,
+          "end": 26.516
+        },
+        {
+          "word": "invading",
+          "start": 26.551,
+          "end": 26.916
+        },
+        {
+          "word": "ranks",
+          "start": 26.957,
+          "end": 27.185
+        },
+        {
+          "word": "as",
+          "start": 27.21,
+          "end": 27.302
+        },
+        {
+          "word": "counter-measures",
+          "start": 27.312,
+          "end": 28.042
+        },
+        {
+          "word": "overwhelmed",
+          "start": 28.123,
+          "end": 28.625
+        },
+        {
+          "word": "all",
+          "start": 28.681,
+          "end": 28.818
+        },
+        {
+          "word": "resistance.",
+          "start": 28.833,
+          "end": 29.289
+        }
+      ]
+    },
+    {
+      "scene_id": 11,
+      "start_time": 29.49,
+      "end_time": 34.26,
+      "narration": "Unstoppable tactical surprise shattered enemy morale, turning disciplined lines into frantic retreat.",
+      "words": [
+        {
+          "word": "Unstoppable",
+          "start": 29.54,
+          "end": 30.054
+        },
+        {
+          "word": "tactical",
+          "start": 30.111,
+          "end": 30.485
+        },
+        {
+          "word": "surprise",
+          "start": 30.527,
+          "end": 30.901
+        },
+        {
+          "word": "shattered",
+          "start": 30.942,
+          "end": 31.363
+        },
+        {
+          "word": "enemy",
+          "start": 31.41,
+          "end": 31.643
+        },
+        {
+          "word": "morale,",
+          "start": 31.669,
+          "end": 31.95
+        },
+        {
+          "word": "turning",
+          "start": 31.981,
+          "end": 32.308
+        },
+        {
+          "word": "disciplined",
+          "start": 32.344,
+          "end": 32.858
+        },
+        {
+          "word": "lines",
+          "start": 32.916,
+          "end": 33.149
+        },
+        {
+          "word": "into",
+          "start": 33.175,
+          "end": 33.362
+        },
+        {
+          "word": "frantic",
+          "start": 33.383,
+          "end": 33.71
+        },
+        {
+          "word": "retreat.",
+          "start": 33.746,
+          "end": 34.074
+        }
+      ]
+    },
+    {
+      "scene_id": 12,
+      "start_time": 34.26,
+      "end_time": 37.18,
+      "narration": "The surviving invaders retreated across the shattered battleground.",
+      "words": [
+        {
+          "word": "The",
+          "start": 34.31,
+          "end": 34.434
+        },
+        {
+          "word": "surviving",
+          "start": 34.448,
+          "end": 34.822
+        },
+        {
+          "word": "invaders",
+          "start": 34.863,
+          "end": 35.195
+        },
+        {
+          "word": "retreated",
+          "start": 35.232,
+          "end": 35.605
+        },
+        {
+          "word": "across",
+          "start": 35.647,
+          "end": 35.896
+        },
+        {
+          "word": "the",
+          "start": 35.924,
+          "end": 36.048
+        },
+        {
+          "word": "shattered",
+          "start": 36.062,
+          "end": 36.435
+        },
+        {
+          "word": "battleground.",
+          "start": 36.477,
+          "end": 36.975
+        }
+      ]
+    },
+    {
+      "scene_id": 13,
+      "start_time": 37.18,
+      "end_time": 40.76,
+      "narration": "Ancient chronicles permanently recorded Cheirosiphona as decisive warfare.",
+      "words": [
+        {
+          "word": "Ancient",
+          "start": 37.23,
+          "end": 37.553
+        },
+        {
+          "word": "chronicles",
+          "start": 37.588,
+          "end": 38.049
+        },
+        {
+          "word": "permanently",
+          "start": 38.101,
+          "end": 38.608
+        },
+        {
+          "word": "recorded",
+          "start": 38.664,
+          "end": 39.033
+        },
+        {
+          "word": "Cheirosiphona",
+          "start": 39.074,
+          "end": 39.673
+        },
+        {
+          "word": "as",
+          "start": 39.739,
+          "end": 39.832
+        },
+        {
+          "word": "decisive",
+          "start": 39.842,
+          "end": 40.211
+        },
+        {
+          "word": "warfare.",
+          "start": 40.252,
+          "end": 40.574
+        }
+      ]
+    }
+  ]
+}

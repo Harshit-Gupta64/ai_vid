@@ -1,0 +1,703 @@
+{
+  "audio_file": "voiceover.wav",
+  "total_duration": 47.21,
+  "sample_rate": 24000,
+  "voice": "en-US-ChristopherNeural",
+  "rate": "+20%",
+  "scenes": [
+    {
+      "scene_id": 1,
+      "start_time": 0.0,
+      "end_time": 4.01,
+      "narration": "Sixty Roman war galleys closed the distance under total darkness.",
+      "words": [
+        {
+          "word": "Sixty",
+          "start": 0.05,
+          "end": 0.362
+        },
+        {
+          "word": "Roman",
+          "start": 0.396,
+          "end": 0.708
+        },
+        {
+          "word": "war",
+          "start": 0.743,
+          "end": 0.93
+        },
+        {
+          "word": "galleys",
+          "start": 0.951,
+          "end": 1.387
+        },
+        {
+          "word": "closed",
+          "start": 1.435,
+          "end": 1.81
+        },
+        {
+          "word": "the",
+          "start": 1.851,
+          "end": 2.038
+        },
+        {
+          "word": "distance",
+          "start": 2.059,
+          "end": 2.558
+        },
+        {
+          "word": "under",
+          "start": 2.613,
+          "end": 2.925
+        },
+        {
+          "word": "total",
+          "start": 2.959,
+          "end": 3.271
+        },
+        {
+          "word": "darkness.",
+          "start": 3.306,
+          "end": 3.805
+        }
+      ]
+    },
+    {
+      "scene_id": 2,
+      "start_time": 4.01,
+      "end_time": 7.85,
+      "narration": "Consul Marcellus believed the massive harbor walls were defenseless.",
+      "words": [
+        {
+          "word": "Consul",
+          "start": 4.06,
+          "end": 4.393
+        },
+        {
+          "word": "Marcellus",
+          "start": 4.43,
+          "end": 4.93
+        },
+        {
+          "word": "believed",
+          "start": 4.985,
+          "end": 5.43
+        },
+        {
+          "word": "the",
+          "start": 5.479,
+          "end": 5.646
+        },
+        {
+          "word": "massive",
+          "start": 5.664,
+          "end": 6.053
+        },
+        {
+          "word": "harbor",
+          "start": 6.096,
+          "end": 6.429
+        },
+        {
+          "word": "walls",
+          "start": 6.466,
+          "end": 6.744
+        },
+        {
+          "word": "were",
+          "start": 6.775,
+          "end": 6.997
+        },
+        {
+          "word": "defenseless.",
+          "start": 7.021,
+          "end": 7.632
+        }
+      ]
+    },
+    {
+      "scene_id": 3,
+      "start_time": 7.85,
+      "end_time": 12.03,
+      "narration": "Archimedes had transformed the Syracuse seawall into an invisible trap.",
+      "words": [
+        {
+          "word": "Archimedes",
+          "start": 7.9,
+          "end": 8.487
+        },
+        {
+          "word": "had",
+          "start": 8.552,
+          "end": 8.729
+        },
+        {
+          "word": "transformed",
+          "start": 8.748,
+          "end": 9.394
+        },
+        {
+          "word": "the",
+          "start": 9.466,
+          "end": 9.642
+        },
+        {
+          "word": "Syracuse",
+          "start": 9.662,
+          "end": 10.131
+        },
+        {
+          "word": "seawall",
+          "start": 10.184,
+          "end": 10.595
+        },
+        {
+          "word": "into",
+          "start": 10.64,
+          "end": 10.875
+        },
+        {
+          "word": "an",
+          "start": 10.901,
+          "end": 11.019
+        },
+        {
+          "word": "invisible",
+          "start": 11.032,
+          "end": 11.56
+        },
+        {
+          "word": "trap.",
+          "start": 11.619,
+          "end": 11.854
+        }
+      ]
+    },
+    {
+      "scene_id": 4,
+      "start_time": 12.03,
+      "end_time": 15.89,
+      "narration": "One man calculated the breaking weight of Rome's entire armada.",
+      "words": [
+        {
+          "word": "One",
+          "start": 12.08,
+          "end": 12.266
+        },
+        {
+          "word": "man",
+          "start": 12.287,
+          "end": 12.474
+        },
+        {
+          "word": "calculated",
+          "start": 12.494,
+          "end": 13.116
+        },
+        {
+          "word": "the",
+          "start": 13.185,
+          "end": 13.371
+        },
+        {
+          "word": "breaking",
+          "start": 13.392,
+          "end": 13.889
+        },
+        {
+          "word": "weight",
+          "start": 13.945,
+          "end": 14.317
+        },
+        {
+          "word": "of",
+          "start": 14.359,
+          "end": 14.483
+        },
+        {
+          "word": "Rome's",
+          "start": 14.497,
+          "end": 14.87
+        },
+        {
+          "word": "entire",
+          "start": 14.911,
+          "end": 15.284
+        },
+        {
+          "word": "armada.",
+          "start": 15.326,
+          "end": 15.699
+        }
+      ]
+    },
+    {
+      "scene_id": 5,
+      "start_time": 15.89,
+      "end_time": 19.11,
+      "narration": "A gargantuan iron claw dropped from the battlements.",
+      "words": [
+        {
+          "word": "A",
+          "start": 15.94,
+          "end": 16.002
+        },
+        {
+          "word": "gargantuan",
+          "start": 16.009,
+          "end": 16.626
+        },
+        {
+          "word": "iron",
+          "start": 16.695,
+          "end": 16.942
+        },
+        {
+          "word": "claw",
+          "start": 16.97,
+          "end": 17.217
+        },
+        {
+          "word": "dropped",
+          "start": 17.244,
+          "end": 17.676
+        },
+        {
+          "word": "from",
+          "start": 17.725,
+          "end": 17.972
+        },
+        {
+          "word": "the",
+          "start": 17.999,
+          "end": 18.184
+        },
+        {
+          "word": "battlements.",
+          "start": 18.205,
+          "end": 18.884
+        }
+      ]
+    },
+    {
+      "scene_id": 6,
+      "start_time": 19.11,
+      "end_time": 22.09,
+      "narration": "The talons bit straight through heavy cedar decking.",
+      "words": [
+        {
+          "word": "The",
+          "start": 19.16,
+          "end": 19.331
+        },
+        {
+          "word": "talons",
+          "start": 19.35,
+          "end": 19.691
+        },
+        {
+          "word": "bit",
+          "start": 19.729,
+          "end": 19.899
+        },
+        {
+          "word": "straight",
+          "start": 19.918,
+          "end": 20.373
+        },
+        {
+          "word": "through",
+          "start": 20.424,
+          "end": 20.822
+        },
+        {
+          "word": "heavy",
+          "start": 20.866,
+          "end": 21.15
+        },
+        {
+          "word": "cedar",
+          "start": 21.182,
+          "end": 21.466
+        },
+        {
+          "word": "decking.",
+          "start": 21.498,
+          "end": 21.896
+        }
+      ]
+    },
+    {
+      "scene_id": 7,
+      "start_time": 22.09,
+      "end_time": 26.15,
+      "narration": "Enormous stone counterweights hoisted sixty-ton galleys into the air.",
+      "words": [
+        {
+          "word": "Enormous",
+          "start": 22.14,
+          "end": 22.603
+        },
+        {
+          "word": "stone",
+          "start": 22.655,
+          "end": 22.944
+        },
+        {
+          "word": "counterweights",
+          "start": 22.976,
+          "end": 23.787
+        },
+        {
+          "word": "hoisted",
+          "start": 23.877,
+          "end": 24.282
+        },
+        {
+          "word": "sixty-ton",
+          "start": 24.327,
+          "end": 24.848
+        },
+        {
+          "word": "galleys",
+          "start": 24.906,
+          "end": 25.312
+        },
+        {
+          "word": "into",
+          "start": 25.357,
+          "end": 25.588
+        },
+        {
+          "word": "the",
+          "start": 25.614,
+          "end": 25.788
+        },
+        {
+          "word": "air.",
+          "start": 25.807,
+          "end": 25.981
+        }
+      ]
+    },
+    {
+      "scene_id": 8,
+      "start_time": 26.15,
+      "end_time": 29.61,
+      "narration": "Marcellus watched his flagship ripped bodily from the sea.",
+      "words": [
+        {
+          "word": "Marcellus",
+          "start": 26.2,
+          "end": 26.739
+        },
+        {
+          "word": "watched",
+          "start": 26.799,
+          "end": 27.218
+        },
+        {
+          "word": "his",
+          "start": 27.264,
+          "end": 27.444
+        },
+        {
+          "word": "flagship",
+          "start": 27.464,
+          "end": 27.943
+        },
+        {
+          "word": "ripped",
+          "start": 27.996,
+          "end": 28.356
+        },
+        {
+          "word": "bodily",
+          "start": 28.396,
+          "end": 28.755
+        },
+        {
+          "word": "from",
+          "start": 28.795,
+          "end": 29.034
+        },
+        {
+          "word": "the",
+          "start": 29.061,
+          "end": 29.24
+        },
+        {
+          "word": "sea.",
+          "start": 29.26,
+          "end": 29.44
+        }
+      ]
+    },
+    {
+      "scene_id": 9,
+      "start_time": 29.61,
+      "end_time": 33.55,
+      "narration": "Ropes tore, spilling armored legionaries into the raging surf.",
+      "words": [
+        {
+          "word": "Ropes",
+          "start": 29.66,
+          "end": 29.984
+        },
+        {
+          "word": "tore,",
+          "start": 30.02,
+          "end": 30.279
+        },
+        {
+          "word": "spilling",
+          "start": 30.307,
+          "end": 30.825
+        },
+        {
+          "word": "armored",
+          "start": 30.883,
+          "end": 31.336
+        },
+        {
+          "word": "legionaries",
+          "start": 31.386,
+          "end": 32.098
+        },
+        {
+          "word": "into",
+          "start": 32.177,
+          "end": 32.436
+        },
+        {
+          "word": "the",
+          "start": 32.465,
+          "end": 32.659
+        },
+        {
+          "word": "raging",
+          "start": 32.681,
+          "end": 33.069
+        },
+        {
+          "word": "surf.",
+          "start": 33.112,
+          "end": 33.371
+        }
+      ]
+    },
+    {
+      "scene_id": 10,
+      "start_time": 33.55,
+      "end_time": 36.53,
+      "narration": "The crane held the warship suspended in mid-air.",
+      "words": [
+        {
+          "word": "The",
+          "start": 33.6,
+          "end": 33.788
+        },
+        {
+          "word": "crane",
+          "start": 33.809,
+          "end": 34.121
+        },
+        {
+          "word": "held",
+          "start": 34.156,
+          "end": 34.406
+        },
+        {
+          "word": "the",
+          "start": 34.434,
+          "end": 34.622
+        },
+        {
+          "word": "warship",
+          "start": 34.642,
+          "end": 35.08
+        },
+        {
+          "word": "suspended",
+          "start": 35.129,
+          "end": 35.692
+        },
+        {
+          "word": "in",
+          "start": 35.754,
+          "end": 35.88
+        },
+        {
+          "word": "mid-air.",
+          "start": 35.893,
+          "end": 36.331
+        }
+      ]
+    },
+    {
+      "scene_id": 11,
+      "start_time": 36.53,
+      "end_time": 40.56,
+      "narration": "A single lever released, obliterating the hull upon jagged reefs.",
+      "words": [
+        {
+          "word": "A",
+          "start": 36.58,
+          "end": 36.644
+        },
+        {
+          "word": "single",
+          "start": 36.651,
+          "end": 37.034
+        },
+        {
+          "word": "lever",
+          "start": 37.076,
+          "end": 37.396
+        },
+        {
+          "word": "released,",
+          "start": 37.431,
+          "end": 37.942
+        },
+        {
+          "word": "obliterating",
+          "start": 37.999,
+          "end": 38.765
+        },
+        {
+          "word": "the",
+          "start": 38.85,
+          "end": 39.041
+        },
+        {
+          "word": "hull",
+          "start": 39.062,
+          "end": 39.318
+        },
+        {
+          "word": "upon",
+          "start": 39.346,
+          "end": 39.601
+        },
+        {
+          "word": "jagged",
+          "start": 39.63,
+          "end": 40.013
+        },
+        {
+          "word": "reefs.",
+          "start": 40.055,
+          "end": 40.375
+        }
+      ]
+    },
+    {
+      "scene_id": 12,
+      "start_time": 40.56,
+      "end_time": 43.75,
+      "narration": "Roman crews fled if a single wooden beam appeared.",
+      "words": [
+        {
+          "word": "Roman",
+          "start": 40.61,
+          "end": 40.938
+        },
+        {
+          "word": "crews",
+          "start": 40.975,
+          "end": 41.303
+        },
+        {
+          "word": "fled",
+          "start": 41.339,
+          "end": 41.602
+        },
+        {
+          "word": "if",
+          "start": 41.631,
+          "end": 41.762
+        },
+        {
+          "word": "a",
+          "start": 41.777,
+          "end": 41.842
+        },
+        {
+          "word": "single",
+          "start": 41.85,
+          "end": 42.244
+        },
+        {
+          "word": "wooden",
+          "start": 42.287,
+          "end": 42.681
+        },
+        {
+          "word": "beam",
+          "start": 42.725,
+          "end": 42.987
+        },
+        {
+          "word": "appeared.",
+          "start": 43.017,
+          "end": 43.542
+        }
+      ]
+    },
+    {
+      "scene_id": 13,
+      "start_time": 43.75,
+      "end_time": 47.21,
+      "narration": "Pure geometry had shattered the greatest navy on earth.",
+      "words": [
+        {
+          "word": "Pure",
+          "start": 43.8,
+          "end": 44.055
+        },
+        {
+          "word": "geometry",
+          "start": 44.083,
+          "end": 44.594
+        },
+        {
+          "word": "had",
+          "start": 44.65,
+          "end": 44.842
+        },
+        {
+          "word": "shattered",
+          "start": 44.863,
+          "end": 45.437
+        },
+        {
+          "word": "the",
+          "start": 45.501,
+          "end": 45.692
+        },
+        {
+          "word": "greatest",
+          "start": 45.713,
+          "end": 46.224
+        },
+        {
+          "word": "navy",
+          "start": 46.28,
+          "end": 46.536
+        },
+        {
+          "word": "on",
+          "start": 46.564,
+          "end": 46.691
+        },
+        {
+          "word": "earth.",
+          "start": 46.706,
+          "end": 47.025
+        }
+      ]
+    }
+  ]
+}

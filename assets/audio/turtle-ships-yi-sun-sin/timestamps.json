@@ -1,0 +1,701 @@
+{
+  "audio_file": "voiceover.wav",
+  "total_duration": 41.73,
+  "sample_rate": 24000,
+  "voice": "en-US-ChristopherNeural",
+  "rate": "+20%",
+  "scenes": [
+    {
+      "scene_id": 1,
+      "start_time": 0.0,
+      "end_time": 2.11,
+      "narration": "Heavy iron spikes pierce woven straw.",
+      "words": [
+        {
+          "word": "Heavy",
+          "start": 0.05,
+          "end": 0.327
+        },
+        {
+          "word": "iron",
+          "start": 0.358,
+          "end": 0.58
+        },
+        {
+          "word": "spikes",
+          "start": 0.605,
+          "end": 0.937
+        },
+        {
+          "word": "pierce",
+          "start": 0.974,
+          "end": 1.307
+        },
+        {
+          "word": "woven",
+          "start": 1.344,
+          "end": 1.621
+        },
+        {
+          "word": "straw.",
+          "start": 1.652,
+          "end": 1.929
+        }
+      ]
+    },
+    {
+      "scene_id": 2,
+      "start_time": 2.11,
+      "end_time": 4.81,
+      "narration": "Iron-clawed grappling hooks crash onto deck planks.",
+      "words": [
+        {
+          "word": "Iron-clawed",
+          "start": 2.16,
+          "end": 2.723
+        },
+        {
+          "word": "grappling",
+          "start": 2.785,
+          "end": 3.245
+        },
+        {
+          "word": "hooks",
+          "start": 3.296,
+          "end": 3.552
+        },
+        {
+          "word": "crash",
+          "start": 3.58,
+          "end": 3.836
+        },
+        {
+          "word": "onto",
+          "start": 3.865,
+          "end": 4.069
+        },
+        {
+          "word": "deck",
+          "start": 4.092,
+          "end": 4.296
+        },
+        {
+          "word": "planks.",
+          "start": 4.319,
+          "end": 4.626
+        }
+      ]
+    },
+    {
+      "scene_id": 3,
+      "start_time": 4.81,
+      "end_time": 7.55,
+      "narration": "Japanese warships swarm the narrow Hansan straits.",
+      "words": [
+        {
+          "word": "Japanese",
+          "start": 4.86,
+          "end": 5.285
+        },
+        {
+          "word": "warships",
+          "start": 5.333,
+          "end": 5.758
+        },
+        {
+          "word": "swarm",
+          "start": 5.805,
+          "end": 6.071
+        },
+        {
+          "word": "the",
+          "start": 6.1,
+          "end": 6.26
+        },
+        {
+          "word": "narrow",
+          "start": 6.278,
+          "end": 6.597
+        },
+        {
+          "word": "Hansan",
+          "start": 6.632,
+          "end": 6.951
+        },
+        {
+          "word": "straits.",
+          "start": 6.987,
+          "end": 7.359
+        }
+      ]
+    },
+    {
+      "scene_id": 4,
+      "start_time": 7.55,
+      "end_time": 10.81,
+      "narration": "Samurai draw razor steel, preparing for boarding actions.",
+      "words": [
+        {
+          "word": "Samurai",
+          "start": 7.6,
+          "end": 8.002
+        },
+        {
+          "word": "draw",
+          "start": 8.046,
+          "end": 8.276
+        },
+        {
+          "word": "razor",
+          "start": 8.301,
+          "end": 8.588
+        },
+        {
+          "word": "steel,",
+          "start": 8.62,
+          "end": 8.907
+        },
+        {
+          "word": "preparing",
+          "start": 8.939,
+          "end": 9.455
+        },
+        {
+          "word": "for",
+          "start": 9.512,
+          "end": 9.685
+        },
+        {
+          "word": "boarding",
+          "start": 9.704,
+          "end": 10.163
+        },
+        {
+          "word": "actions.",
+          "start": 10.214,
+          "end": 10.615
+        }
+      ]
+    },
+    {
+      "scene_id": 5,
+      "start_time": 10.81,
+      "end_time": 13.91,
+      "narration": "Burning sulfur ignites inside a carved dragon prow mechanism.",
+      "words": [
+        {
+          "word": "Burning",
+          "start": 10.86,
+          "end": 11.211
+        },
+        {
+          "word": "sulfur",
+          "start": 11.25,
+          "end": 11.552
+        },
+        {
+          "word": "ignites",
+          "start": 11.585,
+          "end": 11.936
+        },
+        {
+          "word": "inside",
+          "start": 11.975,
+          "end": 12.277
+        },
+        {
+          "word": "a",
+          "start": 12.31,
+          "end": 12.36
+        },
+        {
+          "word": "carved",
+          "start": 12.366,
+          "end": 12.667
+        },
+        {
+          "word": "dragon",
+          "start": 12.7,
+          "end": 13.002
+        },
+        {
+          "word": "prow",
+          "start": 13.035,
+          "end": 13.236
+        },
+        {
+          "word": "mechanism.",
+          "start": 13.258,
+          "end": 13.71
+        }
+      ]
+    },
+    {
+      "scene_id": 6,
+      "start_time": 13.91,
+      "end_time": 16.35,
+      "narration": "Dense yellow smoke billows across the ocean tide.",
+      "words": [
+        {
+          "word": "Dense",
+          "start": 13.96,
+          "end": 14.206
+        },
+        {
+          "word": "yellow",
+          "start": 14.233,
+          "end": 14.528
+        },
+        {
+          "word": "smoke",
+          "start": 14.561,
+          "end": 14.807
+        },
+        {
+          "word": "billows",
+          "start": 14.834,
+          "end": 15.178
+        },
+        {
+          "word": "across",
+          "start": 15.217,
+          "end": 15.512
+        },
+        {
+          "word": "the",
+          "start": 15.544,
+          "end": 15.692
+        },
+        {
+          "word": "ocean",
+          "start": 15.708,
+          "end": 15.954
+        },
+        {
+          "word": "tide.",
+          "start": 15.981,
+          "end": 16.178
+        }
+      ]
+    },
+    {
+      "scene_id": 7,
+      "start_time": 16.35,
+      "end_time": 19.61,
+      "narration": "Unseen beneath sulfur clouds, armored dragon ships close in.",
+      "words": [
+        {
+          "word": "Unseen",
+          "start": 16.4,
+          "end": 16.73
+        },
+        {
+          "word": "beneath",
+          "start": 16.767,
+          "end": 17.153
+        },
+        {
+          "word": "sulfur",
+          "start": 17.196,
+          "end": 17.526
+        },
+        {
+          "word": "clouds,",
+          "start": 17.563,
+          "end": 17.893
+        },
+        {
+          "word": "armored",
+          "start": 17.93,
+          "end": 18.316
+        },
+        {
+          "word": "dragon",
+          "start": 18.358,
+          "end": 18.689
+        },
+        {
+          "word": "ships",
+          "start": 18.726,
+          "end": 19.001
+        },
+        {
+          "word": "close",
+          "start": 19.032,
+          "end": 19.307
+        },
+        {
+          "word": "in.",
+          "start": 19.338,
+          "end": 19.448
+        }
+      ]
+    },
+    {
+      "scene_id": 8,
+      "start_time": 19.61,
+      "end_time": 22.64,
+      "narration": "Korean commanders raise signal flags above the fog screen.",
+      "words": [
+        {
+          "word": "Korean",
+          "start": 19.66,
+          "end": 19.972
+        },
+        {
+          "word": "commanders",
+          "start": 20.007,
+          "end": 20.526
+        },
+        {
+          "word": "raise",
+          "start": 20.584,
+          "end": 20.844
+        },
+        {
+          "word": "signal",
+          "start": 20.873,
+          "end": 21.185
+        },
+        {
+          "word": "flags",
+          "start": 21.219,
+          "end": 21.479
+        },
+        {
+          "word": "above",
+          "start": 21.508,
+          "end": 21.768
+        },
+        {
+          "word": "the",
+          "start": 21.797,
+          "end": 21.953
+        },
+        {
+          "word": "fog",
+          "start": 21.97,
+          "end": 22.126
+        },
+        {
+          "word": "screen.",
+          "start": 22.143,
+          "end": 22.455
+        }
+      ]
+    },
+    {
+      "scene_id": 9,
+      "start_time": 22.64,
+      "end_time": 25.86,
+      "narration": "Leaping samurai impale their boots on hidden iron roof spikes.",
+      "words": [
+        {
+          "word": "Leaping",
+          "start": 22.69,
+          "end": 23.056
+        },
+        {
+          "word": "samurai",
+          "start": 23.097,
+          "end": 23.462
+        },
+        {
+          "word": "impale",
+          "start": 23.503,
+          "end": 23.817
+        },
+        {
+          "word": "their",
+          "start": 23.852,
+          "end": 24.113
+        },
+        {
+          "word": "boots",
+          "start": 24.142,
+          "end": 24.403
+        },
+        {
+          "word": "on",
+          "start": 24.432,
+          "end": 24.537
+        },
+        {
+          "word": "hidden",
+          "start": 24.548,
+          "end": 24.862
+        },
+        {
+          "word": "iron",
+          "start": 24.897,
+          "end": 25.106
+        },
+        {
+          "word": "roof",
+          "start": 25.129,
+          "end": 25.338
+        },
+        {
+          "word": "spikes.",
+          "start": 25.362,
+          "end": 25.675
+        }
+      ]
+    },
+    {
+      "scene_id": 10,
+      "start_time": 25.86,
+      "end_time": 29.91,
+      "narration": "Point-blank broadsides shred enemy wooden hulls into flying, shattered splinters.",
+      "words": [
+        {
+          "word": "Point-blank",
+          "start": 25.91,
+          "end": 26.455
+        },
+        {
+          "word": "broadsides",
+          "start": 26.515,
+          "end": 27.01
+        },
+        {
+          "word": "shred",
+          "start": 27.065,
+          "end": 27.313
+        },
+        {
+          "word": "enemy",
+          "start": 27.34,
+          "end": 27.588
+        },
+        {
+          "word": "wooden",
+          "start": 27.615,
+          "end": 27.912
+        },
+        {
+          "word": "hulls",
+          "start": 27.945,
+          "end": 28.193
+        },
+        {
+          "word": "into",
+          "start": 28.22,
+          "end": 28.418
+        },
+        {
+          "word": "flying,",
+          "start": 28.44,
+          "end": 28.737
+        },
+        {
+          "word": "shattered",
+          "start": 28.77,
+          "end": 29.216
+        },
+        {
+          "word": "splinters.",
+          "start": 29.265,
+          "end": 29.711
+        }
+      ]
+    },
+    {
+      "scene_id": 11,
+      "start_time": 29.91,
+      "end_time": 33.85,
+      "narration": "Massive turtle vessels ram boarding ships, shattering enemy fleets completely.",
+      "words": [
+        {
+          "word": "Massive",
+          "start": 29.96,
+          "end": 30.312
+        },
+        {
+          "word": "turtle",
+          "start": 30.351,
+          "end": 30.652
+        },
+        {
+          "word": "vessels",
+          "start": 30.686,
+          "end": 31.037
+        },
+        {
+          "word": "ram",
+          "start": 31.076,
+          "end": 31.227
+        },
+        {
+          "word": "boarding",
+          "start": 31.244,
+          "end": 31.646
+        },
+        {
+          "word": "ships,",
+          "start": 31.69,
+          "end": 31.942
+        },
+        {
+          "word": "shattering",
+          "start": 31.97,
+          "end": 32.472
+        },
+        {
+          "word": "enemy",
+          "start": 32.528,
+          "end": 32.779
+        },
+        {
+          "word": "fleets",
+          "start": 32.807,
+          "end": 33.108
+        },
+        {
+          "word": "completely.",
+          "start": 33.142,
+          "end": 33.644
+        }
+      ]
+    },
+    {
+      "scene_id": 12,
+      "start_time": 33.85,
+      "end_time": 36.52,
+      "narration": "Ocean waves wash burning debris from iron hulls.",
+      "words": [
+        {
+          "word": "Ocean",
+          "start": 33.9,
+          "end": 34.178
+        },
+        {
+          "word": "waves",
+          "start": 34.209,
+          "end": 34.487
+        },
+        {
+          "word": "wash",
+          "start": 34.517,
+          "end": 34.74
+        },
+        {
+          "word": "burning",
+          "start": 34.764,
+          "end": 35.154
+        },
+        {
+          "word": "debris",
+          "start": 35.197,
+          "end": 35.53
+        },
+        {
+          "word": "from",
+          "start": 35.567,
+          "end": 35.79
+        },
+        {
+          "word": "iron",
+          "start": 35.814,
+          "end": 36.037
+        },
+        {
+          "word": "hulls.",
+          "start": 36.061,
+          "end": 36.339
+        }
+      ]
+    },
+    {
+      "scene_id": 13,
+      "start_time": 36.52,
+      "end_time": 39.09,
+      "narration": "Hexagonal iron plates glisten under clearing smoke.",
+      "words": [
+        {
+          "word": "Hexagonal",
+          "start": 36.57,
+          "end": 37.006
+        },
+        {
+          "word": "iron",
+          "start": 37.055,
+          "end": 37.249
+        },
+        {
+          "word": "plates",
+          "start": 37.27,
+          "end": 37.561
+        },
+        {
+          "word": "glisten",
+          "start": 37.593,
+          "end": 37.933
+        },
+        {
+          "word": "under",
+          "start": 37.97,
+          "end": 38.213
+        },
+        {
+          "word": "clearing",
+          "start": 38.24,
+          "end": 38.628
+        },
+        {
+          "word": "smoke.",
+          "start": 38.671,
+          "end": 38.913
+        }
+      ]
+    },
+    {
+      "scene_id": 14,
+      "start_time": 39.09,
+      "end_time": 41.73,
+      "narration": "Heavy dragon prows turn to crush incoming fleets.",
+      "words": [
+        {
+          "word": "Heavy",
+          "start": 39.14,
+          "end": 39.408
+        },
+        {
+          "word": "dragon",
+          "start": 39.438,
+          "end": 39.759
+        },
+        {
+          "word": "prows",
+          "start": 39.795,
+          "end": 40.062
+        },
+        {
+          "word": "turn",
+          "start": 40.092,
+          "end": 40.306
+        },
+        {
+          "word": "to",
+          "start": 40.33,
+          "end": 40.437
+        },
+        {
+          "word": "crush",
+          "start": 40.449,
+          "end": 40.717
+        },
+        {
+          "word": "incoming",
+          "start": 40.747,
+          "end": 41.175
+        },
+        {
+          "word": "fleets.",
+          "start": 41.223,
+          "end": 41.544
+        }
+      ]
+    }
+  ]
+}

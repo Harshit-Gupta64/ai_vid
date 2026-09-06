@@ -1,0 +1,698 @@
+{
+  "audio_file": "voiceover.wav",
+  "total_duration": 43.37,
+  "sample_rate": 24000,
+  "voice": "en-US-ChristopherNeural",
+  "rate": "+20%",
+  "scenes": [
+    {
+      "scene_id": 1,
+      "start_time": 0.0,
+      "end_time": 1.48,
+      "narration": "When an army of giant war.",
+      "words": [
+        {
+          "word": "When",
+          "start": 0.05,
+          "end": 0.28
+        },
+        {
+          "word": "an",
+          "start": 0.306,
+          "end": 0.421
+        },
+        {
+          "word": "army",
+          "start": 0.434,
+          "end": 0.664
+        },
+        {
+          "word": "of",
+          "start": 0.69,
+          "end": 0.805
+        },
+        {
+          "word": "giant",
+          "start": 0.818,
+          "end": 1.106
+        },
+        {
+          "word": "war.",
+          "start": 1.138,
+          "end": 1.311
+        }
+      ]
+    },
+    {
+      "scene_id": 2,
+      "start_time": 1.48,
+      "end_time": 3.83,
+      "narration": "Advancing war ranks closed the tactical gap.",
+      "words": [
+        {
+          "word": "Advancing",
+          "start": 1.53,
+          "end": 2.001
+        },
+        {
+          "word": "war",
+          "start": 2.053,
+          "end": 2.21
+        },
+        {
+          "word": "ranks",
+          "start": 2.227,
+          "end": 2.489
+        },
+        {
+          "word": "closed",
+          "start": 2.518,
+          "end": 2.832
+        },
+        {
+          "word": "the",
+          "start": 2.866,
+          "end": 3.023
+        },
+        {
+          "word": "tactical",
+          "start": 3.041,
+          "end": 3.459
+        },
+        {
+          "word": "gap.",
+          "start": 3.506,
+          "end": 3.663
+        }
+      ]
+    },
+    {
+      "scene_id": 3,
+      "start_time": 3.83,
+      "end_time": 6.75,
+      "narration": "Scouts reported the fortified perimeter completely vulnerable.",
+      "words": [
+        {
+          "word": "Scouts",
+          "start": 3.88,
+          "end": 4.147
+        },
+        {
+          "word": "reported",
+          "start": 4.177,
+          "end": 4.533
+        },
+        {
+          "word": "the",
+          "start": 4.572,
+          "end": 4.706
+        },
+        {
+          "word": "fortified",
+          "start": 4.721,
+          "end": 5.121
+        },
+        {
+          "word": "perimeter",
+          "start": 5.166,
+          "end": 5.566
+        },
+        {
+          "word": "completely",
+          "start": 5.611,
+          "end": 6.056
+        },
+        {
+          "word": "vulnerable.",
+          "start": 6.105,
+          "end": 6.551
+        }
+      ]
+    },
+    {
+      "scene_id": 4,
+      "start_time": 6.75,
+      "end_time": 10.11,
+      "narration": "Commanders expected standard resistance across the fortified river sector.",
+      "words": [
+        {
+          "word": "Commanders",
+          "start": 6.8,
+          "end": 7.238
+        },
+        {
+          "word": "expected",
+          "start": 7.286,
+          "end": 7.636
+        },
+        {
+          "word": "standard",
+          "start": 7.675,
+          "end": 8.025
+        },
+        {
+          "word": "resistance",
+          "start": 8.064,
+          "end": 8.502
+        },
+        {
+          "word": "across",
+          "start": 8.55,
+          "end": 8.813
+        },
+        {
+          "word": "the",
+          "start": 8.842,
+          "end": 8.973
+        },
+        {
+          "word": "fortified",
+          "start": 8.988,
+          "end": 9.381
+        },
+        {
+          "word": "river",
+          "start": 9.425,
+          "end": 9.644
+        },
+        {
+          "word": "sector.",
+          "start": 9.668,
+          "end": 9.931
+        }
+      ]
+    },
+    {
+      "scene_id": 5,
+      "start_time": 10.11,
+      "end_time": 14.07,
+      "narration": "Behind hidden ramparts, engineers primed an unconventional mechanical stratagem.",
+      "words": [
+        {
+          "word": "Behind",
+          "start": 10.16,
+          "end": 10.45
+        },
+        {
+          "word": "hidden",
+          "start": 10.482,
+          "end": 10.772
+        },
+        {
+          "word": "ramparts,",
+          "start": 10.805,
+          "end": 11.191
+        },
+        {
+          "word": "engineers",
+          "start": 11.234,
+          "end": 11.669
+        },
+        {
+          "word": "primed",
+          "start": 11.718,
+          "end": 12.008
+        },
+        {
+          "word": "an",
+          "start": 12.04,
+          "end": 12.137
+        },
+        {
+          "word": "unconventional",
+          "start": 12.147,
+          "end": 12.824
+        },
+        {
+          "word": "mechanical",
+          "start": 12.899,
+          "end": 13.383
+        },
+        {
+          "word": "stratagem.",
+          "start": 13.437,
+          "end": 13.872
+        }
+      ]
+    },
+    {
+      "scene_id": 6,
+      "start_time": 14.07,
+      "end_time": 16.63,
+      "narration": "Greased hemp cords strained under thousands of pounds.",
+      "words": [
+        {
+          "word": "Greased",
+          "start": 14.12,
+          "end": 14.443
+        },
+        {
+          "word": "hemp",
+          "start": 14.479,
+          "end": 14.664
+        },
+        {
+          "word": "cords",
+          "start": 14.684,
+          "end": 14.915
+        },
+        {
+          "word": "strained",
+          "start": 14.941,
+          "end": 15.31
+        },
+        {
+          "word": "under",
+          "start": 15.351,
+          "end": 15.582
+        },
+        {
+          "word": "thousands",
+          "start": 15.608,
+          "end": 16.023
+        },
+        {
+          "word": "of",
+          "start": 16.07,
+          "end": 16.162
+        },
+        {
+          "word": "pounds.",
+          "start": 16.172,
+          "end": 16.449
+        }
+      ]
+    },
+    {
+      "scene_id": 7,
+      "start_time": 16.63,
+      "end_time": 20.31,
+      "narration": "Unsuspecting vanguard divisions marched directly into the pre-planned killzone.",
+      "words": [
+        {
+          "word": "Unsuspecting",
+          "start": 16.68,
+          "end": 17.217
+        },
+        {
+          "word": "vanguard",
+          "start": 17.277,
+          "end": 17.635
+        },
+        {
+          "word": "divisions",
+          "start": 17.674,
+          "end": 18.077
+        },
+        {
+          "word": "marched",
+          "start": 18.122,
+          "end": 18.435
+        },
+        {
+          "word": "directly",
+          "start": 18.47,
+          "end": 18.828
+        },
+        {
+          "word": "into",
+          "start": 18.867,
+          "end": 19.046
+        },
+        {
+          "word": "the",
+          "start": 19.066,
+          "end": 19.201
+        },
+        {
+          "word": "pre-planned",
+          "start": 19.215,
+          "end": 19.708
+        },
+        {
+          "word": "killzone.",
+          "start": 19.762,
+          "end": 20.12
+        }
+      ]
+    },
+    {
+      "scene_id": 8,
+      "start_time": 20.31,
+      "end_time": 23.47,
+      "narration": "The hidden counter-measure released with catastrophic hydraulic velocity.",
+      "words": [
+        {
+          "word": "The",
+          "start": 20.36,
+          "end": 20.483
+        },
+        {
+          "word": "hidden",
+          "start": 20.497,
+          "end": 20.743
+        },
+        {
+          "word": "counter-measure",
+          "start": 20.77,
+          "end": 21.385
+        },
+        {
+          "word": "released",
+          "start": 21.453,
+          "end": 21.781
+        },
+        {
+          "word": "with",
+          "start": 21.817,
+          "end": 21.981
+        },
+        {
+          "word": "catastrophic",
+          "start": 21.999,
+          "end": 22.491
+        },
+        {
+          "word": "hydraulic",
+          "start": 22.546,
+          "end": 22.915
+        },
+        {
+          "word": "velocity.",
+          "start": 22.956,
+          "end": 23.284
+        }
+      ]
+    },
+    {
+      "scene_id": 9,
+      "start_time": 23.47,
+      "end_time": 28.32,
+      "narration": "Massive mechanical levers hoisted enemy formations skyward, shattering enemy defensive cohesion.",
+      "words": [
+        {
+          "word": "Massive",
+          "start": 23.52,
+          "end": 23.869
+        },
+        {
+          "word": "mechanical",
+          "start": 23.907,
+          "end": 24.406
+        },
+        {
+          "word": "levers",
+          "start": 24.461,
+          "end": 24.76
+        },
+        {
+          "word": "hoisted",
+          "start": 24.793,
+          "end": 25.142
+        },
+        {
+          "word": "enemy",
+          "start": 25.181,
+          "end": 25.43
+        },
+        {
+          "word": "formations",
+          "start": 25.457,
+          "end": 25.956
+        },
+        {
+          "word": "skyward,",
+          "start": 26.011,
+          "end": 26.36
+        },
+        {
+          "word": "shattering",
+          "start": 26.399,
+          "end": 26.897
+        },
+        {
+          "word": "enemy",
+          "start": 26.952,
+          "end": 27.201
+        },
+        {
+          "word": "defensive",
+          "start": 27.229,
+          "end": 27.677
+        },
+        {
+          "word": "cohesion.",
+          "start": 27.727,
+          "end": 28.126
+        }
+      ]
+    },
+    {
+      "scene_id": 10,
+      "start_time": 28.32,
+      "end_time": 32.28,
+      "narration": "Shattered hulls and broken armor crashed downward onto jagged coastal boulders below.",
+      "words": [
+        {
+          "word": "Shattered",
+          "start": 28.37,
+          "end": 28.787
+        },
+        {
+          "word": "hulls",
+          "start": 28.834,
+          "end": 29.065
+        },
+        {
+          "word": "and",
+          "start": 29.091,
+          "end": 29.23
+        },
+        {
+          "word": "broken",
+          "start": 29.246,
+          "end": 29.524
+        },
+        {
+          "word": "armor",
+          "start": 29.555,
+          "end": 29.786
+        },
+        {
+          "word": "crashed",
+          "start": 29.812,
+          "end": 30.137
+        },
+        {
+          "word": "downward",
+          "start": 30.173,
+          "end": 30.544
+        },
+        {
+          "word": "onto",
+          "start": 30.585,
+          "end": 30.77
+        },
+        {
+          "word": "jagged",
+          "start": 30.791,
+          "end": 31.069
+        },
+        {
+          "word": "coastal",
+          "start": 31.1,
+          "end": 31.424
+        },
+        {
+          "word": "boulders",
+          "start": 31.46,
+          "end": 31.831
+        },
+        {
+          "word": "below.",
+          "start": 31.872,
+          "end": 32.104
+        }
+      ]
+    },
+    {
+      "scene_id": 11,
+      "start_time": 32.28,
+      "end_time": 36.76,
+      "narration": "Unstoppable mechanical destruction broke the invading army into absolute psychological panic.",
+      "words": [
+        {
+          "word": "Unstoppable",
+          "start": 32.33,
+          "end": 32.847
+        },
+        {
+          "word": "mechanical",
+          "start": 32.904,
+          "end": 33.374
+        },
+        {
+          "word": "destruction",
+          "start": 33.426,
+          "end": 33.943
+        },
+        {
+          "word": "broke",
+          "start": 34.0,
+          "end": 34.235
+        },
+        {
+          "word": "the",
+          "start": 34.261,
+          "end": 34.402
+        },
+        {
+          "word": "invading",
+          "start": 34.418,
+          "end": 34.794
+        },
+        {
+          "word": "army",
+          "start": 34.835,
+          "end": 35.023
+        },
+        {
+          "word": "into",
+          "start": 35.044,
+          "end": 35.232
+        },
+        {
+          "word": "absolute",
+          "start": 35.253,
+          "end": 35.629
+        },
+        {
+          "word": "psychological",
+          "start": 35.67,
+          "end": 36.281
+        },
+        {
+          "word": "panic.",
+          "start": 36.349,
+          "end": 36.584
+        }
+      ]
+    },
+    {
+      "scene_id": 12,
+      "start_time": 36.76,
+      "end_time": 40.06,
+      "narration": "The defeated imperial vanguard retreated from the haunted fortress line.",
+      "words": [
+        {
+          "word": "The",
+          "start": 36.81,
+          "end": 36.945
+        },
+        {
+          "word": "defeated",
+          "start": 36.96,
+          "end": 37.32
+        },
+        {
+          "word": "imperial",
+          "start": 37.36,
+          "end": 37.72
+        },
+        {
+          "word": "vanguard",
+          "start": 37.76,
+          "end": 38.12
+        },
+        {
+          "word": "retreated",
+          "start": 38.16,
+          "end": 38.565
+        },
+        {
+          "word": "from",
+          "start": 38.61,
+          "end": 38.79
+        },
+        {
+          "word": "the",
+          "start": 38.81,
+          "end": 38.945
+        },
+        {
+          "word": "haunted",
+          "start": 38.96,
+          "end": 39.275
+        },
+        {
+          "word": "fortress",
+          "start": 39.31,
+          "end": 39.67
+        },
+        {
+          "word": "line.",
+          "start": 39.71,
+          "end": 39.89
+        }
+      ]
+    },
+    {
+      "scene_id": 13,
+      "start_time": 40.06,
+      "end_time": 43.37,
+      "narration": "Every protruding wall beam now struck terror into Roman sailors.",
+      "words": [
+        {
+          "word": "Every",
+          "start": 40.11,
+          "end": 40.369
+        },
+        {
+          "word": "protruding",
+          "start": 40.398,
+          "end": 40.916
+        },
+        {
+          "word": "wall",
+          "start": 40.974,
+          "end": 41.181
+        },
+        {
+          "word": "beam",
+          "start": 41.204,
+          "end": 41.412
+        },
+        {
+          "word": "now",
+          "start": 41.435,
+          "end": 41.59
+        },
+        {
+          "word": "struck",
+          "start": 41.607,
+          "end": 41.918
+        },
+        {
+          "word": "terror",
+          "start": 41.953,
+          "end": 42.264
+        },
+        {
+          "word": "into",
+          "start": 42.299,
+          "end": 42.506
+        },
+        {
+          "word": "Roman",
+          "start": 42.529,
+          "end": 42.788
+        },
+        {
+          "word": "sailors.",
+          "start": 42.817,
+          "end": 43.18
+        }
+      ]
+    }
+  ]
+}
