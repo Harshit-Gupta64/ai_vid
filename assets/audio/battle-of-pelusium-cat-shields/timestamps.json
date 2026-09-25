@@ -1,0 +1,841 @@
+{
+  "audio_file": "voiceover.wav",
+  "total_duration": 42.197,
+  "sample_rate": 24000,
+  "voice": "en-US-ChristopherNeural",
+  "rate": "+14%",
+  "scenes": [
+    {
+      "scene_id": 1,
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "persian"
+      ],
+      "start_time": 0.0,
+      "end_time": 3.374,
+      "narration": "Persian invaders conquered Egypt using a forbidden sacred weapon.",
+      "words": [
+        {
+          "word": "Persian",
+          "start": 0.0,
+          "end": 0.239,
+          "is_emphasis": true
+        },
+        {
+          "word": "invaders",
+          "start": 0.25,
+          "end": 0.688,
+          "is_emphasis": false
+        },
+        {
+          "word": "conquered",
+          "start": 0.699,
+          "end": 1.083,
+          "is_emphasis": false
+        },
+        {
+          "word": "Egypt",
+          "start": 1.094,
+          "end": 1.467,
+          "is_emphasis": false
+        },
+        {
+          "word": "using",
+          "start": 1.478,
+          "end": 1.752,
+          "is_emphasis": false
+        },
+        {
+          "word": "a",
+          "start": 1.763,
+          "end": 1.818,
+          "is_emphasis": false
+        },
+        {
+          "word": "forbidden",
+          "start": 1.829,
+          "end": 2.256,
+          "is_emphasis": false
+        },
+        {
+          "word": "sacred",
+          "start": 2.267,
+          "end": 2.618,
+          "is_emphasis": false
+        },
+        {
+          "word": "weapon.",
+          "start": 2.629,
+          "end": 3.024,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 2,
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "clashed"
+      ],
+      "start_time": 3.374,
+      "end_time": 5.782,
+      "narration": "Armies clashed along the disputed frontier.",
+      "words": [
+        {
+          "word": "Armies",
+          "start": 3.374,
+          "end": 3.667,
+          "is_emphasis": false
+        },
+        {
+          "word": "clashed",
+          "start": 3.678,
+          "end": 4.05,
+          "is_emphasis": true
+        },
+        {
+          "word": "along",
+          "start": 4.061,
+          "end": 4.336,
+          "is_emphasis": false
+        },
+        {
+          "word": "the",
+          "start": 4.346,
+          "end": 4.412,
+          "is_emphasis": false
+        },
+        {
+          "word": "disputed",
+          "start": 4.423,
+          "end": 4.851,
+          "is_emphasis": false
+        },
+        {
+          "word": "frontier.",
+          "start": 4.862,
+          "end": 5.432,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 3,
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "overwhelming"
+      ],
+      "start_time": 5.782,
+      "end_time": 8.921,
+      "narration": "Defenders faced overwhelming tactical superior forces.",
+      "words": [
+        {
+          "word": "Defenders",
+          "start": 5.782,
+          "end": 6.213,
+          "is_emphasis": false
+        },
+        {
+          "word": "faced",
+          "start": 6.224,
+          "end": 6.542,
+          "is_emphasis": false
+        },
+        {
+          "word": "overwhelming",
+          "start": 6.553,
+          "end": 7.079,
+          "is_emphasis": true
+        },
+        {
+          "word": "tactical",
+          "start": 7.09,
+          "end": 7.518,
+          "is_emphasis": false
+        },
+        {
+          "word": "superior",
+          "start": 7.529,
+          "end": 7.989,
+          "is_emphasis": false
+        },
+        {
+          "word": "forces.",
+          "start": 8.0,
+          "end": 8.571,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 4,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "secret weapon"
+      ],
+      "start_time": 8.921,
+      "end_time": 11.392,
+      "narration": "Commanders prepared the decisive secret weapon.",
+      "words": [
+        {
+          "word": "Commanders",
+          "start": 8.921,
+          "end": 9.298,
+          "is_emphasis": false
+        },
+        {
+          "word": "prepared",
+          "start": 9.309,
+          "end": 9.693,
+          "is_emphasis": false
+        },
+        {
+          "word": "the",
+          "start": 9.704,
+          "end": 9.77,
+          "is_emphasis": false
+        },
+        {
+          "word": "decisive",
+          "start": 9.781,
+          "end": 10.285,
+          "is_emphasis": false
+        },
+        {
+          "word": "secret",
+          "start": 10.296,
+          "end": 10.625,
+          "is_emphasis": true
+        },
+        {
+          "word": "weapon.",
+          "start": 10.636,
+          "end": 11.042,
+          "is_emphasis": true
+        }
+      ]
+    },
+    {
+      "scene_id": 5,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "primed"
+      ],
+      "start_time": 11.392,
+      "end_time": 14.866,
+      "narration": "Engineers primed Sacred Cat Shields of Pelusium for deployment.",
+      "words": [
+        {
+          "word": "Engineers",
+          "start": 11.392,
+          "end": 11.851,
+          "is_emphasis": false
+        },
+        {
+          "word": "primed",
+          "start": 11.862,
+          "end": 12.18,
+          "is_emphasis": true
+        },
+        {
+          "word": "Sacred",
+          "start": 12.191,
+          "end": 12.597,
+          "is_emphasis": false
+        },
+        {
+          "word": "Cat",
+          "start": 12.608,
+          "end": 12.838,
+          "is_emphasis": false
+        },
+        {
+          "word": "Shields",
+          "start": 12.849,
+          "end": 13.211,
+          "is_emphasis": false
+        },
+        {
+          "word": "of",
+          "start": 13.222,
+          "end": 13.287,
+          "is_emphasis": false
+        },
+        {
+          "word": "Pelusium",
+          "start": 13.298,
+          "end": 13.792,
+          "is_emphasis": false
+        },
+        {
+          "word": "for",
+          "start": 13.803,
+          "end": 13.934,
+          "is_emphasis": false
+        },
+        {
+          "word": "deployment.",
+          "start": 13.945,
+          "end": 14.516,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 6,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "hidden trap"
+      ],
+      "start_time": 14.866,
+      "end_time": 17.704,
+      "narration": "Forward ranks advanced without suspecting the hidden trap.",
+      "words": [
+        {
+          "word": "Forward",
+          "start": 14.866,
+          "end": 15.107,
+          "is_emphasis": false
+        },
+        {
+          "word": "ranks",
+          "start": 15.118,
+          "end": 15.403,
+          "is_emphasis": false
+        },
+        {
+          "word": "advanced",
+          "start": 15.414,
+          "end": 15.863,
+          "is_emphasis": false
+        },
+        {
+          "word": "without",
+          "start": 15.874,
+          "end": 16.126,
+          "is_emphasis": false
+        },
+        {
+          "word": "suspecting",
+          "start": 16.137,
+          "end": 16.642,
+          "is_emphasis": false
+        },
+        {
+          "word": "the",
+          "start": 16.653,
+          "end": 16.707,
+          "is_emphasis": false
+        },
+        {
+          "word": "hidden",
+          "start": 16.718,
+          "end": 16.938,
+          "is_emphasis": true
+        },
+        {
+          "word": "trap.",
+          "start": 16.949,
+          "end": 17.354,
+          "is_emphasis": true
+        }
+      ]
+    },
+    {
+      "scene_id": 7,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "killzone"
+      ],
+      "start_time": 17.704,
+      "end_time": 20.619,
+      "narration": "The vanguard marched directly into the targeted killzone.",
+      "words": [
+        {
+          "word": "The",
+          "start": 17.704,
+          "end": 17.754,
+          "is_emphasis": false
+        },
+        {
+          "word": "vanguard",
+          "start": 17.725,
+          "end": 18.23,
+          "is_emphasis": false
+        },
+        {
+          "word": "marched",
+          "start": 18.241,
+          "end": 18.548,
+          "is_emphasis": false
+        },
+        {
+          "word": "directly",
+          "start": 18.559,
+          "end": 19.019,
+          "is_emphasis": false
+        },
+        {
+          "word": "into",
+          "start": 19.03,
+          "end": 19.184,
+          "is_emphasis": false
+        },
+        {
+          "word": "the",
+          "start": 19.195,
+          "end": 19.282,
+          "is_emphasis": false
+        },
+        {
+          "word": "targeted",
+          "start": 19.293,
+          "end": 19.688,
+          "is_emphasis": false
+        },
+        {
+          "word": "killzone.",
+          "start": 19.699,
+          "end": 20.269,
+          "is_emphasis": true
+        }
+      ]
+    },
+    {
+      "scene_id": 8,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "explosive force"
+      ],
+      "start_time": 20.619,
+      "end_time": 23.912,
+      "narration": "Defenders unleashed the stratagem with sudden explosive force.",
+      "words": [
+        {
+          "word": "Defenders",
+          "start": 20.619,
+          "end": 21.073,
+          "is_emphasis": false
+        },
+        {
+          "word": "unleashed",
+          "start": 21.084,
+          "end": 21.501,
+          "is_emphasis": false
+        },
+        {
+          "word": "the",
+          "start": 21.512,
+          "end": 21.588,
+          "is_emphasis": false
+        },
+        {
+          "word": "stratagem",
+          "start": 21.599,
+          "end": 22.104,
+          "is_emphasis": false
+        },
+        {
+          "word": "with",
+          "start": 22.115,
+          "end": 22.235,
+          "is_emphasis": false
+        },
+        {
+          "word": "sudden",
+          "start": 22.246,
+          "end": 22.531,
+          "is_emphasis": false
+        },
+        {
+          "word": "explosive",
+          "start": 22.542,
+          "end": 23.08,
+          "is_emphasis": true
+        },
+        {
+          "word": "force.",
+          "start": 23.091,
+          "end": 23.562,
+          "is_emphasis": true
+        }
+      ]
+    },
+    {
+      "scene_id": 9,
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "+9%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "shattered"
+      ],
+      "start_time": 23.912,
+      "end_time": 27.464,
+      "narration": "Devastating impact shattered enemy ranks across the battlefield.",
+      "words": [
+        {
+          "word": "Devastating",
+          "start": 23.912,
+          "end": 24.465,
+          "is_emphasis": false
+        },
+        {
+          "word": "impact",
+          "start": 24.476,
+          "end": 24.901,
+          "is_emphasis": false
+        },
+        {
+          "word": "shattered",
+          "start": 24.912,
+          "end": 25.325,
+          "is_emphasis": true
+        },
+        {
+          "word": "enemy",
+          "start": 25.337,
+          "end": 25.612,
+          "is_emphasis": false
+        },
+        {
+          "word": "ranks",
+          "start": 25.623,
+          "end": 25.944,
+          "is_emphasis": false
+        },
+        {
+          "word": "across",
+          "start": 25.956,
+          "end": 26.3,
+          "is_emphasis": false
+        },
+        {
+          "word": "the",
+          "start": 26.311,
+          "end": 26.392,
+          "is_emphasis": false
+        },
+        {
+          "word": "battlefield.",
+          "start": 26.403,
+          "end": 27.114,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 10,
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "+9%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "overwhelmed"
+      ],
+      "start_time": 27.464,
+      "end_time": 31.282,
+      "narration": "Panic tore through invading lines as defenses overwhelmed resistance.",
+      "words": [
+        {
+          "word": "Panic",
+          "start": 27.464,
+          "end": 27.733,
+          "is_emphasis": false
+        },
+        {
+          "word": "tore",
+          "start": 27.744,
+          "end": 27.997,
+          "is_emphasis": false
+        },
+        {
+          "word": "through",
+          "start": 28.008,
+          "end": 28.192,
+          "is_emphasis": false
+        },
+        {
+          "word": "invading",
+          "start": 28.203,
+          "end": 28.627,
+          "is_emphasis": false
+        },
+        {
+          "word": "lines",
+          "start": 28.639,
+          "end": 29.006,
+          "is_emphasis": false
+        },
+        {
+          "word": "as",
+          "start": 29.017,
+          "end": 29.132,
+          "is_emphasis": false
+        },
+        {
+          "word": "defenses",
+          "start": 29.143,
+          "end": 29.694,
+          "is_emphasis": false
+        },
+        {
+          "word": "overwhelmed",
+          "start": 29.705,
+          "end": 30.221,
+          "is_emphasis": true
+        },
+        {
+          "word": "resistance.",
+          "start": 30.233,
+          "end": 30.932,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 11,
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "+9%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "frantic retreat"
+      ],
+      "start_time": 31.282,
+      "end_time": 34.656,
+      "narration": "Tactical surprise shattered enemy morale into frantic retreat.",
+      "words": [
+        {
+          "word": "Tactical",
+          "start": 31.282,
+          "end": 31.657,
+          "is_emphasis": false
+        },
+        {
+          "word": "surprise",
+          "start": 31.669,
+          "end": 32.093,
+          "is_emphasis": false
+        },
+        {
+          "word": "shattered",
+          "start": 32.104,
+          "end": 32.494,
+          "is_emphasis": false
+        },
+        {
+          "word": "enemy",
+          "start": 32.506,
+          "end": 32.781,
+          "is_emphasis": false
+        },
+        {
+          "word": "morale",
+          "start": 32.792,
+          "end": 33.205,
+          "is_emphasis": false
+        },
+        {
+          "word": "into",
+          "start": 33.217,
+          "end": 33.412,
+          "is_emphasis": false
+        },
+        {
+          "word": "frantic",
+          "start": 33.423,
+          "end": 33.836,
+          "is_emphasis": true
+        },
+        {
+          "word": "retreat.",
+          "start": 33.847,
+          "end": 34.306,
+          "is_emphasis": true
+        }
+      ]
+    },
+    {
+      "scene_id": 12,
+      "beat_type": "resolution_loop",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+3Hz"
+      },
+      "emphasis_words": [
+        "retreated"
+      ],
+      "start_time": 34.656,
+      "end_time": 37.899,
+      "narration": "The surviving invaders retreated across the shattered battleground.",
+      "words": [
+        {
+          "word": "The",
+          "start": 34.656,
+          "end": 34.706,
+          "is_emphasis": false
+        },
+        {
+          "word": "surviving",
+          "start": 34.676,
+          "end": 35.159,
+          "is_emphasis": false
+        },
+        {
+          "word": "invaders",
+          "start": 35.17,
+          "end": 35.63,
+          "is_emphasis": false
+        },
+        {
+          "word": "retreated",
+          "start": 35.641,
+          "end": 36.058,
+          "is_emphasis": true
+        },
+        {
+          "word": "across",
+          "start": 36.069,
+          "end": 36.398,
+          "is_emphasis": false
+        },
+        {
+          "word": "the",
+          "start": 36.409,
+          "end": 36.486,
+          "is_emphasis": false
+        },
+        {
+          "word": "shattered",
+          "start": 36.497,
+          "end": 36.891,
+          "is_emphasis": false
+        },
+        {
+          "word": "battleground.",
+          "start": 36.902,
+          "end": 37.549,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 13,
+      "beat_type": "resolution_loop",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+3Hz"
+      },
+      "emphasis_words": [
+        "decisive"
+      ],
+      "start_time": 37.899,
+      "end_time": 42.197,
+      "narration": "Ancient chronicles recorded Sacred Cat Shields of Pelusium as decisive warfare.",
+      "words": [
+        {
+          "word": "Ancient",
+          "start": 37.899,
+          "end": 38.196,
+          "is_emphasis": false
+        },
+        {
+          "word": "chronicles",
+          "start": 38.207,
+          "end": 38.7,
+          "is_emphasis": false
+        },
+        {
+          "word": "recorded",
+          "start": 38.711,
+          "end": 39.095,
+          "is_emphasis": false
+        },
+        {
+          "word": "Sacred",
+          "start": 39.106,
+          "end": 39.489,
+          "is_emphasis": false
+        },
+        {
+          "word": "Cat",
+          "start": 39.5,
+          "end": 39.731,
+          "is_emphasis": false
+        },
+        {
+          "word": "Shields",
+          "start": 39.742,
+          "end": 40.103,
+          "is_emphasis": false
+        },
+        {
+          "word": "of",
+          "start": 40.114,
+          "end": 40.18,
+          "is_emphasis": false
+        },
+        {
+          "word": "Pelusium",
+          "start": 40.191,
+          "end": 40.674,
+          "is_emphasis": false
+        },
+        {
+          "word": "as",
+          "start": 40.685,
+          "end": 40.805,
+          "is_emphasis": false
+        },
+        {
+          "word": "decisive",
+          "start": 40.816,
+          "end": 41.288,
+          "is_emphasis": true
+        },
+        {
+          "word": "warfare.",
+          "start": 41.299,
+          "end": 41.847,
+          "is_emphasis": false
+        }
+      ]
+    }
+  ]
+}

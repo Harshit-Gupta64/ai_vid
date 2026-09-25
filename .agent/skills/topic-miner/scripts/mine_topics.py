@@ -76,7 +76,7 @@ TOPIC_CATALOG = [
         "category": "tactical_anomaly",
         "historical_era": "Achaemenid Persian Empire (525 BC)",
         "core_anomaly": "Cambyses II exploited Egyptian religious devotion to Bastet by painting cats on shields and driving sacred animals ahead of Persian vanguard.",
-        "hook_hookline": "In 525 BC, the Persian Empire conquered Egypt using a weapon the Pharaoh's army was religiously forbidden to strike: cats.",
+        "hook_hookline": "Persian invaders conquered Egypt using a forbidden sacred weapon.",
         "key_facts": [
             "Persian King Cambyses II faced Pharaoh Psamtik III at the fortified delta city of Pelusium.",
             "Persian soldiers held cats, dogs, and ibises in their arms or painted Bastet's visage on bronze shields.",

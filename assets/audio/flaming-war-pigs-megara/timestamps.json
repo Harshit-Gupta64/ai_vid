@@ -1,696 +1,971 @@
 {
   "audio_file": "voiceover.wav",
-  "total_duration": 43.37,
+  "total_duration": 47.912,
   "sample_rate": 24000,
   "voice": "en-US-ChristopherNeural",
-  "rate": "+20%",
+  "rate": "+14%",
   "scenes": [
     {
       "scene_id": 1,
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "grind"
+      ],
       "start_time": 0.0,
-      "end_time": 1.48,
-      "narration": "When an army of giant war.",
+      "end_time": 2.903,
+      "narration": "Heavy iron tusk plates grind against limestone gates.",
       "words": [
         {
-          "word": "When",
-          "start": 0.05,
-          "end": 0.28
+          "word": "Heavy",
+          "start": 0.0,
+          "end": 0.248,
+          "is_emphasis": false
         },
         {
-          "word": "an",
-          "start": 0.306,
-          "end": 0.421
+          "word": "iron",
+          "start": 0.259,
+          "end": 0.566,
+          "is_emphasis": false
         },
         {
-          "word": "army",
-          "start": 0.434,
-          "end": 0.664
+          "word": "tusk",
+          "start": 0.577,
+          "end": 0.895,
+          "is_emphasis": false
         },
         {
-          "word": "of",
-          "start": 0.69,
-          "end": 0.805
+          "word": "plates",
+          "start": 0.906,
+          "end": 1.191,
+          "is_emphasis": false
         },
         {
-          "word": "giant",
-          "start": 0.818,
-          "end": 1.106
+          "word": "grind",
+          "start": 1.202,
+          "end": 1.52,
+          "is_emphasis": true
         },
         {
-          "word": "war.",
-          "start": 1.138,
-          "end": 1.311
+          "word": "against",
+          "start": 1.531,
+          "end": 1.827,
+          "is_emphasis": false
+        },
+        {
+          "word": "limestone",
+          "start": 1.838,
+          "end": 2.331,
+          "is_emphasis": false
+        },
+        {
+          "word": "gates.",
+          "start": 2.342,
+          "end": 2.814,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 2,
-      "start_time": 1.48,
-      "end_time": 3.83,
-      "narration": "Advancing war ranks closed the tactical gap.",
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "shatter"
+      ],
+      "start_time": 2.903,
+      "end_time": 5.994,
+      "narration": "Towering war beasts shatter the outer Megarian barricades.",
       "words": [
         {
-          "word": "Advancing",
-          "start": 1.53,
-          "end": 2.001
+          "word": "Towering",
+          "start": 2.903,
+          "end": 3.288,
+          "is_emphasis": false
         },
         {
           "word": "war",
-          "start": 2.053,
-          "end": 2.21
+          "start": 3.299,
+          "end": 3.53,
+          "is_emphasis": false
         },
         {
-          "word": "ranks",
-          "start": 2.227,
-          "end": 2.489
+          "word": "beasts",
+          "start": 3.541,
+          "end": 3.902,
+          "is_emphasis": false
         },
         {
-          "word": "closed",
-          "start": 2.518,
-          "end": 2.832
+          "word": "shatter",
+          "start": 3.913,
+          "end": 4.275,
+          "is_emphasis": true
         },
         {
           "word": "the",
-          "start": 2.866,
-          "end": 3.023
+          "start": 4.286,
+          "end": 4.385,
+          "is_emphasis": false
         },
         {
-          "word": "tactical",
-          "start": 3.041,
-          "end": 3.459
+          "word": "outer",
+          "start": 4.396,
+          "end": 4.648,
+          "is_emphasis": false
         },
         {
-          "word": "gap.",
-          "start": 3.506,
-          "end": 3.663
+          "word": "Megarian",
+          "start": 4.659,
+          "end": 5.141,
+          "is_emphasis": false
+        },
+        {
+          "word": "barricades.",
+          "start": 5.152,
+          "end": 5.854,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 3,
-      "start_time": 3.83,
-      "end_time": 6.75,
-      "narration": "Scouts reported the fortified perimeter completely vulnerable.",
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "advance"
+      ],
+      "start_time": 5.994,
+      "end_time": 9.543,
+      "narration": "Macedonian phalanxes advance behind armored Indian pachyderms.",
       "words": [
         {
-          "word": "Scouts",
-          "start": 3.88,
-          "end": 4.147
+          "word": "Macedonian",
+          "start": 5.994,
+          "end": 6.658,
+          "is_emphasis": false
         },
         {
-          "word": "reported",
-          "start": 4.177,
-          "end": 4.533
+          "word": "phalanxes",
+          "start": 6.669,
+          "end": 7.229,
+          "is_emphasis": false
         },
         {
-          "word": "the",
-          "start": 4.572,
-          "end": 4.706
+          "word": "advance",
+          "start": 7.24,
+          "end": 7.612,
+          "is_emphasis": true
         },
         {
-          "word": "fortified",
-          "start": 4.721,
-          "end": 5.121
+          "word": "behind",
+          "start": 7.623,
+          "end": 8.007,
+          "is_emphasis": false
         },
         {
-          "word": "perimeter",
-          "start": 5.166,
-          "end": 5.566
+          "word": "armored",
+          "start": 8.018,
+          "end": 8.314,
+          "is_emphasis": false
         },
         {
-          "word": "completely",
-          "start": 5.611,
-          "end": 6.056
+          "word": "Indian",
+          "start": 8.325,
+          "end": 8.665,
+          "is_emphasis": false
         },
         {
-          "word": "vulnerable.",
-          "start": 6.105,
-          "end": 6.551
+          "word": "pachyderms.",
+          "start": 8.676,
+          "end": 9.378,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 4,
-      "start_time": 6.75,
-      "end_time": 10.11,
-      "narration": "Commanders expected standard resistance across the fortified river sector.",
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "smear"
+      ],
+      "start_time": 9.543,
+      "end_time": 13.653,
+      "narration": "Desperate defenders smear thick, combustible pine tar over squealing swine.",
       "words": [
         {
-          "word": "Commanders",
-          "start": 6.8,
-          "end": 7.238
+          "word": "Desperate",
+          "start": 9.543,
+          "end": 9.807,
+          "is_emphasis": false
         },
         {
-          "word": "expected",
-          "start": 7.286,
-          "end": 7.636
+          "word": "defenders",
+          "start": 9.818,
+          "end": 10.267,
+          "is_emphasis": false
         },
         {
-          "word": "standard",
-          "start": 7.675,
-          "end": 8.025
+          "word": "smear",
+          "start": 10.278,
+          "end": 10.563,
+          "is_emphasis": true
         },
         {
-          "word": "resistance",
-          "start": 8.064,
-          "end": 8.502
+          "word": "thick,",
+          "start": 10.574,
+          "end": 10.925,
+          "is_emphasis": false
         },
         {
-          "word": "across",
-          "start": 8.55,
-          "end": 8.813
+          "word": "combustible",
+          "start": 11.133,
+          "end": 11.693,
+          "is_emphasis": false
         },
         {
-          "word": "the",
-          "start": 8.842,
-          "end": 8.973
+          "word": "pine",
+          "start": 11.704,
+          "end": 12.043,
+          "is_emphasis": false
         },
         {
-          "word": "fortified",
-          "start": 8.988,
-          "end": 9.381
+          "word": "tar",
+          "start": 12.054,
+          "end": 12.34,
+          "is_emphasis": false
         },
         {
-          "word": "river",
-          "start": 9.425,
-          "end": 9.644
+          "word": "over",
+          "start": 12.351,
+          "end": 12.537,
+          "is_emphasis": false
         },
         {
-          "word": "sector.",
-          "start": 9.668,
-          "end": 9.931
+          "word": "squealing",
+          "start": 12.548,
+          "end": 12.986,
+          "is_emphasis": false
+        },
+        {
+          "word": "swine.",
+          "start": 12.997,
+          "end": 13.48,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 5,
-      "start_time": 10.11,
-      "end_time": 14.07,
-      "narration": "Behind hidden ramparts, engineers primed an unconventional mechanical stratagem.",
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "strikes spark"
+      ],
+      "start_time": 13.653,
+      "end_time": 16.653,
+      "narration": "A bronze torch strikes spark against crude sulfur pitch.",
       "words": [
         {
-          "word": "Behind",
-          "start": 10.16,
-          "end": 10.45
+          "word": "A",
+          "start": 13.653,
+          "end": 13.703,
+          "is_emphasis": false
         },
         {
-          "word": "hidden",
-          "start": 10.482,
-          "end": 10.772
+          "word": "bronze",
+          "start": 13.681,
+          "end": 14.054,
+          "is_emphasis": false
         },
         {
-          "word": "ramparts,",
-          "start": 10.805,
-          "end": 11.191
+          "word": "torch",
+          "start": 14.065,
+          "end": 14.361,
+          "is_emphasis": false
         },
         {
-          "word": "engineers",
-          "start": 11.234,
-          "end": 11.669
+          "word": "strikes",
+          "start": 14.372,
+          "end": 14.679,
+          "is_emphasis": true
         },
         {
-          "word": "primed",
-          "start": 11.718,
-          "end": 12.008
+          "word": "spark",
+          "start": 14.69,
+          "end": 14.997,
+          "is_emphasis": true
         },
         {
-          "word": "an",
-          "start": 12.04,
-          "end": 12.137
+          "word": "against",
+          "start": 15.008,
+          "end": 15.337,
+          "is_emphasis": false
         },
         {
-          "word": "unconventional",
-          "start": 12.147,
-          "end": 12.824
+          "word": "crude",
+          "start": 15.348,
+          "end": 15.589,
+          "is_emphasis": false
         },
         {
-          "word": "mechanical",
-          "start": 12.899,
-          "end": 13.383
+          "word": "sulfur",
+          "start": 15.6,
+          "end": 15.951,
+          "is_emphasis": false
         },
         {
-          "word": "stratagem.",
-          "start": 13.437,
-          "end": 13.872
+          "word": "pitch.",
+          "start": 15.962,
+          "end": 16.39,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 6,
-      "start_time": 14.07,
-      "end_time": 16.63,
-      "narration": "Greased hemp cords strained under thousands of pounds.",
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "unleash"
+      ],
+      "start_time": 16.653,
+      "end_time": 20.134,
+      "narration": "Wooden sally ports swing open to unleash living incendiary weapons.",
       "words": [
         {
-          "word": "Greased",
-          "start": 14.12,
-          "end": 14.443
+          "word": "Wooden",
+          "start": 16.653,
+          "end": 16.856,
+          "is_emphasis": false
         },
         {
-          "word": "hemp",
-          "start": 14.479,
-          "end": 14.664
+          "word": "sally",
+          "start": 16.867,
+          "end": 17.174,
+          "is_emphasis": false
         },
         {
-          "word": "cords",
-          "start": 14.684,
-          "end": 14.915
+          "word": "ports",
+          "start": 17.185,
+          "end": 17.503,
+          "is_emphasis": false
         },
         {
-          "word": "strained",
-          "start": 14.941,
-          "end": 15.31
+          "word": "swing",
+          "start": 17.514,
+          "end": 17.832,
+          "is_emphasis": false
         },
         {
-          "word": "under",
-          "start": 15.351,
-          "end": 15.582
+          "word": "open",
+          "start": 17.843,
+          "end": 18.084,
+          "is_emphasis": false
         },
         {
-          "word": "thousands",
-          "start": 15.608,
-          "end": 16.023
+          "word": "to",
+          "start": 18.095,
+          "end": 18.205,
+          "is_emphasis": false
         },
         {
-          "word": "of",
-          "start": 16.07,
-          "end": 16.162
+          "word": "unleash",
+          "start": 18.216,
+          "end": 18.599,
+          "is_emphasis": true
         },
         {
-          "word": "pounds.",
-          "start": 16.172,
-          "end": 16.449
+          "word": "living",
+          "start": 18.61,
+          "end": 18.851,
+          "is_emphasis": false
+        },
+        {
+          "word": "incendiary",
+          "start": 18.863,
+          "end": 19.422,
+          "is_emphasis": false
+        },
+        {
+          "word": "weapons.",
+          "start": 19.433,
+          "end": 19.97,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 7,
-      "start_time": 16.63,
-      "end_time": 20.31,
-      "narration": "Unsuspecting vanguard divisions marched directly into the pre-planned killzone.",
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "surges"
+      ],
+      "start_time": 20.134,
+      "end_time": 23.234,
+      "narration": "A screeching line of fire surges across the dark plain.",
       "words": [
         {
-          "word": "Unsuspecting",
-          "start": 16.68,
-          "end": 17.217
+          "word": "A",
+          "start": 20.134,
+          "end": 20.184,
+          "is_emphasis": false
         },
         {
-          "word": "vanguard",
-          "start": 17.277,
-          "end": 17.635
+          "word": "screeching",
+          "start": 20.152,
+          "end": 20.612,
+          "is_emphasis": false
         },
         {
-          "word": "divisions",
-          "start": 17.674,
-          "end": 18.077
+          "word": "line",
+          "start": 20.623,
+          "end": 20.853,
+          "is_emphasis": false
         },
         {
-          "word": "marched",
-          "start": 18.122,
-          "end": 18.435
+          "word": "of",
+          "start": 20.864,
+          "end": 20.941,
+          "is_emphasis": false
         },
         {
-          "word": "directly",
-          "start": 18.47,
-          "end": 18.828
+          "word": "fire",
+          "start": 20.952,
+          "end": 21.281,
+          "is_emphasis": false
         },
         {
-          "word": "into",
-          "start": 18.867,
-          "end": 19.046
+          "word": "surges",
+          "start": 21.292,
+          "end": 21.665,
+          "is_emphasis": true
+        },
+        {
+          "word": "across",
+          "start": 21.676,
+          "end": 22.027,
+          "is_emphasis": false
         },
         {
           "word": "the",
-          "start": 19.066,
-          "end": 19.201
+          "start": 22.038,
+          "end": 22.136,
+          "is_emphasis": false
         },
         {
-          "word": "pre-planned",
-          "start": 19.215,
-          "end": 19.708
+          "word": "dark",
+          "start": 22.147,
+          "end": 22.399,
+          "is_emphasis": false
         },
         {
-          "word": "killzone.",
-          "start": 19.762,
-          "end": 20.12
+          "word": "plain.",
+          "start": 22.41,
+          "end": 22.816,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 8,
-      "start_time": 20.31,
-      "end_time": 23.47,
-      "narration": "The hidden counter-measure released with catastrophic hydraulic velocity.",
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "Panic erupts"
+      ],
+      "start_time": 23.234,
+      "end_time": 26.898,
+      "narration": "Panic erupts as towering war beasts glimpse the blazing squealing horde.",
       "words": [
         {
-          "word": "The",
-          "start": 20.36,
-          "end": 20.483
+          "word": "Panic",
+          "start": 23.234,
+          "end": 23.484,
+          "is_emphasis": true
         },
         {
-          "word": "hidden",
-          "start": 20.497,
-          "end": 20.743
+          "word": "erupts",
+          "start": 23.495,
+          "end": 23.878,
+          "is_emphasis": true
         },
         {
-          "word": "counter-measure",
-          "start": 20.77,
-          "end": 21.385
+          "word": "as",
+          "start": 23.889,
+          "end": 24.021,
+          "is_emphasis": false
         },
         {
-          "word": "released",
-          "start": 21.453,
-          "end": 21.781
+          "word": "towering",
+          "start": 24.032,
+          "end": 24.471,
+          "is_emphasis": false
         },
         {
-          "word": "with",
-          "start": 21.817,
-          "end": 21.981
+          "word": "war",
+          "start": 24.482,
+          "end": 24.701,
+          "is_emphasis": false
         },
         {
-          "word": "catastrophic",
-          "start": 21.999,
-          "end": 22.491
+          "word": "beasts",
+          "start": 24.712,
+          "end": 25.107,
+          "is_emphasis": false
         },
         {
-          "word": "hydraulic",
-          "start": 22.546,
-          "end": 22.915
+          "word": "glimpse",
+          "start": 25.118,
+          "end": 25.436,
+          "is_emphasis": false
         },
         {
-          "word": "velocity.",
-          "start": 22.956,
-          "end": 23.284
+          "word": "the",
+          "start": 25.446,
+          "end": 25.534,
+          "is_emphasis": false
+        },
+        {
+          "word": "blazing",
+          "start": 25.545,
+          "end": 25.951,
+          "is_emphasis": false
+        },
+        {
+          "word": "squealing",
+          "start": 25.962,
+          "end": 26.389,
+          "is_emphasis": false
+        },
+        {
+          "word": "horde.",
+          "start": 26.4,
+          "end": 26.773,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 9,
-      "start_time": 23.47,
-      "end_time": 28.32,
-      "narration": "Massive mechanical levers hoisted enemy formations skyward, shattering enemy defensive cohesion.",
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "+9%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "recoil"
+      ],
+      "start_time": 26.898,
+      "end_time": 31.15,
+      "narration": "Iron-studded hooves slice back as six-ton behemoths recoil in absolute terror.",
       "words": [
         {
-          "word": "Massive",
-          "start": 23.52,
-          "end": 23.869
+          "word": "Iron-studded",
+          "start": 26.898,
+          "end": 27.429,
+          "is_emphasis": false
         },
         {
-          "word": "mechanical",
-          "start": 23.907,
-          "end": 24.406
+          "word": "hooves",
+          "start": 27.44,
+          "end": 27.692,
+          "is_emphasis": false
         },
         {
-          "word": "levers",
-          "start": 24.461,
-          "end": 24.76
+          "word": "slice",
+          "start": 27.704,
+          "end": 28.036,
+          "is_emphasis": false
         },
         {
-          "word": "hoisted",
-          "start": 24.793,
-          "end": 25.142
+          "word": "back",
+          "start": 28.048,
+          "end": 28.335,
+          "is_emphasis": false
         },
         {
-          "word": "enemy",
-          "start": 25.181,
-          "end": 25.43
+          "word": "as",
+          "start": 28.346,
+          "end": 28.472,
+          "is_emphasis": false
         },
         {
-          "word": "formations",
-          "start": 25.457,
-          "end": 25.956
+          "word": "six-ton",
+          "start": 28.484,
+          "end": 29.023,
+          "is_emphasis": false
         },
         {
-          "word": "skyward,",
-          "start": 26.011,
-          "end": 26.36
+          "word": "behemoths",
+          "start": 29.034,
+          "end": 29.504,
+          "is_emphasis": false
         },
         {
-          "word": "shattering",
-          "start": 26.399,
-          "end": 26.897
+          "word": "recoil",
+          "start": 29.516,
+          "end": 29.963,
+          "is_emphasis": true
         },
         {
-          "word": "enemy",
-          "start": 26.952,
-          "end": 27.201
+          "word": "in",
+          "start": 29.974,
+          "end": 30.089,
+          "is_emphasis": false
         },
         {
-          "word": "defensive",
-          "start": 27.229,
-          "end": 27.677
+          "word": "absolute",
+          "start": 30.101,
+          "end": 30.582,
+          "is_emphasis": false
         },
         {
-          "word": "cohesion.",
-          "start": 27.727,
-          "end": 28.126
+          "word": "terror.",
+          "start": 30.594,
+          "end": 31.018,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 10,
-      "start_time": 28.32,
-      "end_time": 32.28,
-      "narration": "Shattered hulls and broken armor crashed downward onto jagged coastal boulders below.",
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "+9%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "crushing"
+      ],
+      "start_time": 31.15,
+      "end_time": 35.866,
+      "narration": "Uncontrollable pachyderms turn backward, crushing Macedonian ranks into bloodied mud.",
       "words": [
         {
-          "word": "Shattered",
-          "start": 28.37,
-          "end": 28.787
+          "word": "Uncontrollable",
+          "start": 31.15,
+          "end": 31.8,
+          "is_emphasis": false
         },
         {
-          "word": "hulls",
-          "start": 28.834,
-          "end": 29.065
+          "word": "pachyderms",
+          "start": 31.811,
+          "end": 32.419,
+          "is_emphasis": false
         },
         {
-          "word": "and",
-          "start": 29.091,
-          "end": 29.23
+          "word": "turn",
+          "start": 32.431,
+          "end": 32.694,
+          "is_emphasis": false
         },
         {
-          "word": "broken",
-          "start": 29.246,
-          "end": 29.524
+          "word": "backward,",
+          "start": 32.706,
+          "end": 33.187,
+          "is_emphasis": false
         },
         {
-          "word": "armor",
-          "start": 29.555,
-          "end": 29.786
+          "word": "crushing",
+          "start": 33.428,
+          "end": 33.83,
+          "is_emphasis": true
         },
         {
-          "word": "crashed",
-          "start": 29.812,
-          "end": 30.137
+          "word": "Macedonian",
+          "start": 33.841,
+          "end": 34.529,
+          "is_emphasis": false
         },
         {
-          "word": "downward",
-          "start": 30.173,
-          "end": 30.544
+          "word": "ranks",
+          "start": 34.541,
+          "end": 34.804,
+          "is_emphasis": false
         },
         {
-          "word": "onto",
-          "start": 30.585,
-          "end": 30.77
+          "word": "into",
+          "start": 34.816,
+          "end": 35.022,
+          "is_emphasis": false
         },
         {
-          "word": "jagged",
-          "start": 30.791,
-          "end": 31.069
+          "word": "bloodied",
+          "start": 35.034,
+          "end": 35.389,
+          "is_emphasis": false
         },
         {
-          "word": "coastal",
-          "start": 31.1,
-          "end": 31.424
-        },
-        {
-          "word": "boulders",
-          "start": 31.46,
-          "end": 31.831
-        },
-        {
-          "word": "below.",
-          "start": 31.872,
-          "end": 32.104
+          "word": "mud.",
+          "start": 35.401,
+          "end": 35.756,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 11,
-      "start_time": 32.28,
-      "end_time": 36.76,
-      "narration": "Unstoppable mechanical destruction broke the invading army into absolute psychological panic.",
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "+9%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "scatter"
+      ],
+      "start_time": 35.866,
+      "end_time": 40.215,
+      "narration": "Chaos destroys the siege array while burning pigs scatter the entire infantry line.",
       "words": [
         {
-          "word": "Unstoppable",
-          "start": 32.33,
-          "end": 32.847
+          "word": "Chaos",
+          "start": 35.866,
+          "end": 36.184,
+          "is_emphasis": false
         },
         {
-          "word": "mechanical",
-          "start": 32.904,
-          "end": 33.374
-        },
-        {
-          "word": "destruction",
-          "start": 33.426,
-          "end": 33.943
-        },
-        {
-          "word": "broke",
-          "start": 34.0,
-          "end": 34.235
+          "word": "destroys",
+          "start": 36.195,
+          "end": 36.723,
+          "is_emphasis": false
         },
         {
           "word": "the",
-          "start": 34.261,
-          "end": 34.402
+          "start": 36.734,
+          "end": 36.826,
+          "is_emphasis": false
         },
         {
-          "word": "invading",
-          "start": 34.418,
-          "end": 34.794
+          "word": "siege",
+          "start": 36.837,
+          "end": 37.136,
+          "is_emphasis": false
         },
         {
-          "word": "army",
-          "start": 34.835,
-          "end": 35.023
+          "word": "array",
+          "start": 37.147,
+          "end": 37.468,
+          "is_emphasis": false
         },
         {
-          "word": "into",
-          "start": 35.044,
-          "end": 35.232
+          "word": "while",
+          "start": 37.48,
+          "end": 37.675,
+          "is_emphasis": false
         },
         {
-          "word": "absolute",
-          "start": 35.253,
-          "end": 35.629
+          "word": "burning",
+          "start": 37.686,
+          "end": 38.007,
+          "is_emphasis": false
         },
         {
-          "word": "psychological",
-          "start": 35.67,
-          "end": 36.281
+          "word": "pigs",
+          "start": 38.019,
+          "end": 38.305,
+          "is_emphasis": false
         },
         {
-          "word": "panic.",
-          "start": 36.349,
-          "end": 36.584
+          "word": "scatter",
+          "start": 38.317,
+          "end": 38.695,
+          "is_emphasis": true
+        },
+        {
+          "word": "the",
+          "start": 38.707,
+          "end": 38.764,
+          "is_emphasis": false
+        },
+        {
+          "word": "entire",
+          "start": 38.775,
+          "end": 39.211,
+          "is_emphasis": false
+        },
+        {
+          "word": "infantry",
+          "start": 39.223,
+          "end": 39.658,
+          "is_emphasis": false
+        },
+        {
+          "word": "line.",
+          "start": 39.67,
+          "end": 40.048,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 12,
-      "start_time": 36.76,
-      "end_time": 40.06,
-      "narration": "The defeated imperial vanguard retreated from the haunted fortress line.",
+      "beat_type": "resolution_loop",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+3Hz"
+      },
+      "emphasis_words": [
+        "siege killers"
+      ],
+      "start_time": 40.215,
+      "end_time": 44.247,
+      "narration": "Megarian tacticians turn crude farm livestock into historic siege killers.",
       "words": [
         {
-          "word": "The",
-          "start": 36.81,
-          "end": 36.945
+          "word": "Megarian",
+          "start": 40.215,
+          "end": 40.623,
+          "is_emphasis": false
         },
         {
-          "word": "defeated",
-          "start": 36.96,
-          "end": 37.32
+          "word": "tacticians",
+          "start": 40.634,
+          "end": 41.215,
+          "is_emphasis": false
         },
         {
-          "word": "imperial",
-          "start": 37.36,
-          "end": 37.72
+          "word": "turn",
+          "start": 41.226,
+          "end": 41.5,
+          "is_emphasis": false
         },
         {
-          "word": "vanguard",
-          "start": 37.76,
-          "end": 38.12
+          "word": "crude",
+          "start": 41.511,
+          "end": 41.786,
+          "is_emphasis": false
         },
         {
-          "word": "retreated",
-          "start": 38.16,
-          "end": 38.565
+          "word": "farm",
+          "start": 41.797,
+          "end": 42.082,
+          "is_emphasis": false
         },
         {
-          "word": "from",
-          "start": 38.61,
-          "end": 38.79
+          "word": "livestock",
+          "start": 42.093,
+          "end": 42.619,
+          "is_emphasis": false
         },
         {
-          "word": "the",
-          "start": 38.81,
-          "end": 38.945
+          "word": "into",
+          "start": 42.63,
+          "end": 42.816,
+          "is_emphasis": false
         },
         {
-          "word": "haunted",
-          "start": 38.96,
-          "end": 39.275
+          "word": "historic",
+          "start": 42.827,
+          "end": 43.266,
+          "is_emphasis": false
         },
         {
-          "word": "fortress",
-          "start": 39.31,
-          "end": 39.67
+          "word": "siege",
+          "start": 43.277,
+          "end": 43.562,
+          "is_emphasis": true
         },
         {
-          "word": "line.",
-          "start": 39.71,
-          "end": 39.89
+          "word": "killers.",
+          "start": 43.573,
+          "end": 44.066,
+          "is_emphasis": true
         }
       ]
     },
     {
       "scene_id": 13,
-      "start_time": 40.06,
-      "end_time": 43.37,
-      "narration": "Every protruding wall beam now struck terror into Roman sailors.",
+      "beat_type": "resolution_loop",
+      "prosody": {
+        "rate": "+14%",
+        "pitch": "+3Hz"
+      },
+      "emphasis_words": [
+        "victorious chaos"
+      ],
+      "start_time": 44.247,
+      "end_time": 47.913,
+      "narration": "Iron tusk caps lie buried beneath squealing, victorious chaos.",
       "words": [
         {
-          "word": "Every",
-          "start": 40.11,
-          "end": 40.369
+          "word": "Iron",
+          "start": 44.247,
+          "end": 44.461,
+          "is_emphasis": false
         },
         {
-          "word": "protruding",
-          "start": 40.398,
-          "end": 40.916
+          "word": "tusk",
+          "start": 44.472,
+          "end": 44.746,
+          "is_emphasis": false
         },
         {
-          "word": "wall",
-          "start": 40.974,
-          "end": 41.181
+          "word": "caps",
+          "start": 44.757,
+          "end": 45.075,
+          "is_emphasis": false
         },
         {
-          "word": "beam",
-          "start": 41.204,
-          "end": 41.412
+          "word": "lie",
+          "start": 45.086,
+          "end": 45.261,
+          "is_emphasis": false
         },
         {
-          "word": "now",
-          "start": 41.435,
-          "end": 41.59
+          "word": "buried",
+          "start": 45.272,
+          "end": 45.623,
+          "is_emphasis": false
         },
         {
-          "word": "struck",
-          "start": 41.607,
-          "end": 41.918
+          "word": "beneath",
+          "start": 45.634,
+          "end": 45.908,
+          "is_emphasis": false
         },
         {
-          "word": "terror",
-          "start": 41.953,
-          "end": 42.264
+          "word": "squealing,",
+          "start": 45.919,
+          "end": 46.369,
+          "is_emphasis": false
         },
         {
-          "word": "into",
-          "start": 42.299,
-          "end": 42.506
+          "word": "victorious",
+          "start": 46.621,
+          "end": 47.147,
+          "is_emphasis": true
         },
         {
-          "word": "Roman",
-          "start": 42.529,
-          "end": 42.788
-        },
-        {
-          "word": "sailors.",
-          "start": 42.817,
-          "end": 43.18
+          "word": "chaos.",
+          "start": 47.158,
+          "end": 47.761,
+          "is_emphasis": true
         }
       ]
     }

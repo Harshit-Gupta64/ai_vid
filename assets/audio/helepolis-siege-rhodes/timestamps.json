@@ -1,0 +1,996 @@
+{
+  "audio_file": "voiceover.wav",
+  "total_duration": 49.46,
+  "sample_rate": 24000,
+  "voice": "en-US-ChristopherNeural",
+  "rate": "+20%",
+  "scenes": [
+    {
+      "scene_id": 1,
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+5%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "groan",
+        "colossal"
+      ],
+      "start_time": 0.0,
+      "end_time": 2.5,
+      "narration": "Iron rivets groan under colossal stress.",
+      "words": [
+        {
+          "word": "Iron",
+          "start": 0.0,
+          "end": 0.265,
+          "is_emphasis": false
+        },
+        {
+          "word": "rivets",
+          "start": 0.277,
+          "end": 0.586,
+          "is_emphasis": false
+        },
+        {
+          "word": "groan",
+          "start": 0.598,
+          "end": 0.967,
+          "is_emphasis": true
+        },
+        {
+          "word": "under",
+          "start": 0.979,
+          "end": 1.193,
+          "is_emphasis": false
+        },
+        {
+          "word": "colossal",
+          "start": 1.205,
+          "end": 1.657,
+          "is_emphasis": true
+        },
+        {
+          "word": "stress.",
+          "start": 1.669,
+          "end": 2.241,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 2,
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+5%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "crush",
+        "powder"
+      ],
+      "start_time": 2.5,
+      "end_time": 5.44,
+      "narration": "Fifteen-foot iron wheels crush coastal gravel into powder.",
+      "words": [
+        {
+          "word": "Fifteen-foot",
+          "start": 2.5,
+          "end": 3.103,
+          "is_emphasis": false
+        },
+        {
+          "word": "iron",
+          "start": 3.115,
+          "end": 3.461,
+          "is_emphasis": false
+        },
+        {
+          "word": "wheels",
+          "start": 3.472,
+          "end": 3.734,
+          "is_emphasis": false
+        },
+        {
+          "word": "crush",
+          "start": 3.746,
+          "end": 4.08,
+          "is_emphasis": true
+        },
+        {
+          "word": "coastal",
+          "start": 4.092,
+          "end": 4.496,
+          "is_emphasis": false
+        },
+        {
+          "word": "gravel",
+          "start": 4.508,
+          "end": 4.877,
+          "is_emphasis": false
+        },
+        {
+          "word": "into",
+          "start": 4.889,
+          "end": 5.092,
+          "is_emphasis": false
+        },
+        {
+          "word": "powder.",
+          "start": 5.103,
+          "end": 5.591,
+          "is_emphasis": true
+        }
+      ]
+    },
+    {
+      "scene_id": 3,
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+5%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "nine timber stories"
+      ],
+      "start_time": 5.44,
+      "end_time": 8.13,
+      "narration": "Nine timber stories shadow the Rhodian fortress wall.",
+      "words": [
+        {
+          "word": "Nine",
+          "start": 5.44,
+          "end": 5.694,
+          "is_emphasis": true
+        },
+        {
+          "word": "timber",
+          "start": 5.706,
+          "end": 6.003,
+          "is_emphasis": true
+        },
+        {
+          "word": "stories",
+          "start": 6.015,
+          "end": 6.444,
+          "is_emphasis": true
+        },
+        {
+          "word": "shadow",
+          "start": 6.456,
+          "end": 6.872,
+          "is_emphasis": false
+        },
+        {
+          "word": "the",
+          "start": 6.884,
+          "end": 6.991,
+          "is_emphasis": false
+        },
+        {
+          "word": "Rhodian",
+          "start": 7.003,
+          "end": 7.372,
+          "is_emphasis": false
+        },
+        {
+          "word": "fortress",
+          "start": 7.384,
+          "end": 7.837,
+          "is_emphasis": false
+        },
+        {
+          "word": "wall.",
+          "start": 7.849,
+          "end": 8.265,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 4,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "sweating",
+        "strain"
+      ],
+      "start_time": 8.13,
+      "end_time": 11.65,
+      "narration": "Sweating engineers strain against heavy interior capstan spokes.",
+      "words": [
+        {
+          "word": "Sweating",
+          "start": 8.13,
+          "end": 8.514,
+          "is_emphasis": true
+        },
+        {
+          "word": "engineers",
+          "start": 8.527,
+          "end": 9.039,
+          "is_emphasis": false
+        },
+        {
+          "word": "strain",
+          "start": 9.052,
+          "end": 9.414,
+          "is_emphasis": true
+        },
+        {
+          "word": "against",
+          "start": 9.427,
+          "end": 9.777,
+          "is_emphasis": false
+        },
+        {
+          "word": "heavy",
+          "start": 9.789,
+          "end": 10.052,
+          "is_emphasis": false
+        },
+        {
+          "word": "interior",
+          "start": 10.065,
+          "end": 10.615,
+          "is_emphasis": false
+        },
+        {
+          "word": "capstan",
+          "start": 10.627,
+          "end": 11.114,
+          "is_emphasis": false
+        },
+        {
+          "word": "spokes.",
+          "start": 11.127,
+          "end": 11.727,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 5,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "absorb",
+        "blazing"
+      ],
+      "start_time": 11.65,
+      "end_time": 14.78,
+      "narration": "Padded wool shutters absorb blazing enemy arrows instantly.",
+      "words": [
+        {
+          "word": "Padded",
+          "start": 11.65,
+          "end": 11.929,
+          "is_emphasis": false
+        },
+        {
+          "word": "wool",
+          "start": 11.941,
+          "end": 12.141,
+          "is_emphasis": false
+        },
+        {
+          "word": "shutters",
+          "start": 12.154,
+          "end": 12.579,
+          "is_emphasis": false
+        },
+        {
+          "word": "absorb",
+          "start": 12.592,
+          "end": 13.017,
+          "is_emphasis": true
+        },
+        {
+          "word": "blazing",
+          "start": 13.029,
+          "end": 13.491,
+          "is_emphasis": true
+        },
+        {
+          "word": "enemy",
+          "start": 13.504,
+          "end": 13.854,
+          "is_emphasis": false
+        },
+        {
+          "word": "arrows",
+          "start": 13.867,
+          "end": 14.254,
+          "is_emphasis": false
+        },
+        {
+          "word": "instantly.",
+          "start": 14.266,
+          "end": 14.929,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 6,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "three thousand",
+        "war monster"
+      ],
+      "start_time": 14.78,
+      "end_time": 18.49,
+      "narration": "Three thousand men march inside the three-hundred-thousand-pound war monster.",
+      "words": [
+        {
+          "word": "Three",
+          "start": 14.78,
+          "end": 14.918,
+          "is_emphasis": true
+        },
+        {
+          "word": "thousand",
+          "start": 14.931,
+          "end": 15.381,
+          "is_emphasis": true
+        },
+        {
+          "word": "men",
+          "start": 15.394,
+          "end": 15.606,
+          "is_emphasis": false
+        },
+        {
+          "word": "march",
+          "start": 15.618,
+          "end": 15.956,
+          "is_emphasis": false
+        },
+        {
+          "word": "inside",
+          "start": 15.969,
+          "end": 16.431,
+          "is_emphasis": false
+        },
+        {
+          "word": "the",
+          "start": 16.444,
+          "end": 16.506,
+          "is_emphasis": false
+        },
+        {
+          "word": "three-hundred-thousand-pound",
+          "start": 16.519,
+          "end": 17.819,
+          "is_emphasis": false
+        },
+        {
+          "word": "war",
+          "start": 17.831,
+          "end": 18.018,
+          "is_emphasis": true
+        },
+        {
+          "word": "monster.",
+          "start": 18.031,
+          "end": 18.631,
+          "is_emphasis": true
+        }
+      ]
+    },
+    {
+      "scene_id": 7,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "unleash",
+        "stone spheres"
+      ],
+      "start_time": 18.49,
+      "end_time": 22.19,
+      "narration": "Heavy catapults unleash hundred-pound stone spheres from upper portals.",
+      "words": [
+        {
+          "word": "Heavy",
+          "start": 18.49,
+          "end": 18.699,
+          "is_emphasis": false
+        },
+        {
+          "word": "catapults",
+          "start": 18.711,
+          "end": 19.374,
+          "is_emphasis": false
+        },
+        {
+          "word": "unleash",
+          "start": 19.386,
+          "end": 19.786,
+          "is_emphasis": true
+        },
+        {
+          "word": "hundred-pound",
+          "start": 19.799,
+          "end": 20.411,
+          "is_emphasis": false
+        },
+        {
+          "word": "stone",
+          "start": 20.424,
+          "end": 20.811,
+          "is_emphasis": true
+        },
+        {
+          "word": "spheres",
+          "start": 20.823,
+          "end": 21.261,
+          "is_emphasis": true
+        },
+        {
+          "word": "from",
+          "start": 21.274,
+          "end": 21.411,
+          "is_emphasis": false
+        },
+        {
+          "word": "upper",
+          "start": 21.424,
+          "end": 21.661,
+          "is_emphasis": false
+        },
+        {
+          "word": "portals.",
+          "start": 21.674,
+          "end": 22.274,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 8,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "spot",
+        "tearing loose"
+      ],
+      "start_time": 22.19,
+      "end_time": 25.51,
+      "narration": "Rhodian defenders spot an exposed iron bolt tearing loose.",
+      "words": [
+        {
+          "word": "Rhodian",
+          "start": 22.19,
+          "end": 22.541,
+          "is_emphasis": false
+        },
+        {
+          "word": "defenders",
+          "start": 22.554,
+          "end": 23.091,
+          "is_emphasis": false
+        },
+        {
+          "word": "spot",
+          "start": 23.104,
+          "end": 23.429,
+          "is_emphasis": true
+        },
+        {
+          "word": "an",
+          "start": 23.441,
+          "end": 23.516,
+          "is_emphasis": false
+        },
+        {
+          "word": "exposed",
+          "start": 23.529,
+          "end": 24.117,
+          "is_emphasis": false
+        },
+        {
+          "word": "iron",
+          "start": 24.129,
+          "end": 24.454,
+          "is_emphasis": false
+        },
+        {
+          "word": "bolt",
+          "start": 24.466,
+          "end": 24.729,
+          "is_emphasis": false
+        },
+        {
+          "word": "tearing",
+          "start": 24.742,
+          "end": 25.117,
+          "is_emphasis": true
+        },
+        {
+          "word": "loose.",
+          "start": 25.129,
+          "end": 25.616,
+          "is_emphasis": true
+        }
+      ]
+    },
+    {
+      "scene_id": 9,
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "-8%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "crash open",
+        "foul sewage"
+      ],
+      "start_time": 25.51,
+      "end_time": 30.05,
+      "narration": "Sluice gates crash open, unleashing thousands of gallons of foul sewage.",
+      "words": [
+        {
+          "word": "Sluice",
+          "start": 25.51,
+          "end": 25.875,
+          "is_emphasis": false
+        },
+        {
+          "word": "gates",
+          "start": 25.888,
+          "end": 26.242,
+          "is_emphasis": false
+        },
+        {
+          "word": "crash",
+          "start": 26.255,
+          "end": 26.676,
+          "is_emphasis": true
+        },
+        {
+          "word": "open,",
+          "start": 26.69,
+          "end": 27.084,
+          "is_emphasis": true
+        },
+        {
+          "word": "unleashing",
+          "start": 27.301,
+          "end": 27.872,
+          "is_emphasis": false
+        },
+        {
+          "word": "thousands",
+          "start": 27.886,
+          "end": 28.402,
+          "is_emphasis": false
+        },
+        {
+          "word": "of",
+          "start": 28.415,
+          "end": 28.511,
+          "is_emphasis": false
+        },
+        {
+          "word": "gallons",
+          "start": 28.524,
+          "end": 29.0,
+          "is_emphasis": false
+        },
+        {
+          "word": "of",
+          "start": 29.013,
+          "end": 29.108,
+          "is_emphasis": false
+        },
+        {
+          "word": "foul",
+          "start": 29.122,
+          "end": 29.462,
+          "is_emphasis": true
+        },
+        {
+          "word": "sewage.",
+          "start": 29.475,
+          "end": 30.141,
+          "is_emphasis": true
+        }
+      ]
+    },
+    {
+      "scene_id": 10,
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "-8%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "surges",
+        "turning earth"
+      ],
+      "start_time": 30.05,
+      "end_time": 34.55,
+      "narration": "Black sludge surges under the eight massive wheels, turning earth into liquid.",
+      "words": [
+        {
+          "word": "Black",
+          "start": 30.05,
+          "end": 30.302,
+          "is_emphasis": false
+        },
+        {
+          "word": "sludge",
+          "start": 30.316,
+          "end": 30.751,
+          "is_emphasis": false
+        },
+        {
+          "word": "surges",
+          "start": 30.764,
+          "end": 31.253,
+          "is_emphasis": true
+        },
+        {
+          "word": "under",
+          "start": 31.267,
+          "end": 31.484,
+          "is_emphasis": false
+        },
+        {
+          "word": "the",
+          "start": 31.498,
+          "end": 31.634,
+          "is_emphasis": false
+        },
+        {
+          "word": "eight",
+          "start": 31.647,
+          "end": 31.892,
+          "is_emphasis": false
+        },
+        {
+          "word": "massive",
+          "start": 31.906,
+          "end": 32.368,
+          "is_emphasis": false
+        },
+        {
+          "word": "wheels,",
+          "start": 32.381,
+          "end": 32.884,
+          "is_emphasis": false
+        },
+        {
+          "word": "turning",
+          "start": 33.128,
+          "end": 33.495,
+          "is_emphasis": true
+        },
+        {
+          "word": "earth",
+          "start": 33.509,
+          "end": 33.794,
+          "is_emphasis": true
+        },
+        {
+          "word": "into",
+          "start": 33.808,
+          "end": 34.08,
+          "is_emphasis": false
+        },
+        {
+          "word": "liquid.",
+          "start": 34.093,
+          "end": 34.637,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 11,
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "-8%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "tilts forward",
+        "sinking"
+      ],
+      "start_time": 34.55,
+      "end_time": 39.81,
+      "narration": "The hundred-and-sixty-ton leviathan tilts forward, sinking irreversibly into deep mire.",
+      "words": [
+        {
+          "word": "The",
+          "start": 34.55,
+          "end": 34.6,
+          "is_emphasis": false
+        },
+        {
+          "word": "hundred-and-sixty-ton",
+          "start": 34.562,
+          "end": 35.772,
+          "is_emphasis": false
+        },
+        {
+          "word": "leviathan",
+          "start": 35.785,
+          "end": 36.437,
+          "is_emphasis": false
+        },
+        {
+          "word": "tilts",
+          "start": 36.451,
+          "end": 36.791,
+          "is_emphasis": true
+        },
+        {
+          "word": "forward,",
+          "start": 36.804,
+          "end": 37.293,
+          "is_emphasis": true
+        },
+        {
+          "word": "sinking",
+          "start": 37.579,
+          "end": 38.054,
+          "is_emphasis": true
+        },
+        {
+          "word": "irreversibly",
+          "start": 38.068,
+          "end": 38.842,
+          "is_emphasis": false
+        },
+        {
+          "word": "into",
+          "start": 38.856,
+          "end": 39.1,
+          "is_emphasis": false
+        },
+        {
+          "word": "deep",
+          "start": 39.114,
+          "end": 39.399,
+          "is_emphasis": false
+        },
+        {
+          "word": "mire.",
+          "start": 39.413,
+          "end": 39.956,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 12,
+      "beat_type": "resolution_loop",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+3Hz"
+      },
+      "emphasis_words": [
+        "abandon",
+        "trapped"
+      ],
+      "start_time": 39.81,
+      "end_time": 42.9,
+      "narration": "Defeated invaders abandon the trapped iron monster overnight.",
+      "words": [
+        {
+          "word": "Defeated",
+          "start": 39.81,
+          "end": 40.188,
+          "is_emphasis": false
+        },
+        {
+          "word": "invaders",
+          "start": 40.201,
+          "end": 40.713,
+          "is_emphasis": false
+        },
+        {
+          "word": "abandon",
+          "start": 40.725,
+          "end": 41.2,
+          "is_emphasis": true
+        },
+        {
+          "word": "the",
+          "start": 41.213,
+          "end": 41.3,
+          "is_emphasis": false
+        },
+        {
+          "word": "trapped",
+          "start": 41.313,
+          "end": 41.726,
+          "is_emphasis": true
+        },
+        {
+          "word": "iron",
+          "start": 41.738,
+          "end": 42.013,
+          "is_emphasis": false
+        },
+        {
+          "word": "monster",
+          "start": 42.026,
+          "end": 42.488,
+          "is_emphasis": false
+        },
+        {
+          "word": "overnight.",
+          "start": 42.501,
+          "end": 43.075,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 13,
+      "beat_type": "resolution_loop",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+3Hz"
+      },
+      "emphasis_words": [
+        "melt down",
+        "colossal"
+      ],
+      "start_time": 42.9,
+      "end_time": 46.66,
+      "narration": "Foundry fires melt down abandoned armor into bronze colossal plates.",
+      "words": [
+        {
+          "word": "Foundry",
+          "start": 42.9,
+          "end": 43.22,
+          "is_emphasis": false
+        },
+        {
+          "word": "fires",
+          "start": 43.233,
+          "end": 43.695,
+          "is_emphasis": false
+        },
+        {
+          "word": "melt",
+          "start": 43.707,
+          "end": 43.932,
+          "is_emphasis": true
+        },
+        {
+          "word": "down",
+          "start": 43.945,
+          "end": 44.182,
+          "is_emphasis": true
+        },
+        {
+          "word": "abandoned",
+          "start": 44.195,
+          "end": 44.72,
+          "is_emphasis": false
+        },
+        {
+          "word": "armor",
+          "start": 44.732,
+          "end": 45.045,
+          "is_emphasis": false
+        },
+        {
+          "word": "into",
+          "start": 45.058,
+          "end": 45.283,
+          "is_emphasis": false
+        },
+        {
+          "word": "bronze",
+          "start": 45.295,
+          "end": 45.682,
+          "is_emphasis": false
+        },
+        {
+          "word": "colossal",
+          "start": 45.695,
+          "end": 46.17,
+          "is_emphasis": true
+        },
+        {
+          "word": "plates.",
+          "start": 46.182,
+          "end": 46.732,
+          "is_emphasis": false
+        }
+      ]
+    },
+    {
+      "scene_id": 14,
+      "beat_type": "resolution_loop",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+3Hz"
+      },
+      "emphasis_words": [
+        "sun glints",
+        "born from mud"
+      ],
+      "start_time": 46.66,
+      "end_time": 49.46,
+      "narration": "Sun glints off the giant statue born from mud.",
+      "words": [
+        {
+          "word": "Sun",
+          "start": 46.66,
+          "end": 46.948,
+          "is_emphasis": true
+        },
+        {
+          "word": "glints",
+          "start": 46.96,
+          "end": 47.323,
+          "is_emphasis": true
+        },
+        {
+          "word": "off",
+          "start": 47.335,
+          "end": 47.548,
+          "is_emphasis": false
+        },
+        {
+          "word": "the",
+          "start": 47.56,
+          "end": 47.661,
+          "is_emphasis": false
+        },
+        {
+          "word": "giant",
+          "start": 47.673,
+          "end": 48.06,
+          "is_emphasis": false
+        },
+        {
+          "word": "statue",
+          "start": 48.073,
+          "end": 48.573,
+          "is_emphasis": false
+        },
+        {
+          "word": "born",
+          "start": 48.586,
+          "end": 48.923,
+          "is_emphasis": true
+        },
+        {
+          "word": "from",
+          "start": 48.936,
+          "end": 49.098,
+          "is_emphasis": true
+        },
+        {
+          "word": "mud.",
+          "start": 49.111,
+          "end": 49.485,
+          "is_emphasis": true
+        }
+      ]
+    }
+  ]
+}

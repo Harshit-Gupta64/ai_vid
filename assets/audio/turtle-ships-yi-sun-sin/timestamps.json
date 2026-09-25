@@ -1,699 +1,927 @@
 {
   "audio_file": "voiceover.wav",
-  "total_duration": 41.73,
+  "total_duration": 45.49,
   "sample_rate": 24000,
   "voice": "en-US-ChristopherNeural",
   "rate": "+20%",
   "scenes": [
     {
       "scene_id": 1,
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+5%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "pierce"
+      ],
       "start_time": 0.0,
       "end_time": 2.11,
       "narration": "Heavy iron spikes pierce woven straw.",
       "words": [
         {
           "word": "Heavy",
-          "start": 0.05,
-          "end": 0.327
+          "start": 0.0,
+          "end": 0.247,
+          "is_emphasis": false
         },
         {
           "word": "iron",
-          "start": 0.358,
-          "end": 0.58
+          "start": 0.259,
+          "end": 0.592,
+          "is_emphasis": false
         },
         {
           "word": "spikes",
-          "start": 0.605,
-          "end": 0.937
+          "start": 0.604,
+          "end": 1.009,
+          "is_emphasis": false
         },
         {
           "word": "pierce",
-          "start": 0.974,
-          "end": 1.307
+          "start": 1.02,
+          "end": 1.318,
+          "is_emphasis": true
         },
         {
           "word": "woven",
-          "start": 1.344,
-          "end": 1.621
+          "start": 1.33,
+          "end": 1.663,
+          "is_emphasis": false
         },
         {
           "word": "straw.",
-          "start": 1.652,
-          "end": 1.929
+          "start": 1.675,
+          "end": 2.163,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 2,
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+5%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "crash"
+      ],
       "start_time": 2.11,
-      "end_time": 4.81,
+      "end_time": 4.84,
       "narration": "Iron-clawed grappling hooks crash onto deck planks.",
       "words": [
         {
           "word": "Iron-clawed",
-          "start": 2.16,
-          "end": 2.723
+          "start": 2.11,
+          "end": 2.623,
+          "is_emphasis": false
         },
         {
           "word": "grappling",
-          "start": 2.785,
-          "end": 3.245
+          "start": 2.635,
+          "end": 3.111,
+          "is_emphasis": false
         },
         {
           "word": "hooks",
-          "start": 3.296,
-          "end": 3.552
+          "start": 3.123,
+          "end": 3.385,
+          "is_emphasis": false
         },
         {
           "word": "crash",
-          "start": 3.58,
-          "end": 3.836
+          "start": 3.396,
+          "end": 3.777,
+          "is_emphasis": true
         },
         {
           "word": "onto",
-          "start": 3.865,
-          "end": 4.069
+          "start": 3.789,
+          "end": 4.087,
+          "is_emphasis": false
         },
         {
           "word": "deck",
-          "start": 4.092,
-          "end": 4.296
+          "start": 4.099,
+          "end": 4.349,
+          "is_emphasis": false
         },
         {
           "word": "planks.",
-          "start": 4.319,
-          "end": 4.626
+          "start": 4.361,
+          "end": 4.908,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 3,
-      "start_time": 4.81,
-      "end_time": 7.55,
+      "beat_type": "establishing",
+      "prosody": {
+        "rate": "+5%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "swarm"
+      ],
+      "start_time": 4.84,
+      "end_time": 7.61,
       "narration": "Japanese warships swarm the narrow Hansan straits.",
       "words": [
         {
           "word": "Japanese",
-          "start": 4.86,
-          "end": 5.285
+          "start": 4.84,
+          "end": 5.304,
+          "is_emphasis": false
         },
         {
           "word": "warships",
-          "start": 5.333,
-          "end": 5.758
+          "start": 5.316,
+          "end": 5.828,
+          "is_emphasis": false
         },
         {
           "word": "swarm",
-          "start": 5.805,
-          "end": 6.071
+          "start": 5.84,
+          "end": 6.197,
+          "is_emphasis": true
         },
         {
           "word": "the",
-          "start": 6.1,
-          "end": 6.26
+          "start": 6.209,
+          "end": 6.28,
+          "is_emphasis": false
         },
         {
           "word": "narrow",
-          "start": 6.278,
-          "end": 6.597
+          "start": 6.292,
+          "end": 6.614,
+          "is_emphasis": false
         },
         {
           "word": "Hansan",
-          "start": 6.632,
-          "end": 6.951
+          "start": 6.625,
+          "end": 7.125,
+          "is_emphasis": false
         },
         {
           "word": "straits.",
-          "start": 6.987,
-          "end": 7.359
+          "start": 7.137,
+          "end": 7.697,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 4,
-      "start_time": 7.55,
-      "end_time": 10.81,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "razor steel"
+      ],
+      "start_time": 7.61,
+      "end_time": 11.12,
       "narration": "Samurai draw razor steel, preparing for boarding actions.",
       "words": [
         {
           "word": "Samurai",
-          "start": 7.6,
-          "end": 8.002
+          "start": 7.61,
+          "end": 8.098,
+          "is_emphasis": false
         },
         {
           "word": "draw",
-          "start": 8.046,
-          "end": 8.276
+          "start": 8.111,
+          "end": 8.398,
+          "is_emphasis": false
         },
         {
           "word": "razor",
-          "start": 8.301,
-          "end": 8.588
+          "start": 8.411,
+          "end": 8.811,
+          "is_emphasis": true
         },
         {
           "word": "steel,",
-          "start": 8.62,
-          "end": 8.907
+          "start": 8.823,
+          "end": 9.248,
+          "is_emphasis": true
         },
         {
           "word": "preparing",
-          "start": 8.939,
-          "end": 9.455
+          "start": 9.498,
+          "end": 10.011,
+          "is_emphasis": false
         },
         {
           "word": "for",
-          "start": 9.512,
-          "end": 9.685
+          "start": 10.023,
+          "end": 10.173,
+          "is_emphasis": false
         },
         {
           "word": "boarding",
-          "start": 9.704,
-          "end": 10.163
+          "start": 10.185,
+          "end": 10.536,
+          "is_emphasis": false
         },
         {
           "word": "actions.",
-          "start": 10.214,
-          "end": 10.615
+          "start": 10.548,
+          "end": 11.21,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 5,
-      "start_time": 10.81,
-      "end_time": 13.91,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "ignites"
+      ],
+      "start_time": 11.12,
+      "end_time": 14.46,
       "narration": "Burning sulfur ignites inside a carved dragon prow mechanism.",
       "words": [
         {
           "word": "Burning",
-          "start": 10.86,
-          "end": 11.211
+          "start": 11.12,
+          "end": 11.369,
+          "is_emphasis": false
         },
         {
           "word": "sulfur",
-          "start": 11.25,
-          "end": 11.552
+          "start": 11.381,
+          "end": 11.806,
+          "is_emphasis": false
         },
         {
           "word": "ignites",
-          "start": 11.585,
-          "end": 11.936
+          "start": 11.819,
+          "end": 12.231,
+          "is_emphasis": true
         },
         {
           "word": "inside",
-          "start": 11.975,
-          "end": 12.277
+          "start": 12.244,
+          "end": 12.682,
+          "is_emphasis": false
         },
         {
           "word": "a",
-          "start": 12.31,
-          "end": 12.36
+          "start": 12.694,
+          "end": 12.757,
+          "is_emphasis": false
         },
         {
           "word": "carved",
-          "start": 12.366,
-          "end": 12.667
+          "start": 12.769,
+          "end": 13.144,
+          "is_emphasis": false
         },
         {
           "word": "dragon",
-          "start": 12.7,
-          "end": 13.002
+          "start": 13.157,
+          "end": 13.594,
+          "is_emphasis": false
         },
         {
           "word": "prow",
-          "start": 13.035,
-          "end": 13.236
+          "start": 13.606,
+          "end": 13.869,
+          "is_emphasis": false
         },
         {
           "word": "mechanism.",
-          "start": 13.258,
-          "end": 13.71
+          "start": 13.881,
+          "end": 14.582,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 6,
-      "start_time": 13.91,
-      "end_time": 16.35,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "billows"
+      ],
+      "start_time": 14.46,
+      "end_time": 17.01,
       "narration": "Dense yellow smoke billows across the ocean tide.",
       "words": [
         {
           "word": "Dense",
-          "start": 13.96,
-          "end": 14.206
+          "start": 14.46,
+          "end": 14.664,
+          "is_emphasis": false
         },
         {
           "word": "yellow",
-          "start": 14.233,
-          "end": 14.528
+          "start": 14.677,
+          "end": 14.977,
+          "is_emphasis": false
         },
         {
           "word": "smoke",
-          "start": 14.561,
-          "end": 14.807
+          "start": 14.989,
+          "end": 15.376,
+          "is_emphasis": false
         },
         {
           "word": "billows",
-          "start": 14.834,
-          "end": 15.178
+          "start": 15.389,
+          "end": 15.776,
+          "is_emphasis": true
         },
         {
           "word": "across",
-          "start": 15.217,
-          "end": 15.512
+          "start": 15.789,
+          "end": 16.164,
+          "is_emphasis": false
         },
         {
           "word": "the",
-          "start": 15.544,
-          "end": 15.692
+          "start": 16.177,
+          "end": 16.301,
+          "is_emphasis": false
         },
         {
           "word": "ocean",
-          "start": 15.708,
-          "end": 15.954
+          "start": 16.314,
+          "end": 16.664,
+          "is_emphasis": false
         },
         {
           "word": "tide.",
-          "start": 15.981,
-          "end": 16.178
+          "start": 16.677,
+          "end": 17.152,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 7,
-      "start_time": 16.35,
-      "end_time": 19.61,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "close in"
+      ],
+      "start_time": 17.01,
+      "end_time": 20.54,
       "narration": "Unseen beneath sulfur clouds, armored dragon ships close in.",
       "words": [
         {
           "word": "Unseen",
-          "start": 16.4,
-          "end": 16.73
+          "start": 17.01,
+          "end": 17.475,
+          "is_emphasis": false
         },
         {
           "word": "beneath",
-          "start": 16.767,
-          "end": 17.153
+          "start": 17.488,
+          "end": 17.812,
+          "is_emphasis": false
         },
         {
           "word": "sulfur",
-          "start": 17.196,
-          "end": 17.526
+          "start": 17.825,
+          "end": 18.225,
+          "is_emphasis": false
         },
         {
           "word": "clouds,",
-          "start": 17.563,
-          "end": 17.893
+          "start": 18.238,
+          "end": 18.75,
+          "is_emphasis": false
         },
         {
           "word": "armored",
-          "start": 17.93,
-          "end": 18.316
+          "start": 18.862,
+          "end": 19.2,
+          "is_emphasis": false
         },
         {
           "word": "dragon",
-          "start": 18.358,
-          "end": 18.689
+          "start": 19.213,
+          "end": 19.625,
+          "is_emphasis": false
         },
         {
           "word": "ships",
-          "start": 18.726,
-          "end": 19.001
+          "start": 19.637,
+          "end": 19.988,
+          "is_emphasis": false
         },
         {
           "word": "close",
-          "start": 19.032,
-          "end": 19.307
+          "start": 20.0,
+          "end": 20.338,
+          "is_emphasis": true
         },
         {
           "word": "in.",
-          "start": 19.338,
-          "end": 19.448
+          "start": 20.35,
+          "end": 20.625,
+          "is_emphasis": true
         }
       ]
     },
     {
       "scene_id": 8,
-      "start_time": 19.61,
-      "end_time": 22.64,
+      "beat_type": "rising_tension",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+0Hz"
+      },
+      "emphasis_words": [
+        "signal flags"
+      ],
+      "start_time": 20.54,
+      "end_time": 23.81,
       "narration": "Korean commanders raise signal flags above the fog screen.",
       "words": [
         {
           "word": "Korean",
-          "start": 19.66,
-          "end": 19.972
+          "start": 20.54,
+          "end": 20.87,
+          "is_emphasis": false
         },
         {
           "word": "commanders",
-          "start": 20.007,
-          "end": 20.526
+          "start": 20.883,
+          "end": 21.446,
+          "is_emphasis": false
         },
         {
           "word": "raise",
-          "start": 20.584,
-          "end": 20.844
+          "start": 21.458,
+          "end": 21.746,
+          "is_emphasis": false
         },
         {
           "word": "signal",
-          "start": 20.873,
-          "end": 21.185
+          "start": 21.758,
+          "end": 22.133,
+          "is_emphasis": true
         },
         {
           "word": "flags",
-          "start": 21.219,
-          "end": 21.479
+          "start": 22.145,
+          "end": 22.608,
+          "is_emphasis": true
         },
         {
           "word": "above",
-          "start": 21.508,
-          "end": 21.768
+          "start": 22.621,
+          "end": 22.946,
+          "is_emphasis": false
         },
         {
           "word": "the",
-          "start": 21.797,
-          "end": 21.953
+          "start": 22.958,
+          "end": 23.045,
+          "is_emphasis": false
         },
         {
           "word": "fog",
-          "start": 21.97,
-          "end": 22.126
+          "start": 23.058,
+          "end": 23.395,
+          "is_emphasis": false
         },
         {
           "word": "screen.",
-          "start": 22.143,
-          "end": 22.455
+          "start": 23.408,
+          "end": 23.908,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 9,
-      "start_time": 22.64,
-      "end_time": 25.86,
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "-8%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "impale"
+      ],
+      "start_time": 23.81,
+      "end_time": 27.58,
       "narration": "Leaping samurai impale their boots on hidden iron roof spikes.",
       "words": [
         {
           "word": "Leaping",
-          "start": 22.69,
-          "end": 23.056
+          "start": 23.81,
+          "end": 24.115,
+          "is_emphasis": false
         },
         {
           "word": "samurai",
-          "start": 23.097,
-          "end": 23.462
+          "start": 24.128,
+          "end": 24.74,
+          "is_emphasis": false
         },
         {
           "word": "impale",
-          "start": 23.503,
-          "end": 23.817
+          "start": 24.753,
+          "end": 25.256,
+          "is_emphasis": true
         },
         {
           "word": "their",
-          "start": 23.852,
-          "end": 24.113
+          "start": 25.27,
+          "end": 25.473,
+          "is_emphasis": false
         },
         {
           "word": "boots",
-          "start": 24.142,
-          "end": 24.403
+          "start": 25.487,
+          "end": 25.867,
+          "is_emphasis": false
         },
         {
           "word": "on",
-          "start": 24.432,
-          "end": 24.537
+          "start": 25.881,
+          "end": 26.017,
+          "is_emphasis": false
         },
         {
           "word": "hidden",
-          "start": 24.548,
-          "end": 24.862
+          "start": 26.03,
+          "end": 26.384,
+          "is_emphasis": false
         },
         {
           "word": "iron",
-          "start": 24.897,
-          "end": 25.106
+          "start": 26.397,
+          "end": 26.751,
+          "is_emphasis": false
         },
         {
           "word": "roof",
-          "start": 25.129,
-          "end": 25.338
+          "start": 26.764,
+          "end": 26.954,
+          "is_emphasis": false
         },
         {
           "word": "spikes.",
-          "start": 25.362,
-          "end": 25.675
+          "start": 26.968,
+          "end": 27.661,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 10,
-      "start_time": 25.86,
-      "end_time": 29.91,
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "-8%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "shred"
+      ],
+      "start_time": 27.58,
+      "end_time": 32.45,
       "narration": "Point-blank broadsides shred enemy wooden hulls into flying, shattered splinters.",
       "words": [
         {
           "word": "Point-blank",
-          "start": 25.91,
-          "end": 26.455
+          "start": 27.58,
+          "end": 28.173,
+          "is_emphasis": false
         },
         {
           "word": "broadsides",
-          "start": 26.515,
-          "end": 27.01
+          "start": 28.187,
+          "end": 28.88,
+          "is_emphasis": false
         },
         {
           "word": "shred",
-          "start": 27.065,
-          "end": 27.313
+          "start": 28.894,
+          "end": 29.26,
+          "is_emphasis": true
         },
         {
           "word": "enemy",
-          "start": 27.34,
-          "end": 27.588
+          "start": 29.274,
+          "end": 29.586,
+          "is_emphasis": false
         },
         {
           "word": "wooden",
-          "start": 27.615,
-          "end": 27.912
+          "start": 29.6,
+          "end": 29.872,
+          "is_emphasis": false
         },
         {
           "word": "hulls",
-          "start": 27.945,
-          "end": 28.193
+          "start": 29.885,
+          "end": 30.239,
+          "is_emphasis": false
         },
         {
           "word": "into",
-          "start": 28.22,
-          "end": 28.418
+          "start": 30.252,
+          "end": 30.456,
+          "is_emphasis": false
         },
         {
           "word": "flying,",
-          "start": 28.44,
-          "end": 28.737
+          "start": 30.47,
+          "end": 31.013,
+          "is_emphasis": false
         },
         {
           "word": "shattered",
-          "start": 28.77,
-          "end": 29.216
+          "start": 31.285,
+          "end": 31.76,
+          "is_emphasis": false
         },
         {
           "word": "splinters.",
-          "start": 29.265,
-          "end": 29.711
+          "start": 31.774,
+          "end": 32.535,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 11,
-      "start_time": 29.91,
-      "end_time": 33.85,
+      "beat_type": "climax_impact",
+      "prosody": {
+        "rate": "-8%",
+        "pitch": "-5Hz"
+      },
+      "emphasis_words": [
+        "ram"
+      ],
+      "start_time": 32.45,
+      "end_time": 37.19,
       "narration": "Massive turtle vessels ram boarding ships, shattering enemy fleets completely.",
       "words": [
         {
           "word": "Massive",
-          "start": 29.96,
-          "end": 30.312
+          "start": 32.45,
+          "end": 32.869,
+          "is_emphasis": false
         },
         {
           "word": "turtle",
-          "start": 30.351,
-          "end": 30.652
+          "start": 32.883,
+          "end": 33.182,
+          "is_emphasis": false
         },
         {
           "word": "vessels",
-          "start": 30.686,
-          "end": 31.037
+          "start": 33.196,
+          "end": 33.685,
+          "is_emphasis": false
         },
         {
           "word": "ram",
-          "start": 31.076,
-          "end": 31.227
+          "start": 33.698,
+          "end": 34.011,
+          "is_emphasis": true
         },
         {
           "word": "boarding",
-          "start": 31.244,
-          "end": 31.646
+          "start": 34.024,
+          "end": 34.378,
+          "is_emphasis": false
         },
         {
           "word": "ships,",
-          "start": 31.69,
-          "end": 31.942
+          "start": 34.391,
+          "end": 34.907,
+          "is_emphasis": false
         },
         {
           "word": "shattering",
-          "start": 31.97,
-          "end": 32.472
+          "start": 35.179,
+          "end": 35.804,
+          "is_emphasis": false
         },
         {
           "word": "enemy",
-          "start": 32.528,
-          "end": 32.779
+          "start": 35.818,
+          "end": 36.13,
+          "is_emphasis": false
         },
         {
           "word": "fleets",
-          "start": 32.807,
-          "end": 33.108
+          "start": 36.144,
+          "end": 36.565,
+          "is_emphasis": false
         },
         {
           "word": "completely.",
-          "start": 33.142,
-          "end": 33.644
+          "start": 36.579,
+          "end": 37.326,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 12,
-      "start_time": 33.85,
-      "end_time": 36.52,
+      "beat_type": "resolution_loop",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+3Hz"
+      },
+      "emphasis_words": [
+        "burning debris"
+      ],
+      "start_time": 37.19,
+      "end_time": 40.02,
       "narration": "Ocean waves wash burning debris from iron hulls.",
       "words": [
         {
           "word": "Ocean",
-          "start": 33.9,
-          "end": 34.178
+          "start": 37.19,
+          "end": 37.491,
+          "is_emphasis": false
         },
         {
           "word": "waves",
-          "start": 34.209,
-          "end": 34.487
+          "start": 37.504,
+          "end": 37.866,
+          "is_emphasis": false
         },
         {
           "word": "wash",
-          "start": 34.517,
-          "end": 34.74
+          "start": 37.879,
+          "end": 38.229,
+          "is_emphasis": false
         },
         {
           "word": "burning",
-          "start": 34.764,
-          "end": 35.154
+          "start": 38.241,
+          "end": 38.579,
+          "is_emphasis": true
         },
         {
           "word": "debris",
-          "start": 35.197,
-          "end": 35.53
+          "start": 38.592,
+          "end": 39.029,
+          "is_emphasis": true
         },
         {
           "word": "from",
-          "start": 35.567,
-          "end": 35.79
+          "start": 39.041,
+          "end": 39.229,
+          "is_emphasis": false
         },
         {
           "word": "iron",
-          "start": 35.814,
-          "end": 36.037
+          "start": 39.242,
+          "end": 39.554,
+          "is_emphasis": false
         },
         {
           "word": "hulls.",
-          "start": 36.061,
-          "end": 36.339
+          "start": 39.566,
+          "end": 40.104,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 13,
-      "start_time": 36.52,
-      "end_time": 39.09,
+      "beat_type": "resolution_loop",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+3Hz"
+      },
+      "emphasis_words": [
+        "glisten"
+      ],
+      "start_time": 40.02,
+      "end_time": 42.7,
       "narration": "Hexagonal iron plates glisten under clearing smoke.",
       "words": [
         {
           "word": "Hexagonal",
-          "start": 36.57,
-          "end": 37.006
+          "start": 40.02,
+          "end": 40.638,
+          "is_emphasis": false
         },
         {
           "word": "iron",
-          "start": 37.055,
-          "end": 37.249
+          "start": 40.651,
+          "end": 40.963,
+          "is_emphasis": false
         },
         {
           "word": "plates",
-          "start": 37.27,
-          "end": 37.561
+          "start": 40.976,
+          "end": 41.3,
+          "is_emphasis": false
         },
         {
           "word": "glisten",
-          "start": 37.593,
-          "end": 37.933
+          "start": 41.313,
+          "end": 41.75,
+          "is_emphasis": true
         },
         {
           "word": "under",
-          "start": 37.97,
-          "end": 38.213
+          "start": 41.763,
+          "end": 41.988,
+          "is_emphasis": false
         },
         {
           "word": "clearing",
-          "start": 38.24,
-          "end": 38.628
+          "start": 42.0,
+          "end": 42.4,
+          "is_emphasis": false
         },
         {
           "word": "smoke.",
-          "start": 38.671,
-          "end": 38.913
+          "start": 42.413,
+          "end": 42.913,
+          "is_emphasis": false
         }
       ]
     },
     {
       "scene_id": 14,
-      "start_time": 39.09,
-      "end_time": 41.73,
+      "beat_type": "resolution_loop",
+      "prosody": {
+        "rate": "+0%",
+        "pitch": "+3Hz"
+      },
+      "emphasis_words": [
+        "crush"
+      ],
+      "start_time": 42.7,
+      "end_time": 45.49,
       "narration": "Heavy dragon prows turn to crush incoming fleets.",
       "words": [
         {
           "word": "Heavy",
-          "start": 39.14,
-          "end": 39.408
+          "start": 42.7,
+          "end": 42.894,
+          "is_emphasis": false
         },
         {
           "word": "dragon",
-          "start": 39.438,
-          "end": 39.759
+          "start": 42.907,
+          "end": 43.344,
+          "is_emphasis": false
         },
         {
           "word": "prows",
-          "start": 39.795,
-          "end": 40.062
+          "start": 43.356,
+          "end": 43.769,
+          "is_emphasis": false
         },
         {
           "word": "turn",
-          "start": 40.092,
-          "end": 40.306
+          "start": 43.781,
+          "end": 44.019,
+          "is_emphasis": false
         },
         {
           "word": "to",
-          "start": 40.33,
-          "end": 40.437
+          "start": 44.031,
+          "end": 44.144,
+          "is_emphasis": false
         },
         {
           "word": "crush",
-          "start": 40.449,
-          "end": 40.717
+          "start": 44.157,
+          "end": 44.482,
+          "is_emphasis": true
         },
         {
           "word": "incoming",
-          "start": 40.747,
-          "end": 41.175
+          "start": 44.494,
+          "end": 44.981,
+          "is_emphasis": false
         },
         {
           "word": "fleets.",
-          "start": 41.223,
-          "end": 41.544
+          "start": 44.994,
+          "end": 45.556,
+          "is_emphasis": false
         }
       ]
     }

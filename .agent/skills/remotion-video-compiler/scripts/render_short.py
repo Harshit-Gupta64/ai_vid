@@ -11,6 +11,7 @@ import argparse
 import json
 import math
 import os
+import re
 import shutil
 import struct
 import subprocess
@@ -124,13 +125,13 @@ def resolve_bgm_track(bgm_path: Path = None, topic_path: Path = None, topic_id: 
 
     import hashlib
     category_pools = {
-        "siege_engine": ["rites.mp3", "tense_drone.wav", "SCP-x3x.mp3", "the_descent.mp3", "hitman.mp3"],
+        "siege_engine": ["rites.mp3", "tense_drone.wav", "SCP-x3x.mp3", "the_descent.mp3", "soundtrack_s1.mp3"],
         "forgotten_siege_engine": ["rites.mp3", "tense_drone.wav", "SCP-x3x.mp3", "soundtrack_s1.mp3", "the_descent.mp3"],
         "cavalry_battle": ["percussive_war.wav", "volatile_reaction.mp3", "soundtrack.mp3", "clash_defiant.mp3"],
-        "tactical_anomaly": ["volatile_reaction.mp3", "hitman.mp3", "percussive_war.wav", "soundtrack.mp3", "clash_defiant.mp3"],
-        "bizarre_invention": ["soundtrack_s1.mp3", "hitman.mp3", "rites.mp3", "tense_drone.wav", "SCP-x3x.mp3"],
+        "tactical_anomaly": ["volatile_reaction.mp3", "soundtrack_s1.mp3", "percussive_war.wav", "soundtrack.mp3", "clash_defiant.mp3"],
+        "bizarre_invention": ["volatile_reaction.mp3", "soundtrack_s1.mp3", "clash_defiant.mp3", "rites.mp3", "tense_drone.wav"],
         "naval_clash": ["clash_defiant.mp3", "soundtrack.mp3", "volatile_reaction.mp3", "percussive_war.wav", "the_descent.mp3"],
-        "default": ["soundtrack.mp3", "volatile_reaction.mp3", "rites.mp3", "percussive_war.wav", "hitman.mp3", "clash_defiant.mp3"]
+        "default": ["soundtrack.mp3", "volatile_reaction.mp3", "rites.mp3", "percussive_war.wav", "soundtrack_s1.mp3", "clash_defiant.mp3"]
     }
 
     pool = category_pools.get(category, category_pools["default"])
@@ -178,10 +179,62 @@ def format_ass_time(seconds: float) -> str:
     return f"{h}:{m:02d}:{s:05.2f}"
 
 
-def generate_ass_subtitles(timestamps_path: Path, output_ass_path: Path, max_words_per_chunk: int = 3, max_chars_per_chunk: int = 21) -> bool:
+def chunk_scene_words(words: list, max_words: int = 10) -> list:
+    """
+    Chunks a list of timestamped words into coherent grammatical phrases/clauses.
+    Sentences that fit within max_words (default 10) are NEVER split — they are returned
+    as a single cue regardless of internal punctuation or balance scoring.
+    Only sentences exceeding max_words are split, preferring breaks after punctuation
+    (,, ., ;, :, !) or before conjunctions/prepositions (and, into, across, etc.).
+    Ensures balanced splits and prevents 1-word orphan chunks.
+    """
+    if not words:
+        return []
+    total = len(words)
+    total_chars = sum(len(w.get("word", "")) for w in words) + max(0, total - 1)
+    if total <= max_words and total_chars <= 65:
+        return [words]
+
+    BREAK_WORDS = {
+        "and", "but", "or", "nor", "for", "yet", "so",
+        "into", "onto", "across", "through", "beneath", "under", "above", "from", "inside",
+        "while", "where", "when", "before", "after", "without", "against", "to"
+    }
+    target_mid = total / 2.0
+    candidates = []
+    
+    for i in range(3, total - 2):
+        w_prev = words[i-1].get("word", "")
+        score = 0
+        if w_prev.endswith((",", ";", ":", "—", "-")):
+            score += 45
+        clean_w = re.sub(r"[^\w]", "", words[i].get("word", "")).lower()
+        if clean_w in BREAK_WORDS:
+            score += 35
+        # Strong bonus if both chunks fit comfortably within max_words
+        if max(i, total - i) <= max_words:
+            score += 60
+        # Distance penalty from mid
+        score -= abs(i - target_mid) * 4
+        candidates.append((score, i))
+
+    candidates.sort(key=lambda x: x[0], reverse=True)
+    best_split = candidates[0][1]
+    c1, c2 = words[:best_split], words[best_split:]
+    res = []
+    for c in [c1, c2]:
+        if len(c) > max_words:
+            res.extend(chunk_scene_words(c, max_words=max_words))
+        else:
+            res.append(c)
+    return res
+
+
+def generate_ass_subtitles(timestamps_path: Path, output_ass_path: Path) -> bool:
     """
     Generates an Advanced SubStation Alpha (.ass) subtitle file tailored for vertical 9:16 video.
-    Aligns text in TikTok/Reels safe zones (MarginV=420) and limits chunks to 2-3 words (<22 chars).
+    Uses an archival museum aesthetic: warm parchment Georgia-Bold serif with subtle charcoal framing
+    and clause-aware phrase chunking (single-clause sentences up to 10 words kept intact).
     """
     if not timestamps_path.exists():
         return False
@@ -201,7 +254,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Kinetic,Arial,60,&H00FFFFFF,&H0000D7FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,5,3,2,100,100,420,1
+Style: Archival,Georgia,54,&H00E0EFF5,&H0000D7FF,&H80121518,&H9005080A,-1,0,0,0,100,100,0.8,0,1,2.0,1.0,2,100,100,420,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -212,37 +265,25 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         words = sc.get("words", [])
         if not words:
             continue
-        curr_chunk = []
-        curr_chars = 0
-        chunks = []
-        for w in words:
-            w_text = w.get("word", "")
-            if len(curr_chunk) >= max_words_per_chunk or (curr_chunk and curr_chars + len(w_text) + 1 > max_chars_per_chunk):
-                chunks.append(curr_chunk)
-                curr_chunk = [w]
-                curr_chars = len(w_text)
-            else:
-                curr_chunk.append(w)
-                curr_chars += len(w_text) + (1 if curr_chunk else 0)
-        if curr_chunk:
-            chunks.append(curr_chunk)
+        chunks = chunk_scene_words(words, max_words=10)
 
         for chunk in chunks:
             t_start = chunk[0].get("start", 0.0)
             t_end = chunk[-1].get("end", t_start + 0.8)
             if t_end - t_start < 0.6:
                 t_end = t_start + 0.6
-            text = " ".join(w.get("word", "") for w in chunk).strip().upper()
+            text = " ".join(w.get("word", "") for w in chunk).strip()
             t_start_str = format_ass_time(t_start)
             t_end_str = format_ass_time(t_end)
-            events.append(f"Dialogue: 0,{t_start_str},{t_end_str},Kinetic,,0,0,0,,{text}")
+            events.append(f"Dialogue: 0,{t_start_str},{t_end_str},Archival,,0,0,0,,{text}")
 
     output_ass_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_ass_path, "w", encoding="utf-8") as f:
         f.write(header + "\n".join(events) + "\n")
 
-    print(f"[INFO] Kinetic captions generated: {output_ass_path.resolve()} ({len(events)} cues)")
+    print(f"[INFO] Archival kinetic captions generated: {output_ass_path.resolve()} ({len(events)} cues)")
     return True
+
 
 
 def compile_video_ffmpeg(storyboard: dict, audio_path: Path, timestamps_path: Path, frames_dir: Path, bgm_path: Path, output_path: Path, burn_captions: bool = True):
@@ -264,9 +305,38 @@ def compile_video_ffmpeg(storyboard: dict, audio_path: Path, timestamps_path: Pa
         print("[ERROR] No scenes found in storyboard.", file=sys.stderr)
         return False
 
+    # Strict audio-video duration alignment:
+    # 1. Load exact physical audio slice durations from timestamps.json (end_time - start_time)
+    ts_durations = {}
+    if timestamps_path and timestamps_path.exists():
+        try:
+            with open(timestamps_path, "r", encoding="utf-8") as f:
+                ts_data = json.load(f)
+                for sc in ts_data.get("scenes", []):
+                    sc_id = sc.get("scene_id")
+                    st = float(sc.get("start_time", 0.0))
+                    et = float(sc.get("end_time", 0.0))
+                    if et > st and sc_id is not None:
+                        ts_durations[sc_id] = round(et - st, 3)
+        except Exception as e:
+            print(f"[WARN] Could not parse timestamps: {e}", file=sys.stderr)
+
+    # 2. Check for physical WAV files in scenes audio directory (audio_path.parent / "scenes")
+    scenes_audio_dir = audio_path.parent / "scenes"
     scene_durations = []
-    for sc in scenes:
-        dur = float(sc.get("target_duration", 0.0))
+    for idx, sc in enumerate(scenes):
+        scene_id = sc.get("scene_id", idx + 1)
+        dur = ts_durations.get(scene_id)
+        if dur is None or dur <= 0:
+            scene_wav = scenes_audio_dir / f"scene_{scene_id}.wav"
+            if scene_wav.exists():
+                try:
+                    with wave.open(str(scene_wav), "rb") as wf:
+                        dur = round(wf.getnframes() / wf.getframerate(), 3)
+                except Exception:
+                    pass
+        if dur is None or dur <= 0:
+            dur = float(sc.get("target_duration", 0.0))
         if dur <= 0:
             time_range = sc.get("time_range", "")
             if "-" in time_range:
@@ -280,6 +350,21 @@ def compile_video_ffmpeg(storyboard: dict, audio_path: Path, timestamps_path: Pa
         scene_durations.append(dur)
 
     total_target_duration = sum(scene_durations)
+
+    # Cross-verify with voiceover.wav physical duration to guarantee video_duration == audio_duration
+    if audio_path.exists():
+        try:
+            with wave.open(str(audio_path), "rb") as wf:
+                voice_physical_dur = round(wf.getnframes() / wf.getframerate(), 3)
+                diff = round(voice_physical_dur - total_target_duration, 3)
+                if abs(diff) > 0.001 and scene_durations:
+                    # Micro-adjust final scene so total video cuts match audio track with zero drift
+                    scene_durations[-1] = round(scene_durations[-1] + diff, 3)
+                    total_target_duration = round(sum(scene_durations), 3)
+                    print(f"[INFO] Slaved video cut points to voiceover.wav ({voice_physical_dur:.3f}s, micro-adjusted final scene by {diff:+.3f}s)")
+        except Exception:
+            pass
+
     print(f"[INFO] Compiling {len(scenes)} micro-scenes (Total duration: {total_target_duration:.2f}s, avg: {total_target_duration/len(scenes):.2f}s/cut)...")
 
     input_args = []
@@ -300,38 +385,50 @@ def compile_video_ffmpeg(storyboard: dict, audio_path: Path, timestamps_path: Pa
         input_args.extend(["-i", str(frame_file.resolve())])
         scene_frames = int(duration * fps)
 
-        # Check for climax/reveal scenes with high-intensity keywords
-        scene_cue_text = f"{scene.get('sound_fx_cue', '')} {scene.get('narration', '')}".lower()
-        impact_keywords = ("shatter", "crush", "collapse", "scream", "explode")
-        if any(kw in scene_cue_text for kw in impact_keywords):
-            m_type = 4
-        else:
-            m_type = idx % 4
+        beat_type = str(scene.get("beat_type", "establishing")).lower().strip()
 
-        # Dynamic Ken Burns motions (normalized velocity to ensure steady motion across variable 2.0s-5.0s durations):
-        # 0: Fast push-in (steady zoom from 1.0 to 1.22)
-        # 1: Dynamic tilt-down (steady vertical pedestal ~90px within boundary)
-        # 2: Subtle tracking pan right (steady horizontal pan ~75px within boundary)
-        # 3: Snap zoom out (steady pull from 1.22 to 1.02)
-        # 4: Static hold (impact/climax beat)
-        if m_type == 0:
-            z_step = 0.22 / scene_frames
-            zoom_filter = f"zoompan=z='min(zoom+{z_step:.5f},1.25)':d={scene_frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}"
-        elif m_type == 1:
-            y_step = 90.0 / scene_frames
-            zoom_filter = f"zoompan=z='1.12':d={scene_frames}:x='iw/2-(iw/zoom/2)':y='if(eq(on,1),0,min(ih-(ih/zoom),y+{y_step:.3f}))':s={width}x{height}:fps={fps}"
-        elif m_type == 2:
-            x_step = 75.0 / scene_frames
-            zoom_filter = f"zoompan=z='1.12':d={scene_frames}:x='if(eq(on,1),0,min(iw-(iw/zoom),x+{x_step:.3f}))':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}"
-        elif m_type == 3:
-            z_step = 0.20 / scene_frames
-            zoom_filter = f"zoompan=z='if(eq(on,1),1.22,max(1.02,zoom-{z_step:.5f}))':d={scene_frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}"
+        # Priority 4: Motion variety on climax beats
+        # For climax_impact beat_type scenes specifically, replace continuous Ken Burns
+        # with a rapid snap-zoom (first 12 frames / 400ms from z=1.0 to 1.18) followed by a static hold.
+        if beat_type == "climax_impact":
+            zoom_filter = (
+                f"zoompan=z='if(lte(on,12),1.0+0.18*(on/12),1.18)':"
+                f"d={scene_frames}:"
+                f"x='iw/2-(iw/zoom/2)':"
+                f"y='ih/2-(ih/zoom/2)':"
+                f"s={width}x{height}:"
+                f"fps={fps}"
+            )
         else:
-            # m_type == 4: Static hold reserved for climax/reveal scenes
-            zoom_filter = f"zoompan=z='1.0':d={scene_frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}"
+            # Establishing, rising_tension, resolution_loop cycle through continuous Ken Burns motions:
+            # 0: Fast push-in (steady zoom from 1.0 to 1.22)
+            # 1: Dynamic tilt-down (steady vertical pedestal ~90px within boundary)
+            # 2: Subtle tracking pan right (steady horizontal pan ~75px within boundary)
+            # 3: Snap zoom out (steady pull from 1.22 to 1.02)
+            m_type = idx % 4
+            if m_type == 0:
+                z_step = 0.22 / scene_frames
+                zoom_filter = f"zoompan=z='min(zoom+{z_step:.5f},1.25)':d={scene_frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}"
+            elif m_type == 1:
+                y_step = 90.0 / scene_frames
+                zoom_filter = f"zoompan=z='1.12':d={scene_frames}:x='iw/2-(iw/zoom/2)':y='if(eq(on,1),0,min(ih-(ih/zoom),y+{y_step:.3f}))':s={width}x{height}:fps={fps}"
+            elif m_type == 2:
+                x_step = 75.0 / scene_frames
+                zoom_filter = f"zoompan=z='1.12':d={scene_frames}:x='if(eq(on,1),0,min(iw-(iw/zoom),x+{x_step:.3f}))':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}"
+            else:
+                z_step = 0.20 / scene_frames
+                zoom_filter = f"zoompan=z='if(eq(on,1),1.22,max(1.02,zoom-{z_step:.5f}))':d={scene_frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={width}x{height}:fps={fps}"
+
+        eq_map = {
+            "establishing": "eq=brightness=0.20:contrast=0.95:saturation=0.85",
+            "rising_tension": "eq=brightness=-0.06:contrast=1.25:saturation=1.15",
+            "climax_impact": "eq=brightness=-0.18:contrast=1.75:saturation=1.45",
+            "resolution_loop": "eq=brightness=0.12:contrast=1.05:saturation=0.88",
+        }
+        eq_filter = eq_map.get(beat_type, "eq=brightness=0:contrast=1:saturation=1")
 
         filter_complex_parts.append(
-            f"[{idx}:v]scale=1080:1920,{zoom_filter},trim=duration={duration},setpts=PTS-STARTPTS,setsar=1[v{idx}]"
+            f"[{idx}:v]scale=1080:1920,{zoom_filter},{eq_filter},trim=duration={duration},setpts=PTS-STARTPTS,setsar=1[v{idx}]"
         )
         concat_inputs.append(f"[v{idx}]")
 
@@ -363,19 +460,19 @@ def compile_video_ffmpeg(storyboard: dict, audio_path: Path, timestamps_path: Pa
             filter_complex_parts.append(f"[v_film]subtitles={ass_escaped}[v_captions]")
             final_v_out = "v_captions"
 
-    # Sidechain audio ducking with boundary fades (empirically tuned for broadcast-grade voice activation)
+    # Sidechain audio ducking with boundary fades (calibrated for audible BGM in gaps and clear voice)
     fade_out_start = max(0.0, total_target_duration - 1.5)
     audio_ducking_filter = (
         f"[{voice_idx}:a]volume=1.0,aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo,asplit=2[voice_main][voice_sidechain];"
         f"[{bgm_idx}:a]aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo,"
-        f"afade=t=in:ss=0:d=1.0,afade=t=out:st={fade_out_start:.2f}:d=1.5,volume=0.22[bgm_fmt];"
+        f"afade=t=in:ss=0:d=1.0,afade=t=out:st={fade_out_start:.2f}:d=1.5,volume=0.75[bgm_fmt];"
         f"[bgm_fmt][voice_sidechain]sidechaincompress="
-        f"threshold=0.018:"
-        f"ratio=12:"
+        f"threshold=0.07:"
+        f"ratio=4.5:"
         f"attack=15:"
-        f"release=300:"
+        f"release=80:"
         f"makeup=1.0[ducked_bgm];"
-        f"[voice_main][ducked_bgm]amix=inputs=2:duration=first:dropout_transition=2,"
+        f"[voice_main][ducked_bgm]amix=inputs=2:duration=first:dropout_transition=2:normalize=0,"
         f"alimiter=limit=0.95[a_out]"
     )
     filter_complex_parts.append(audio_ducking_filter)

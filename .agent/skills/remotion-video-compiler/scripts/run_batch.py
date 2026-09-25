@@ -215,7 +215,7 @@ def execute_topic_pipeline(topic_id: str, skip_qa: bool = False) -> dict:
         "--storyboard", str(storyboard_json.resolve()),
         "--output-audio", str(voiceover_wav.resolve()),
         "--output-timestamps", str(timestamps_json.resolve()),
-        "--rate", "+20%"
+        "--rate", "+14%"
     ]
     r3 = subprocess.run(s3_cmd, capture_output=True, text=True)
     if r3.returncode != 0:

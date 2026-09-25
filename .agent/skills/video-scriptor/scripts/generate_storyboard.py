@@ -241,6 +241,20 @@ def validate_storyboard_data(data: dict) -> list[str]:
                 if banned_proper_noun_was.search(s):
                     errors.append(f"Requirement 4 failed (Scene {sc_num}): Narration sentence opens with passive proper-noun 'X was/were' phrasing: '{s}'.")
 
+        # Emphasis words validation
+        emp_words = sc.get("emphasis_words", [])
+        if not isinstance(emp_words, list) or len(emp_words) < 1 or len(emp_words) > 2:
+            errors.append(f"Scene {sc_num}: 'emphasis_words' must be a list containing 1 to 2 key dramatic words/phrases.")
+        else:
+            for ew in emp_words:
+                if not isinstance(ew, str) or not ew.strip():
+                    errors.append(f"Scene {sc_num}: 'emphasis_words' contains an empty or non-string entry.")
+                else:
+                    clean_ew = ew.lower().strip(".,!?;:\"'")
+                    if clean_ew not in narration.lower():
+                        errors.append(f"Scene {sc_num}: emphasis word '{ew}' is not present in narration '{narration}'.")
+
+
     # Global pacing check: total narration word count within 15% of (total_duration_seconds * 2.8)
     if total_duration > 0:
         ideal_words = total_duration * 2.8
@@ -304,6 +318,7 @@ def generate_storyboard_with_gemini(
         "   - shot_scale (matching the required rotation)\n"
         "   - target_duration (float strictly within beat_type range)\n"
         "   - narration (scaled to duration, adhering strictly to phrasing bans)\n"
+        "   - emphasis_words (array of 1 to 2 key dramatic anchor words or short phrases from this scene's narration to receive vocal emphasis, e.g. [\"snapping\"], [\"clean in two\"]. Bias toward the single most dramatically crucial action verb or tactile noun per scene; do NOT over-mark)\n"
         "   - tactile_material_action (a physical, textural detail — what hands, tools, ropes, iron, wood, or materials are doing)\n"
         "   - visual_description (rich atmospheric scene description)\n"
         "   - camera_angle (e.g., 'extreme macro close-up, shallow depth of field', 'low-angle grounded POV')\n"
@@ -336,11 +351,14 @@ def generate_storyboard_with_gemini(
         types.Content(role="user", parts=[types.Part.from_text(text=user_prompt)])
     ]
 
+    models_to_try = [model, "gemini-flash-latest"] if model != "gemini-flash-latest" else [model]
+
     for attempt in range(1, max_retries + 1):
-        print(f"[INFO] Invoking Gemini API (model: {model}, attempt {attempt}/{max_retries})...")
+        active_model = models_to_try[(attempt - 1) % len(models_to_try)]
+        print(f"[INFO] Invoking Gemini API (model: {active_model}, attempt {attempt}/{max_retries})...")
         try:
             response = client.models.generate_content(
-                model=model,
+                model=active_model,
                 contents=contents,
                 config=config
             )
@@ -432,6 +450,7 @@ def compile_final_storyboard(storyboard_data: dict, topic_data: dict, engine: st
             "time_range": time_range,
             "target_duration": dur,
             "narration": narration,
+            "emphasis_words": sc.get("emphasis_words", []),
             "tactile_material_action": tactile,
             "visual_description": visual_desc,
             "camera_angle": angle,
@@ -479,41 +498,68 @@ def synthesize_algorithmic_storyboard(topic_data: dict) -> dict:
     m2 = motifs[2] if len(motifs) > 2 else "violent impact and shattering defenses"
     m3 = motifs[3] if len(motifs) > 3 else "retreating ranks under dark dramatic skies"
 
-    # Clean hook of any banned openers
+    # Clean hook of any banned openers without chopping clauses mid-sentence
     clean_hook = re.sub(r"^in\s+\d{1,4}\s*(?:bc|ad)?\s*,?\s*", "", hook, flags=re.IGNORECASE).strip()
     clean_hook = clean_hook[0].upper() + clean_hook[1:] if clean_hook else "Enemy forces deployed under cover of night."
-    hook_words = clean_hook.split()
-    if len(hook_words) > 7:
-        clean_hook = " ".join(hook_words[:7]).rstrip(",;:-") + "."
+    # Extract the first complete sentence
+    sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", clean_hook) if s.strip()]
+    first_sentence = sentences[0] if sentences else clean_hook
+    first_sentence = first_sentence.rstrip(",;:-")
+    if not first_sentence.endswith((".", "!", "?")):
+        first_sentence += "."
+
+    hook_words = first_sentence.split()
+    if len(hook_words) > 12:
+        # If excessively long (>12 words), split at punctuation or major clause conjunction
+        punct_parts = re.split(r"\s*[:;—–]\s*", first_sentence)
+        if len(punct_parts) > 1 and 5 <= len(punct_parts[0].split()) <= 12:
+            clean_hook = punct_parts[0].strip().rstrip(",;:-") + "."
+        else:
+            clause_match = re.search(r"^(.*?)\s+\b(?:until|before|when|where|while)\b", first_sentence, re.IGNORECASE)
+            if clause_match and 5 <= len(clause_match.group(1).split()) <= 12:
+                clean_hook = clause_match.group(1).strip().rstrip(",;:-") + "."
+            else:
+                # Keep full first sentence rather than creating broken ungrammatical fragments
+                clean_hook = first_sentence
+    else:
+        clean_hook = first_sentence
 
     clean_title = re.sub(r"^(?:The\s+)?", "", title).split(":")[0].strip()
 
+    # Select the most vivid action verb or key tactical noun in clean_hook for emphasis
+    hook_clean_words = [re.sub(r"[^\w]", "", w).lower() for w in clean_hook.split()]
+    action_candidates = [
+        w for w in hook_clean_words
+        if len(w) > 3 and w not in {"this", "that", "with", "from", "were", "been", "have", "they", "their", "under", "when", "where", "into", "onto", "using"}
+    ]
+    scene_1_emphasis = [action_candidates[0]] if action_candidates else [hook_clean_words[0]]
+
     # 13-beat structure dynamically composed from topic facts:
     beat_configs = [
-        # Establishing (2.0s - 2.8s, ~5-7 words)
-        ("establishing", 2.4, clean_hook, f"Cold mist rising across {m0}", f"Macro perspective of {m0}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "cold silver moonlight on dark metal", "slow push-in", "distant_war_horns"),
-        ("establishing", 2.5, f"Armies clashed along the disputed frontier.", f"Drenched earth vibrating under rhythmic marching boots", f"Grounded perspective of {m0}", "low-angle grounded POV", "24mm anamorphic wide", "flickering bronze lantern light", "tracking pan right", "rhythmic_drum_beat"),
-        ("establishing", 2.6, f"Defenders faced overwhelming tactical superior forces.", f"Rough banners snapping in cold storm wind", f"Tactical layout showing {m0}", "wide tactical action view", "35mm wide prime", "overcast dawn mist cutting across ramparts", "subtle pedestal tilt-down", "wind_howl"),
+        # Establishing (2.0s - 2.8s, ~5-9 words)
+        ("establishing", 2.6, clean_hook, scene_1_emphasis, f"Cold mist rising across {m0}", f"Macro perspective of {m0}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "cold silver moonlight on dark metal", "slow push-in", "distant_war_horns"),
+        ("establishing", 2.5, f"Armies clashed along the disputed frontier.", ["clashed"], f"Drenched earth vibrating under rhythmic marching boots", f"Grounded perspective of {m0}", "low-angle grounded POV", "24mm anamorphic wide", "flickering bronze lantern light", "tracking pan right", "rhythmic_drum_beat"),
+        ("establishing", 2.6, f"Defenders faced overwhelming tactical superior forces.", ["overwhelming"], f"Rough banners snapping in cold storm wind", f"Tactical layout showing {m0}", "wide tactical action view", "35mm wide prime", "overcast dawn mist cutting across ramparts", "subtle pedestal tilt-down", "wind_howl"),
 
         # Rising Tension (2.8s - 3.5s, ~7-9 words)
-        ("rising_tension", 3.0, f"Commanders prepared the decisive secret weapon.", f"Hands tightening grip on leather shield straps", f"Medium focus showing {m1}", "medium tension portrait", "50mm natural prime", "chiaroscuro shadows across hardened bronze armor", "slow push-in", "leather_creak"),
-        ("rising_tension", 3.2, f"Engineers primed {clean_title[:28]} for immediate deployment.", f"Heavy mechanics swinging into place under tension", f"Mechanical detail of {m1}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "amber brazier glow illuminating wooden gear teeth", "tracking pan right", "timber_winch_strain"),
-        ("rising_tension", 3.0, f"Forward ranks advanced without suspecting the hidden trap.", f"Pitch resin sizzling against hot iron rivets", f"Grounded view of {f0}", "low-angle grounded POV", "24mm anamorphic wide", "harsh brazier sparks cutting through shadows", "subtle pedestal tilt-down", "iron_creak"),
-        ("rising_tension", 3.1, f"The vanguard marched directly into the targeted killzone.", f"Foot soldiers wading through churning foam and mud", f"Wide view of {m1}", "wide tactical action view", "35mm wide prime", "deep blue twilight with volumetric fog", "slow push-in", "muffled_footsteps"),
-        ("rising_tension", 3.2, f"Defenders unleashed the stratagem with sudden explosive force.", f"Taut ropes snapping free from forged iron triggers", f"Tense portrait of {f1}", "medium tension portrait", "50mm natural prime", "dramatic rim lighting on determined faces", "tracking pan right", "rope_snap_impact"),
+        ("rising_tension", 2.9, f"Commanders prepared the decisive secret weapon.", ["secret weapon"], f"Hands tightening grip on leather shield straps", f"Medium focus showing {m1}", "medium tension portrait", "50mm natural prime", "chiaroscuro shadows across hardened bronze armor", "slow push-in", "leather_creak"),
+        ("rising_tension", 3.0, f"Engineers primed {clean_title} for deployment.", ["primed"], f"Heavy mechanics swinging into place under tension", f"Mechanical detail of {m1}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "amber brazier glow illuminating wooden gear teeth", "tracking pan right", "timber_winch_strain"),
+        ("rising_tension", 2.9, f"Forward ranks advanced without suspecting the hidden trap.", ["hidden trap"], f"Pitch resin sizzling against hot iron rivets", f"Grounded view of {f0}", "low-angle grounded POV", "24mm anamorphic wide", "harsh brazier sparks cutting through shadows", "subtle pedestal tilt-down", "iron_creak"),
+        ("rising_tension", 3.0, f"The vanguard marched directly into the targeted killzone.", ["killzone"], f"Foot soldiers wading through churning foam and mud", f"Wide view of {m1}", "wide tactical action view", "35mm wide prime", "deep blue twilight with volumetric fog", "slow push-in", "muffled_footsteps"),
+        ("rising_tension", 3.0, f"Defenders unleashed the stratagem with sudden explosive force.", ["explosive force"], f"Taut ropes snapping free from forged iron triggers", f"Tense portrait of {f1}", "medium tension portrait", "50mm natural prime", "dramatic rim lighting on determined faces", "tracking pan right", "rope_snap_impact"),
 
-        # Climax Impact (3.5s - 5.0s, ~9-12 words)
-        ("climax_impact", 4.2, f"Devastating impact shattered the enemy vanguard, breaking defensive lines across the battlefield.", f"Shattered timber and shields bursting under extreme violent torque", f"Violent kinetic climax showing {m2}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "roaring orange firelight catching flying splinters", "slow push-in", "catastrophic_timber_shatter"),
-        ("climax_impact", 3.8, f"Panic tore through invading ranks as counter-measures overwhelmed all resistance.", f"Armored bodies tumbling through smoke and churning mud", f"Low upward view of {m2}", "low-angle grounded POV", "24mm anamorphic wide", "flashing torch embers illuminating violent impacts", "tracking pan right", "crushing_impact_splash"),
-        ("climax_impact", 4.0, f"Unstoppable tactical surprise shattered enemy morale, turning disciplined lines into frantic retreat.", f"Panicked soldiers dropping weapons into the mud", f"Wide panoramic destruction of {f2}", "wide tactical action view", "35mm wide prime", "smoky chiaroscuro silhouette against burning wreckage", "subtle pedestal tilt-down", "screams_and_fire"),
+        # Climax Impact (3.5s - 5.0s, ~8-10 words)
+        ("climax_impact", 3.8, f"Devastating impact shattered enemy ranks across the battlefield.", ["shattered"], f"Shattered timber and shields bursting under extreme violent torque", f"Violent kinetic climax showing {m2}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "roaring orange firelight catching flying splinters", "slow push-in", "catastrophic_timber_shatter"),
+        ("climax_impact", 3.6, f"Panic tore through invading lines as defenses overwhelmed resistance.", ["overwhelmed"], f"Armored bodies tumbling through smoke and churning mud", f"Low upward view of {m2}", "low-angle grounded POV", "24mm anamorphic wide", "flashing torch embers illuminating violent impacts", "tracking pan right", "crushing_impact_splash"),
+        ("climax_impact", 3.6, f"Tactical surprise shattered enemy morale into frantic retreat.", ["frantic retreat"], f"Panicked soldiers dropping weapons into the mud", f"Wide panoramic destruction of {f2}", "wide tactical action view", "35mm wide prime", "smoky chiaroscuro silhouette against burning wreckage", "subtle pedestal tilt-down", "screams_and_fire"),
 
-        # Resolution / Loop (2.5s - 3.5s, ~7-10 words)
-        ("resolution_loop", 3.0, f"The surviving invaders retreated across the shattered battleground.", f"Battered helmet resting half-submerged in wet shoreline sand", f"Solemn aftermath portrait showing {m3}", "medium tension portrait", "50mm natural prime", "fading twilight rim light on tranquil waves", "slow push-in", "distant_surf"),
-        ("resolution_loop", 2.8, f"Ancient chronicles permanently recorded {clean_title[:28]} as decisive warfare.", f"Lone iron relic resting motionless over quiet battlements", f"Haunting final frame linking to {m3}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "cold silver moonlight on damp stone", "tracking pan right", "ambient_drone")
+        # Resolution / Loop (2.5s - 3.5s, ~7-9 words)
+        ("resolution_loop", 2.8, f"The surviving invaders retreated across the shattered battleground.", ["retreated"], f"Battered helmet resting half-submerged in wet shoreline sand", f"Solemn aftermath portrait showing {m3}", "medium tension portrait", "50mm natural prime", "fading twilight rim light on tranquil waves", "slow push-in", "distant_surf"),
+        ("resolution_loop", 3.0, f"Ancient chronicles recorded {clean_title} as decisive warfare.", ["decisive"], f"Lone iron relic resting motionless over quiet battlements", f"Haunting final frame linking to {m3}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "cold silver moonlight on damp stone", "tracking pan right", "ambient_drone")
     ]
 
     scenes = []
-    for idx, (btype, dur, narr, tactile, vdesc, angle, focal, light, motion, sfx) in enumerate(beat_configs):
+    for idx, (btype, dur, narr, emp_words, tactile, vdesc, angle, focal, light, motion, sfx) in enumerate(beat_configs):
         scale = SHOT_SCALES[idx % 4]
         scenes.append({
             "scene_id": idx + 1,
@@ -521,6 +567,7 @@ def synthesize_algorithmic_storyboard(topic_data: dict) -> dict:
             "shot_scale": scale,
             "target_duration": dur,
             "narration": narr,
+            "emphasis_words": emp_words,
             "tactile_material_action": tactile,
             "visual_description": vdesc,
             "camera_angle": angle,

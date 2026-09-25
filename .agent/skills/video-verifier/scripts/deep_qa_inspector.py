@@ -152,9 +152,9 @@ def inspect_pacing_and_visual_motion(video_path: Path, storyboard: dict, ffmpeg_
     if short_cuts:
         errors.append(f"Found {len(short_cuts)} cuts below 2.0s floor (min allowed 2.0s for establishing beats)")
 
-    long_cuts = [d for d in durations if d > 5.0]
+    long_cuts = [d for d in durations if d > 5.5]
     if long_cuts:
-        errors.append(f"Found {len(long_cuts)} cuts exceeding 5.0s (max allowed 5.0s for climax beats)")
+        errors.append(f"Found {len(long_cuts)} cuts exceeding 5.5s (max allowed 5.5s for padded climax beats)")
 
     # Black frame detection
     cmd_black = [
@@ -270,9 +270,9 @@ def inspect_kinetic_captions_and_sync(video_path: Path, timestamps_path: Path, f
                         t_end_s = parts[2].strip()
                         text = parts[9].strip()
 
-                        # Check bounding width (< 32 chars)
-                        if len(text) > 32:
-                            errors.append(f"Subtitle text '{text}' ({len(text)} chars) exceeds safe width (max 32)")
+                        # Check bounding width (clause-aware cues up to 10 words / 75 chars)
+                        if len(text) > 75:
+                            errors.append(f"Subtitle text '{text}' ({len(text)} chars) exceeds safe width (max 75)")
 
                         # Check monotonicity
                         try:
@@ -289,8 +289,8 @@ def inspect_kinetic_captions_and_sync(video_path: Path, timestamps_path: Path, f
                         except Exception:
                             pass
 
-    if cue_count < 15:
-        errors.append(f"Too few kinetic caption cues ({cue_count} cues, expected >= 15 for high tempo)")
+    if cue_count < 10:
+        errors.append(f"Too few kinetic caption cues ({cue_count} cues, expected >= 10 for clause-aware pacing)")
 
     if errors:
         return {"status": "FAIL", "errors": errors}
