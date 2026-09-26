@@ -17,11 +17,13 @@ Features:
 import argparse
 import concurrent.futures
 import hashlib
+import io
 import json
 import math
 import os
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -94,6 +96,11 @@ def render_pil_fallback_frame(
         return False
 
 
+# Deliberate inter-request spacing to prevent IP rate-limiting (e.g., HTTP 429) on Pollinations
+_LAST_POLLINATIONS_CALL_TIME = 0.0
+_MIN_POLLINATIONS_INTERVAL = 3.5  # seconds between consecutive calls
+
+
 def download_single_frame_pollinations(
     scene_id: int,
     prompt: str,
@@ -104,9 +111,11 @@ def download_single_frame_pollinations(
     height: int = 1920,
     model: str = "flux",
     max_retries: int = 3,
-    timeout: int = 40
+    timeout: int = 45
 ) -> bool:
-    """Renders a keyframe using Pollinations with API key support and turbo fallback."""
+    """Renders a keyframe using Pollinations with API key support, request spacing, and retry backoff."""
+    global _LAST_POLLINATIONS_CALL_TIME
+
     if output_path.exists() and output_path.stat().st_size > 5000:
         print(f"[CACHE] Scene {scene_id:02d} already rendered ({output_path.stat().st_size/1024:.1f} KB): {output_path.name}")
         return True
@@ -124,52 +133,103 @@ def download_single_frame_pollinations(
 
     current_model = model
     for attempt in range(1, max_retries + 1):
+        # 1. Enforce deliberate request spacing (at least 3.5s gap between consecutive API calls)
+        now = time.time()
+        elapsed_since_last = now - _LAST_POLLINATIONS_CALL_TIME
+        if _LAST_POLLINATIONS_CALL_TIME > 0 and elapsed_since_last < _MIN_POLLINATIONS_INTERVAL:
+            sleep_gap = _MIN_POLLINATIONS_INTERVAL - elapsed_since_last
+            print(f"[POLLINATIONS SPACING] Scene {scene_id:02d}: Pausing {sleep_gap:.2f}s before request to prevent rate limiting...")
+            time.sleep(sleep_gap)
+
         key_param = f"&key={api_key}" if api_key else ""
         url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model={current_model}&nologo=true&seed={seed}{key_param}"
+
+        t0 = time.time()
         try:
             req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req, timeout=timeout) as response:
-                if response.status == 200:
-                    data = response.read()
-                    if len(data) > 5000:
-                        output_path.parent.mkdir(parents=True, exist_ok=True)
-                        with open(output_path, "wb") as f:
-                            f.write(data)
-                        print(f"[SUCCESS] Scene {scene_id:02d} rendered ({len(data)/1024:.1f} KB, {current_model}): {output_path.name}")
-                        return True
-                    else:
-                        print(f"[WARN] Scene {scene_id:02d} attempt {attempt}: Small payload ({len(data)} B), retrying...", file=sys.stderr)
+                call_duration = time.time() - t0
+                _LAST_POLLINATIONS_CALL_TIME = time.time()
+                status_code = response.status
+                data = response.read()
+
+                print(f"[POLLINATIONS] Scene {scene_id:02d} | Attempt {attempt}/{max_retries} | HTTP {status_code} OK | Duration: {call_duration:.2f}s | Model: {current_model} | Size: {len(data)/1024:.1f} KB")
+
+                if len(data) > 5000:
+                    output_path.parent.mkdir(parents=True, exist_ok=True)
+                    # Convert to clean RGB PNG (resizing if Pollinations clamps dimension)
+                    img = Image.open(io.BytesIO(data)).convert("RGB")
+                    if img.size != (width, height):
+                        img = img.resize((width, height), Image.Resampling.LANCZOS)
+                    img.save(output_path, "PNG")
+                    print(f"[POLLINATIONS SUCCESS] Scene {scene_id:02d} saved as {output_path.name} ({img.size[0]}x{img.size[1]} PNG)")
+                    return True
                 else:
-                    print(f"[WARN] Scene {scene_id:02d} attempt {attempt}: HTTP {response.status}, retrying...", file=sys.stderr)
-        except Exception as e:
-            err_str = str(e)
-            if "429" in err_str:
-                backoff_delay = 8 * attempt
-                print(f"[WARN] Scene {scene_id:02d} attempt {attempt}: Rate limited (429). Retrying {current_model} in {backoff_delay}s...", file=sys.stderr)
-                time.sleep(backoff_delay)
+                    print(f"[WARN] Scene {scene_id:02d} | Attempt {attempt}/{max_retries}: Small payload ({len(data)} B), retrying...", file=sys.stderr)
+
+        except urllib.error.HTTPError as he:
+            call_duration = time.time() - t0
+            _LAST_POLLINATIONS_CALL_TIME = time.time()
+            status_code = he.code
+            print(f"[POLLINATIONS] Scene {scene_id:02d} | Attempt {attempt}/{max_retries} | HTTP {status_code} ({he.reason}) | Duration: {call_duration:.2f}s | Model: {current_model}", file=sys.stderr)
+
+            if status_code == 429:
+                backoff = 5.0 * attempt
+                print(f"[POLLINATIONS RATE-LIMIT] Scene {scene_id:02d}: Rate limited (HTTP 429). Backing off {backoff:.1f}s before retry...", file=sys.stderr)
+                time.sleep(backoff)
+            elif status_code in (500, 502, 503, 504):
+                backoff = 3.0 * attempt
+                print(f"[POLLINATIONS SERVER-ERROR] Scene {scene_id:02d}: Server error (HTTP {status_code}). Backing off {backoff:.1f}s before retry...", file=sys.stderr)
+                time.sleep(backoff)
             else:
-                retry_delay = 2 * attempt
-                print(f"[WARN] Scene {scene_id:02d} attempt {attempt} failed: {e}. Retrying in {retry_delay}s...", file=sys.stderr)
-                time.sleep(retry_delay)
+                backoff = 2.0 * attempt
+                time.sleep(backoff)
+
+        except urllib.error.URLError as ue:
+            call_duration = time.time() - t0
+            _LAST_POLLINATIONS_CALL_TIME = time.time()
+            print(f"[POLLINATIONS] Scene {scene_id:02d} | Attempt {attempt}/{max_retries} | URLError ({ue.reason}) | Duration: {call_duration:.2f}s | Model: {current_model}", file=sys.stderr)
+            time.sleep(2.0 * attempt)
+
+        except Exception as e:
+            call_duration = time.time() - t0
+            _LAST_POLLINATIONS_CALL_TIME = time.time()
+            print(f"[POLLINATIONS] Scene {scene_id:02d} | Attempt {attempt}/{max_retries} | Error ({e}) | Duration: {call_duration:.2f}s | Model: {current_model}", file=sys.stderr)
+            time.sleep(2.0 * attempt)
 
     # Secondary try with 'turbo' if flux timed out/exhausted
     if model != "turbo":
-        print(f"[WARN] Scene {scene_id:02d}: Flux retries exhausted. Attempting Pollinations 'turbo'...", file=sys.stderr)
+        print(f"[NOTICE] Scene {scene_id:02d}: Flux attempts exhausted. Attempting Pollinations secondary fallback model 'turbo'...", file=sys.stderr)
+        now = time.time()
+        elapsed_since_last = now - _LAST_POLLINATIONS_CALL_TIME
+        if _LAST_POLLINATIONS_CALL_TIME > 0 and elapsed_since_last < _MIN_POLLINATIONS_INTERVAL:
+            sleep_gap = _MIN_POLLINATIONS_INTERVAL - elapsed_since_last
+            print(f"[POLLINATIONS SPACING] Scene {scene_id:02d}: Pausing {sleep_gap:.2f}s before turbo fallback...")
+            time.sleep(sleep_gap)
+
         key_param = f"&key={api_key}" if api_key else ""
         fallback_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width={width}&height={height}&model=turbo&nologo=true&seed={seed}{key_param}"
+        t0 = time.time()
         try:
             req = urllib.request.Request(fallback_url, headers=headers)
             with urllib.request.urlopen(req, timeout=timeout) as response:
-                if response.status == 200:
-                    data = response.read()
-                    if len(data) > 5000:
-                        output_path.parent.mkdir(parents=True, exist_ok=True)
-                        with open(output_path, "wb") as f:
-                            f.write(data)
-                        print(f"[FALLBACK] Scene {scene_id:02d} rendered with turbo fallback ({len(data)/1024:.1f} KB): {output_path.name}")
-                        return True
+                call_duration = time.time() - t0
+                _LAST_POLLINATIONS_CALL_TIME = time.time()
+                status_code = response.status
+                data = response.read()
+                print(f"[POLLINATIONS] Scene {scene_id:02d} | Turbo Fallback | HTTP {status_code} OK | Duration: {call_duration:.2f}s | Size: {len(data)/1024:.1f} KB")
+                if len(data) > 5000:
+                    output_path.parent.mkdir(parents=True, exist_ok=True)
+                    img = Image.open(io.BytesIO(data)).convert("RGB")
+                    if img.size != (width, height):
+                        img = img.resize((width, height), Image.Resampling.LANCZOS)
+                    img.save(output_path, "PNG")
+                    print(f"[POLLINATIONS SUCCESS] Scene {scene_id:02d} rendered with turbo fallback: {output_path.name}")
+                    return True
         except Exception as fe:
-            print(f"[WARN] Scene {scene_id:02d}: Fallback to turbo failed: {fe}", file=sys.stderr)
+            call_duration = time.time() - t0
+            _LAST_POLLINATIONS_CALL_TIME = time.time()
+            print(f"[POLLINATIONS ERROR] Scene {scene_id:02d}: Fallback to turbo failed: {fe} | Duration: {call_duration:.2f}s", file=sys.stderr)
 
     return False
 
@@ -212,6 +272,12 @@ def render_scene_frame(
         )
         if ok:
             return True, "pollinations"
+
+    # CRITICAL: If engine was forced to 'pollinations', DO NOT fall through to PIL!
+    # Fail loudly so rate limits or errors are visible to the operator.
+    if engine == "pollinations":
+        print(f"[ERROR] Scene {scene_id:02d}: Forced engine 'pollinations' failed to produce keyframe. PIL fallback is strictly DISABLED for this run.", file=sys.stderr)
+        return False, "pollinations_failed"
 
     # 3. PIL Fallback
     print(f"[NOTICE] Scene {scene_id:02d}: Falling through to PIL artistic fallback...")
@@ -262,6 +328,13 @@ def generate_frames_parallel(
         else:
             print("[ENGINE] ComfyUI unreachable (offline/cloud runner). Falling through to engine: pollinations")
             resolved_engine = "pollinations"
+    elif engine == "pollinations":
+        print("[ENGINE FORCED] Forcing engine: pollinations. Skipping ComfyUI health check and disabling PIL fallback.")
+
+    # When using Pollinations, serialize generation (1 worker) to prevent concurrent burst rate limits
+    if resolved_engine == "pollinations" and max_workers > 1:
+        print(f"[POLLINATIONS] Overriding max_workers from {max_workers} to 1 (sequential) to ensure API rate limit compliance.")
+        max_workers = 1
 
     print(f"[INFO] Batch generating {len(scenes)} keyframes (Topic: {resolved_topic_id}, Engine: {resolved_engine}, Model: {model}, Resolution: {width}x{height})...")
 
