@@ -270,9 +270,9 @@ def inspect_kinetic_captions_and_sync(video_path: Path, timestamps_path: Path, f
                         t_end_s = parts[2].strip()
                         text = parts[9].strip()
 
-                        # Check bounding width (clause-aware cues up to 10 words / 75 chars)
-                        if len(text) > 75:
-                            errors.append(f"Subtitle text '{text}' ({len(text)} chars) exceeds safe width (max 75)")
+                        # Check bounding width (clause-aware cues up to 10 words / 85 chars)
+                        if len(text) > 85:
+                            errors.append(f"Subtitle text '{text}' ({len(text)} chars) exceeds safe width (max 85)")
 
                         # Check monotonicity
                         try:

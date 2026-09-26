@@ -213,10 +213,10 @@ async def synthesize_storyboard_edge_tts(
     current_time_offset = 0.0
     scene_audio_files = []
 
-    # Parse base rate and clamp strictly between 0% and +14% (effective max +15% with beat offsets)
+    # Parse base rate and clamp strictly between 0% and +25%
     base_rate_match = re.search(r"[-+]?\d+", rate)
-    base_rate_val = int(base_rate_match.group()) if base_rate_match else 14
-    base_rate_val = max(0, min(14, base_rate_val))
+    base_rate_val = int(base_rate_match.group()) if base_rate_match else 20
+    base_rate_val = max(0, min(25, base_rate_val))
 
     print(f"[INFO] Synthesizing {len(scenes)} scenes with edge-tts (Voice: {voice}, Base Rate: +{base_rate_val}%)...")
 
@@ -231,7 +231,7 @@ async def synthesize_storyboard_edge_tts(
             beat_type = str(scene.get("beat_type", "rising_tension")).lower().strip()
             beat_prosody = PROSODY_BY_BEAT.get(beat_type, PROSODY_BY_BEAT.get("rising_tension", {"rate_offset": 0, "pitch": "+0Hz"}))
             rate_offset = beat_prosody.get("rate_offset", 0)
-            eff_rate_val = max(-10, min(15, base_rate_val + rate_offset))
+            eff_rate_val = max(-10, min(25, base_rate_val + rate_offset))
             scene_rate = f"{eff_rate_val:+d}%"
             scene_pitch = beat_prosody.get("pitch", "+0Hz")
 
@@ -252,12 +252,12 @@ async def synthesize_storyboard_edge_tts(
             with open(scene_mp3, "wb") as f:
                 f.write(audio_bytes)
 
-            # Pass 1: Clean conversion to 24kHz mono WAV + 0.35s decay pad (NO aggressive trailing silenceremove)
+            # Pass 1: Clean conversion to 24kHz mono WAV (strip leading digital silence so voice starts at t=0)
             scene_wav = temp_dir / f"scene_{scene_id}.wav"
             trim_cmd = [
                 ffmpeg_bin, "-y", "-hide_banner",
                 "-i", str(scene_mp3),
-                "-af", "silenceremove=start_periods=1:start_duration=0.01:start_threshold=-50dB,apad=pad_dur=0.35",
+                "-af", "silenceremove=start_periods=1:start_duration=0.01:start_threshold=-50dB",
                 "-ar", "24000", "-ac", "1",
                 str(scene_wav)
             ]
@@ -305,11 +305,13 @@ async def synthesize_storyboard_edge_tts(
                     })
                     curr += w_dur
 
-            # Enforce exact speech termination + 0.35s decay buffer (2.0s floor)
+            # Fix 1: Calibrated vocal decay (120ms) + explicit breath gap (200ms of pure digital silence)
             last_word_end = words[-1]["end"] if words else raw_audio_dur
-            desired_scene_dur = max(round(last_word_end + 0.35, 3), 2.0)
-            extra_pad = max(0.0, round(desired_scene_dur - raw_audio_dur, 3))
-            planned_scene_dur = desired_scene_dur
+            decay_dur = 0.120
+            decay_end = round(last_word_end + decay_dur, 3)
+            breath_gap = 0.200
+            planned_scene_dur = max(round(decay_end + breath_gap, 3), 2.0)
+            silence_pad = max(breath_gap, round(planned_scene_dur - decay_end, 3))
 
             # Layer 2: Targeted word-level emphasis boost (+2.5dB volume, +3.0dB presence EQ at 3kHz)
             emphasis_phrases = scene.get("emphasis_words", [])
@@ -317,7 +319,7 @@ async def synthesize_storyboard_edge_tts(
             if emphasis_intervals:
                 print(f"  [EMPHASIS] Scene {scene_id} emphasis intervals: {emphasis_intervals} for {emphasis_phrases}")
 
-            # Pass 2: Apply targeted word emphasis, 40ms exponential onset fade, extra pad (if needed), and tail micro-fade
+            # Pass 2: Apply word emphasis, onset fade, micro-fade out on vocal decay tail, and explicit silence breath gap
             padded_wav = temp_dir / f"scene_{scene_id}_padded.wav"
             af_filters = []
             for e_st, e_et in emphasis_intervals:
@@ -326,10 +328,10 @@ async def synthesize_storyboard_edge_tts(
                     f"equalizer=f=3000:t=q:w=1.0:g=3.0:enable='between(t,{e_st:.3f},{e_et:.3f})'"
                 )
             af_filters.append("afade=t=in:ss=0:d=0.04:curve=exp")
-            if extra_pad > 0.005:
-                af_filters.append(f"apad=pad_dur={extra_pad:.3f}")
-            fade_out_st = max(0.0, planned_scene_dur - 0.04)
-            af_filters.append(f"afade=t=out:st={fade_out_st:.3f}:d=0.04:curve=exp")
+            af_filters.append(f"atrim=0:{decay_end:.3f}")
+            fade_out_st = max(0.0, decay_end - 0.030)
+            af_filters.append(f"afade=t=out:st={fade_out_st:.3f}:d=0.030:curve=exp")
+            af_filters.append(f"apad=pad_dur={silence_pad:.3f}")
 
             pad_cmd = [
                 ffmpeg_bin, "-y", "-hide_banner",
@@ -465,7 +467,7 @@ def main():
     parser.add_argument("--output-audio", type=str, default="assets/audio/voiceover.wav", help="Destination WAV file.")
     parser.add_argument("--output-timestamps", type=str, default="assets/audio/timestamps.json", help="Destination JSON file.")
     parser.add_argument("--voice", type=str, default="en-US-ChristopherNeural", help="Voice model identifier.")
-    parser.add_argument("--rate", type=str, default="+14%", help="Speech rate modification.")
+    parser.add_argument("--rate", type=str, default="+18%", help="Speech rate modification.")
 
 
     args = parser.parse_args()

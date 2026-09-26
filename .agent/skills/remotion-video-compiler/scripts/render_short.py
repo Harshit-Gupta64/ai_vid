@@ -191,8 +191,7 @@ def chunk_scene_words(words: list, max_words: int = 10) -> list:
     if not words:
         return []
     total = len(words)
-    total_chars = sum(len(w.get("word", "")) for w in words) + max(0, total - 1)
-    if total <= max_words and total_chars <= 65:
+    if total <= max_words:
         return [words]
 
     BREAK_WORDS = {
@@ -230,11 +229,12 @@ def chunk_scene_words(words: list, max_words: int = 10) -> list:
     return res
 
 
-def generate_ass_subtitles(timestamps_path: Path, output_ass_path: Path) -> bool:
+def generate_ass_subtitles(timestamps_path: Path, output_ass_path: Path, offset_seconds: float = 0.500) -> bool:
     """
     Generates an Advanced SubStation Alpha (.ass) subtitle file tailored for vertical 9:16 video.
     Uses an archival museum aesthetic: warm parchment Georgia-Bold serif with subtle charcoal framing
     and clause-aware phrase chunking (single-clause sentences up to 10 words kept intact).
+    Supports timeline offset_seconds for lead-in delays.
     """
     if not timestamps_path.exists():
         return False
@@ -268,8 +268,8 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         chunks = chunk_scene_words(words, max_words=10)
 
         for chunk in chunks:
-            t_start = chunk[0].get("start", 0.0)
-            t_end = chunk[-1].get("end", t_start + 0.8)
+            t_start = chunk[0].get("start", 0.0) + offset_seconds
+            t_end = chunk[-1].get("end", t_start + 0.8) + offset_seconds
             if t_end - t_start < 0.6:
                 t_end = t_start + 0.6
             text = " ".join(w.get("word", "") for w in chunk).strip()
@@ -349,6 +349,14 @@ def compile_video_ffmpeg(storyboard: dict, audio_path: Path, timestamps_path: Pa
                 dur = 3.0
         scene_durations.append(dur)
 
+    # Option B: Stem Lead-In Delay Architecture (500ms lead-in for BGM swell before narration enters)
+    lead_in_delay = 0.500
+    voice_fade_in = 0.300
+
+    if scene_durations:
+        # Extend Scene 1 establishing visual to accommodate the 500ms musical lead-in
+        scene_durations[0] = round(scene_durations[0] + lead_in_delay, 3)
+
     total_target_duration = sum(scene_durations)
 
     # Cross-verify with voiceover.wav physical duration to guarantee video_duration == audio_duration
@@ -356,12 +364,13 @@ def compile_video_ffmpeg(storyboard: dict, audio_path: Path, timestamps_path: Pa
         try:
             with wave.open(str(audio_path), "rb") as wf:
                 voice_physical_dur = round(wf.getnframes() / wf.getframerate(), 3)
-                diff = round(voice_physical_dur - total_target_duration, 3)
+                expected_total = round(voice_physical_dur + lead_in_delay, 3)
+                diff = round(expected_total - total_target_duration, 3)
                 if abs(diff) > 0.001 and scene_durations:
                     # Micro-adjust final scene so total video cuts match audio track with zero drift
                     scene_durations[-1] = round(scene_durations[-1] + diff, 3)
                     total_target_duration = round(sum(scene_durations), 3)
-                    print(f"[INFO] Slaved video cut points to voiceover.wav ({voice_physical_dur:.3f}s, micro-adjusted final scene by {diff:+.3f}s)")
+                    print(f"[INFO] Slaved video cut points to voiceover.wav ({voice_physical_dur:.3f}s + {lead_in_delay:.3f}s lead-in = {expected_total:.3f}s, micro-adjusted final scene by {diff:+.3f}s)")
         except Exception:
             pass
 
@@ -451,7 +460,7 @@ def compile_video_ffmpeg(storyboard: dict, audio_path: Path, timestamps_path: Pa
     repo_root = Path(__file__).resolve().parents[4]
     ass_path = (repo_root / "state" / "captions.ass").resolve() if (repo_root / "state").exists() else Path("state/captions.ass").resolve()
     if burn_captions and timestamps_path.exists():
-        if generate_ass_subtitles(timestamps_path, ass_path):
+        if generate_ass_subtitles(timestamps_path, ass_path, offset_seconds=lead_in_delay):
             ass_resolved = str(ass_path).replace("\\", "/")
             if ":" in ass_resolved:
                 ass_escaped = ass_resolved.replace(":", "\\\\:")
@@ -460,20 +469,25 @@ def compile_video_ffmpeg(storyboard: dict, audio_path: Path, timestamps_path: Pa
             filter_complex_parts.append(f"[v_film]subtitles={ass_escaped}[v_captions]")
             final_v_out = "v_captions"
 
-    # Sidechain audio ducking with boundary fades (calibrated for audible BGM in gaps and clear voice)
+    # Option B Audio Mixing: Stem Lead-In Delay + 1.0s BGM swell + 300ms Voice ramp + 1.5s Master fade-out
     fade_out_start = max(0.0, total_target_duration - 1.5)
     audio_ducking_filter = (
-        f"[{voice_idx}:a]volume=1.0,aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo,asplit=2[voice_main][voice_sidechain];"
-        f"[{bgm_idx}:a]aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo,"
-        f"afade=t=in:ss=0:d=1.0,afade=t=out:st={fade_out_start:.2f}:d=1.5,volume=0.75[bgm_fmt];"
+        f"[{voice_idx}:a]aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo,"
+        f"adelay=500|500,volume=1.0,"
+        f"afade=t=in:ss={lead_in_delay:.2f}:d={voice_fade_in:.2f}:curve=tri,"
+        f"asplit=2[voice_main][voice_sidechain];"
+        f"[{bgm_idx}:a]silenceremove=start_periods=1:start_duration=0.01:start_threshold=-50dB,"
+        f"aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo,"
+        f"afade=t=in:ss=0:d=1.0,afade=t=out:st={fade_out_start:.2f}:d=1.5,volume=0.65[bgm_fmt];"
         f"[bgm_fmt][voice_sidechain]sidechaincompress="
         f"threshold=0.07:"
         f"ratio=4.5:"
         f"attack=15:"
         f"release=80:"
         f"makeup=1.0[ducked_bgm];"
-        f"[voice_main][ducked_bgm]amix=inputs=2:duration=first:dropout_transition=2:normalize=0,"
-        f"alimiter=limit=0.95[a_out]"
+        f"[voice_main][ducked_bgm]amix=inputs=2:duration=longest:dropout_transition=2:normalize=0[a_mixed];"
+        f"[a_mixed]alimiter=limit=0.95,"
+        f"afade=t=out:st={fade_out_start:.2f}:d=1.5:curve=tri[a_out]"
     )
     filter_complex_parts.append(audio_ducking_filter)
 

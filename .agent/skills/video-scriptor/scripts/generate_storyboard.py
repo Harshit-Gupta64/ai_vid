@@ -130,7 +130,7 @@ def extract_json(raw_text: str) -> dict:
 
 
 BEAT_RANGES = {
-    "establishing": (2.0, 2.8),
+    "establishing": (2.0, 3.2),
     "rising_tension": (2.8, 3.5),
     "climax_impact": (3.5, 5.0),
     "resolution_loop": (2.5, 3.5),
@@ -142,7 +142,7 @@ def validate_storyboard_data(data: dict) -> list[str]:
     Strict programmatic validation of the generated storyboard:
     1. 12-16 scenes, alternating shot_scale in exact rotation (idx % 4).
     2. Variable scene duration strictly bounded by narrative beat_type:
-       - establishing: 2.0s - 2.8s
+       - establishing: 2.0s - 3.2s
        - rising_tension: 2.8s - 3.5s
        - climax_impact: 3.5s - 5.0s
        - resolution_loop: 2.5s - 3.5s
@@ -271,7 +271,7 @@ def validate_storyboard_data(data: dict) -> list[str]:
 
 def generate_storyboard_with_gemini(
     topic_data: dict,
-    model: str = "gemini-3.6-flash",
+    model: str = "gemini-3.8-flash",
     api_key: str = None,
     max_retries: int = 3
 ) -> dict:
@@ -297,10 +297,12 @@ def generate_storyboard_with_gemini(
         "1. Scene Count: Exactly 12 to 16 scenes (recommend 13 or 14).\n"
         "2. Narrative Beat Types & Variable Scene Durations (Pacing tied to narrative weight):\n"
         "   Every scene MUST declare a 'beat_type' matching its narrative role, with 'target_duration' strictly within its range:\n"
-        "   - 'establishing' (Scenes 1-3: context, hook, premise): 2.0 to 2.8 seconds (~5-8 words)\n"
+        "   - 'establishing' (Scenes 1-3: context, hook, premise): 2.0 to 3.2 seconds (~6-10 words)\n"
+        "     * CRITICAL SCENE 1 HOOK REQUIREMENT: Scene 1 MUST be a high-impact narrative hook that immediately tells the viewer WHAT is being shown. It MUST name the key weapon, vessel, invention, or tactic AND identify the historical actors/opponents and dramatic stakes (e.g. 'When samurai boarding fleets invaded Korea, Admiral Yi unleashed armored dragon ships that blinded enemy gunners with sulfur clouds.'). NEVER open with an isolated micro-mechanical description (e.g. 'Heavy iron spikes pierce straw') without naming the vessel and historical actors. The viewer must understand the topic and conflict in the very first sentence.\n"
         "   - 'rising_tension' (Scenes 4-8: mechanical reveal, tactical dilemma, assembly): 2.8 to 3.5 seconds (~8-10 words)\n"
         "   - 'climax_impact' (Scenes 9-11: decisive strike, catastrophic collapse, payoff hold): 3.5 to 5.0 seconds (~10-14 words)\n"
         "   - 'resolution_loop' (Scenes 12+: historical aftermath, tactical verdict, infinite loop hook): 2.5 to 3.5 seconds (~7-10 words)\n"
+        "     * CRITICAL FINAL SCENE RESOLUTION REQUIREMENT: The final scene MUST deliver an explicit concluding historical verdict/payoff line — what the decisive outcome was, why it mattered to history, or the enduring legend of the tactic (e.g. 'Admiral Yi's unbroken battle record ensured the turtle ship became the most feared naval legend in Asian history.') — rather than another mid-action visual beat.\n"
         "3. Strict Shot Scale Rotation: Cycle through these 4 scales in exact order (idx % 4):\n"
         "   - Scene 1: 'Extreme Macro Close-Up'\n"
         "   - Scene 2: 'Low-Angle Grounded POV'\n"
@@ -311,7 +313,7 @@ def generate_storyboard_with_gemini(
         "   to that scene's own target_duration. Total words across all scenes must be within 15% of (total_duration_seconds * 2.8).\n"
         "5. STRICT BAN ON ENCYCLOPEDIA PHRASING: NEVER begin any sentence with 'In [year]' (e.g. 'In 213 BC...'), "
         "   'This/It was' ('This was...', 'It was...'), or passive proper-noun exposition ('Marcellus was...', 'Archimedes was...', 'The Consul was...'). "
-        "   Always open every sentence with direct sensory, material, or tactical physical action.\n"
+        "   Always open with direct dramatic action, historical stakes, or tactical conflict. Name actors and forces actively (e.g. 'Admiral Yi unleashed...').\n"
         "6. Every scene MUST include:\n"
         "   - scene_id (1, 2, ...)\n"
         "   - beat_type ('establishing', 'rising_tension', 'climax_impact', or 'resolution_loop')\n"
@@ -402,7 +404,7 @@ def generate_storyboard_with_gemini(
             raise ValueError(f"Storyboard validation failed after {max_retries} attempts: {'; '.join(errors)}")
 
 
-def compile_final_storyboard(storyboard_data: dict, topic_data: dict, engine: str = "gemini_llm", model: str = "gemini-3.6-flash") -> dict:
+def compile_final_storyboard(storyboard_data: dict, topic_data: dict, engine: str = "gemini_llm", model: str = "gemini-3.8-flash") -> dict:
     """
     Compiles validated storyboard into the canonical state/storyboard.json schema.
     Enforces that CINEMA_LENS_SUFFIX is placed at the START of diffusion_prompt,
@@ -524,7 +526,28 @@ def synthesize_algorithmic_storyboard(topic_data: dict) -> dict:
     else:
         clean_hook = first_sentence
 
+    # Refine clean_title to a punchy 2-3 word tactical subject
     clean_title = re.sub(r"^(?:The\s+)?", "", title).split(":")[0].strip()
+    if " at " in clean_title:
+        clean_title = clean_title.split(" at ")[0].strip()
+    title_words = clean_title.split()
+    if len(title_words) > 3:
+        clean_title = " ".join(title_words[-3:])
+
+    # Clean hook: ensure Scene 1 is a punchy 8-11 word topic-establishing statement
+    clean_hook = re.sub(r"^in\s+\d{1,4}\s*(?:bc|ad)?\s*,?\s*", "", hook, flags=re.IGNORECASE).strip()
+    clean_hook = clean_hook[0].upper() + clean_hook[1:] if clean_hook else "Armored dragon ships deployed under cover of night."
+    # If hook contains ' that ', split to keep the topic hook punchy for Scene 1
+    if " that " in clean_hook:
+        clean_hook = clean_hook.split(" that ")[0].rstrip(",;:-") + "."
+    elif len(clean_hook.split()) > 11:
+        clause_match = re.search(r"^(.*?)\s+\b(?:until|before|when|where|while|which)\b", clean_hook, re.IGNORECASE)
+        if clause_match and 6 <= len(clause_match.group(1).split()) <= 11:
+            clean_hook = clause_match.group(1).strip().rstrip(",;:-") + "."
+
+    # Calibrate duration for Scene 1 establishing hook
+    hook_word_count = len(clean_hook.split())
+    scene_1_dur = min(3.2, max(2.4, round(hook_word_count / 2.8, 1)))
 
     # Select the most vivid action verb or key tactical noun in clean_hook for emphasis
     hook_clean_words = [re.sub(r"[^\w]", "", w).lower() for w in clean_hook.split()]
@@ -536,9 +559,9 @@ def synthesize_algorithmic_storyboard(topic_data: dict) -> dict:
 
     # 13-beat structure dynamically composed from topic facts:
     beat_configs = [
-        # Establishing (2.0s - 2.8s, ~5-9 words)
-        ("establishing", 2.6, clean_hook, scene_1_emphasis, f"Cold mist rising across {m0}", f"Macro perspective of {m0}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "cold silver moonlight on dark metal", "slow push-in", "distant_war_horns"),
-        ("establishing", 2.5, f"Armies clashed along the disputed frontier.", ["clashed"], f"Drenched earth vibrating under rhythmic marching boots", f"Grounded perspective of {m0}", "low-angle grounded POV", "24mm anamorphic wide", "flickering bronze lantern light", "tracking pan right", "rhythmic_drum_beat"),
+        # Establishing (2.0s - 3.2s, ~6-10 words) - Scene 1 MUST name weapon, actors, and stakes
+        ("establishing", scene_1_dur, clean_hook, scene_1_emphasis, f"Cold mist rising across {m0}", f"Macro perspective of {m0}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "cold silver moonlight on dark metal", "slow push-in", "distant_war_horns"),
+        ("establishing", 2.6, f"Armies clashed along the disputed frontier.", ["clashed"], f"Drenched earth vibrating under rhythmic marching boots", f"Grounded perspective of {m0}", "low-angle grounded POV", "24mm anamorphic wide", "flickering bronze lantern light", "tracking pan right", "rhythmic_drum_beat"),
         ("establishing", 2.6, f"Defenders faced overwhelming tactical superior forces.", ["overwhelming"], f"Rough banners snapping in cold storm wind", f"Tactical layout showing {m0}", "wide tactical action view", "35mm wide prime", "overcast dawn mist cutting across ramparts", "subtle pedestal tilt-down", "wind_howl"),
 
         # Rising Tension (2.8s - 3.5s, ~7-9 words)
@@ -553,9 +576,9 @@ def synthesize_algorithmic_storyboard(topic_data: dict) -> dict:
         ("climax_impact", 3.6, f"Panic tore through invading lines as defenses overwhelmed resistance.", ["overwhelmed"], f"Armored bodies tumbling through smoke and churning mud", f"Low upward view of {m2}", "low-angle grounded POV", "24mm anamorphic wide", "flashing torch embers illuminating violent impacts", "tracking pan right", "crushing_impact_splash"),
         ("climax_impact", 3.6, f"Tactical surprise shattered enemy morale into frantic retreat.", ["frantic retreat"], f"Panicked soldiers dropping weapons into the mud", f"Wide panoramic destruction of {f2}", "wide tactical action view", "35mm wide prime", "smoky chiaroscuro silhouette against burning wreckage", "subtle pedestal tilt-down", "screams_and_fire"),
 
-        # Resolution / Loop (2.5s - 3.5s, ~7-9 words)
+        # Resolution / Loop (2.5s - 3.5s, ~7-9 words) - Final scene MUST deliver concluding verdict
         ("resolution_loop", 2.8, f"The surviving invaders retreated across the shattered battleground.", ["retreated"], f"Battered helmet resting half-submerged in wet shoreline sand", f"Solemn aftermath portrait showing {m3}", "medium tension portrait", "50mm natural prime", "fading twilight rim light on tranquil waves", "slow push-in", "distant_surf"),
-        ("resolution_loop", 3.0, f"Ancient chronicles recorded {clean_title} as decisive warfare.", ["decisive"], f"Lone iron relic resting motionless over quiet battlements", f"Haunting final frame linking to {m3}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "cold silver moonlight on damp stone", "tracking pan right", "ambient_drone")
+        ("resolution_loop", 3.2, f"Decisive victory established {clean_title} as an enduring military legend.", ["legend"], f"Lone iron relic resting motionless over quiet battlements", f"Haunting final frame linking to {m3}", "extreme macro close-up, shallow depth of field", "85mm macro lens", "cold silver moonlight on damp stone", "tracking pan right", "ambient_drone")
     ]
 
     scenes = []
@@ -584,7 +607,7 @@ def synthesize_algorithmic_storyboard(topic_data: dict) -> dict:
     }
 
 
-def generate_storyboard(topic_path: Path, output_path: Path, model: str = "gemini-3.6-flash", api_key: str = None):
+def generate_storyboard(topic_path: Path, output_path: Path, model: str = "gemini-3.8-flash", api_key: str = None):
     with open(topic_path, "r", encoding="utf-8") as f:
         topic_data = json.load(f)
 
@@ -614,10 +637,10 @@ def generate_storyboard(topic_path: Path, output_path: Path, model: str = "gemin
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate modern documentary storyboard via Google Gemini (gemini-3.6-flash).")
+    parser = argparse.ArgumentParser(description="Generate modern documentary storyboard via Google Gemini (gemini-3.8-flash).")
     parser.add_argument("--topic", type=str, default="state/topic.json", help="Path to input topic JSON.")
     parser.add_argument("--output", type=str, default="state/storyboard.json", help="Destination storyboard JSON.")
-    parser.add_argument("--model", type=str, default="gemini-3.6-flash", help="Gemini model (e.g. gemini-3.6-flash, gemini-3.5-flash).")
+    parser.add_argument("--model", type=str, default="gemini-3.8-flash", help="Gemini model (e.g. gemini-3.8-flash).")
     parser.add_argument("--api-key", type=str, default=None, help="Gemini API key (defaults to GEMINI_API_KEY or GOOGLE_API_KEY env).")
 
     args = parser.parse_args()
