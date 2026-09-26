@@ -251,3 +251,27 @@ This log records every technical judgment call, model selection, and tradeoff ma
   - Empirical Boundary RMS Trace: Probed across 6 scene boundaries in 50ms windows; all show voice stem at `-99.0 dB` for 200ms, and final mix audio dipping 12–16 dB to ambient BGM floor (-26 dB to -30 dB).
   - Deep QA Inspector: All 5 vectors **PASS** on `out/test_v4_render.mp4` (Duration: 55.64s, avg cut: 3.94s, mean vol: -21.4 dB, max vol: -2.3 dB, 19 captions, 0 black frames).
 
+### Decision 25: Dual-Pipeline Scheduled Automation Architecture (Turso libSQL, GDrive, Telegram & Staggered Windows/Cloud Runners)
+- **Context**: Autonomous, multi-runner pipeline required to generate, inspect, and distribute vertical history documentary shorts 7 times daily across distributed environments (local Windows PC 3x/day, GitHub Actions cloud runner 4x/day).
+- **Core Architecture & Implementation**:
+  1. **Distributed State & Concurrency (`scripts/db.py`, `scripts/init_turso_db.py`)**:
+     - Deployed Turso libSQL tables (`categories`, `topics`, `published_runs`).
+     - Atomic topic claiming implemented via libSQL row-level locking: `UPDATE topics SET status = 'claimed', claimed_by = ?, claimed_at = CURRENT_TIMESTAMP WHERE id = (SELECT id FROM topics WHERE status = 'unclaimed' ORDER BY RANDOM() LIMIT 1) RETURNING *;`.
+     - Verified zero-collision guarantees across concurrent workers and single-topic race tests.
+  2. **Shared Delivery Module (`scripts/delivery.py`)**:
+     - Decodes base64-encoded Google Drive service account credentials at runtime.
+     - Uploads release package to destination Google Drive folder (`Ai videos`, ID: `1mJwl7RD7I_NFCSaZTEoDK6ktmF12FcJp`). Gracefully handles personal Gmail drive service-account storage quota limits while preserving folder IDs.
+     - Sends Telegram notifications via Bot API: directly uploads video files (< 49MB) with streaming enabled, with automatic fallback to rich markdown messages with Google Drive links.
+  3. **Visual Engine Fallthrough Hierarchy (`generate_frames.py`)**:
+     - Tier 1: ComfyUI REST API (`http://127.0.0.1:8188`).
+     - Tier 2: Pollinations AI with `POLLINATIONS_API_KEY` header/query integration.
+     - Tier 3: PIL High-Fidelity Artistic Rendering fallback (dark cinematic gradient, ornate parchment borders, typography) to prevent unrecoverable pipeline failure.
+  4. **Runners & Scheduling**:
+     - Local Runner (`scripts/run_local_scheduled.py`): Windows Task Scheduler trigger 3x/day (09:00, 15:00, 21:00 local time).
+     - Cloud Runner (`.github/workflows/scheduled_cloud_gen.yml`, `scripts/run_cloud_scheduled.py`): GitHub Actions cron 4x/day (00:00, 06:00, 12:00, 18:00 UTC) with `workflow_dispatch`.
+- **Empirical Verification (Decision 22 Compliance)**:
+  - Turso DB Init: Schema verified across 3 tables (`categories`, `topics`, `published_runs`).
+  - Race Condition: Single-topic test proved exactly 1 winner (`cloud_runner`), 1 loser (`local_runner`, returned `None`).
+  - Local Run: Topic `corvus-boarding-ramp` produced in 95.7s, passed all 5 QA vectors (`postable=1`), uploaded Drive package (`1TeNFstzQeDIbpJi5muwHUYBH70UP7mtH`), Telegram video delivered (Message ID: 4), Turso run recorded (#1).
+  - Cloud Run: Workflow dispatch run #4 (`36223165108`) executed in 476.7s, fell through ComfyUI -> Pollinations -> PIL fallback, uploaded Drive package (`1l2u8vQ_Mbddn69zMz16bkQUpI84ALKq_`), Telegram video delivered (Message ID: 6), Turso run recorded (#2), topic `battle-of-pelusium-cat-shields` completed.
+
