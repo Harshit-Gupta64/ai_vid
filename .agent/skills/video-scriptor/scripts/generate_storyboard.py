@@ -534,18 +534,25 @@ def synthesize_algorithmic_storyboard(topic_data: dict) -> dict:
     if len(title_words) > 3:
         clean_title = " ".join(title_words[-3:])
 
-    # Clean hook: ensure Scene 1 is a punchy 8-11 word topic-establishing statement
+    # Clean hook: ensure Scene 1 is a punchy 7-11 word topic-establishing statement
     clean_hook = re.sub(r"^in\s+\d{1,4}\s*(?:bc|ad)?\s*,?\s*", "", hook, flags=re.IGNORECASE).strip()
     clean_hook = clean_hook[0].upper() + clean_hook[1:] if clean_hook else "Armored dragon ships deployed under cover of night."
-    # If hook contains ' that ', split to keep the topic hook punchy for Scene 1
-    if " that " in clean_hook:
-        clean_hook = clean_hook.split(" that ")[0].rstrip(",;:-") + "."
-    elif len(clean_hook.split()) > 11:
-        clause_match = re.search(r"^(.*?)\s+\b(?:until|before|when|where|while|which)\b", clean_hook, re.IGNORECASE)
-        if clause_match and 6 <= len(clause_match.group(1).split()) <= 11:
-            clean_hook = clause_match.group(1).strip().rstrip(",;:-") + "."
+    
+    hook_words = clean_hook.split()
+    if len(hook_words) > 11:
+        if "," in clean_hook:
+            parts = [p.strip() for p in clean_hook.split(",") if p.strip()]
+            for p in parts:
+                p_words = p.split()
+                if 6 <= len(p_words) <= 11:
+                    clean_hook = p[0].upper() + p[1:].rstrip(".,;:-") + "."
+                    break
+            else:
+                clean_hook = " ".join(hook_words[:10]).rstrip(".,;:-") + "."
+        else:
+            clean_hook = " ".join(hook_words[:10]).rstrip(".,;:-") + "."
 
-    # Calibrate duration for Scene 1 establishing hook
+    # Calibrate duration for Scene 1 establishing hook (allowed range ~6-12 words at 2.8 wps)
     hook_word_count = len(clean_hook.split())
     scene_1_dur = min(3.2, max(2.4, round(hook_word_count / 2.8, 1)))
 

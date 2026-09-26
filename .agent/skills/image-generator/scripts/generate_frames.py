@@ -70,46 +70,24 @@ def render_pil_fallback_frame(
             draw.line([(0, y), (width, y)], fill=(r, g, b))
 
         # 2. Ornate historical parchment borders
-        gold = (185, 150, 90)
-        gold_dim = (100, 80, 50)
-        draw.rectangle([(40, 40), (width - 40, height - 40)], outline=gold, width=3)
-        draw.rectangle([(55, 55), (width - 55, height - 55)], outline=gold_dim, width=1)
+        gold = (140, 115, 70)
+        gold_dim = (75, 60, 40)
+        draw.rectangle([(40, 40), (width - 40, height - 40)], outline=gold, width=2)
+        draw.rectangle([(52, 52), (width - 52, height - 52)], outline=gold_dim, width=1)
 
         # Corner accents
-        accent_len = 30
+        accent_len = 25
         for cx, cy in [(40, 40), (width - 40, 40), (40, height - 40), (width - 40, height - 40)]:
             dx = accent_len if cx == 40 else -accent_len
             dy = accent_len if cy == 40 else -accent_len
-            draw.line([(cx, cy), (cx + dx, cy)], fill=gold, width=5)
-            draw.line([(cx, cy), (cx, cy + dy)], fill=gold, width=5)
+            draw.line([(cx, cy), (cx + dx, cy)], fill=gold, width=4)
+            draw.line([(cx, cy), (cx, cy + dy)], fill=gold, width=4)
 
-        # 3. Typography & Scene Info
-        header_text = f"SCENE {scene_id:02d}"
-        topic_header = topic_id.replace("-", " ").upper()
-        draw.text((width // 2, 300), topic_header, fill=gold, anchor="mm")
-        draw.text((width // 2, 380), header_text, fill=(230, 220, 200), anchor="mm")
-
-        # Visual description snippet wrapped
-        words = prompt.split()
-        lines = []
-        cur_line = []
-        for w in words:
-            cur_line.append(w)
-            if len(" ".join(cur_line)) > 36:
-                lines.append(" ".join(cur_line))
-                cur_line = []
-        if cur_line:
-            lines.append(" ".join(cur_line))
-
-        y_text = height // 2 - (len(lines) * 25)
-        for line in lines[:8]:
-            draw.text((width // 2, y_text), line, fill=(200, 195, 185), anchor="mm")
-            y_text += 50
-
-        draw.text((width // 2, height - 200), "[ ARTISTIC ARCHIVAL VISUALIZATION ]", fill=gold_dim, anchor="mm")
+        # NOTE: Pure visual abstract fallback canvas - ZERO text or debug artifacts burned into image.
+        # Subtitles and narrative captions are overlaid dynamically by render_short.py.
 
         img.save(output_path, "PNG")
-        print(f"[PIL FALLBACK] Scene {scene_id:02d} rendered via PIL fallback: {output_path.name}")
+        print(f"[PIL FALLBACK] Scene {scene_id:02d} rendered via PIL fallback (pure visual): {output_path.name}")
         return True
     except Exception as e:
         print(f"[ERROR] Scene {scene_id:02d}: PIL fallback failed: {e}", file=sys.stderr)

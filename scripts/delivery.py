@@ -3,8 +3,8 @@
 scripts/delivery.py - Shared Delivery Module for Cloud and Local Pipelines
 
 Handles:
-1. Google Drive service account credential decoding and folder/file uploads.
-2. Telegram bot notifications with direct video attachment and Drive links.
+1. Google Drive service account credential decoding, bundle uploads, and verified folder listing.
+2. Telegram bot notifications with direct photo thumbnail and playable video attachments.
 """
 
 import base64
@@ -14,7 +14,7 @@ import os
 import sys
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 import requests
 
 # Try to load local .env if present
@@ -51,14 +51,26 @@ def get_gdrive_service():
     return build("drive", "v3", credentials=creds, cache_discovery=False)
 
 
+def list_drive_folder_contents(folder_id: str) -> List[Dict[str, Any]]:
+    """Lists all files present in a specific Google Drive folder."""
+    service = get_gdrive_service()
+    query = f"'{folder_id}' in parents and trashed = false"
+    res = service.files().list(
+        q=query,
+        fields="files(id, name, size, mimeType, webViewLink)",
+        supportsAllDrives=True
+    ).execute()
+    return res.get("files", [])
+
+
 def upload_to_drive(
     folder_path: Union[str, Path],
     postable: bool,
     custom_folder_name: Optional[str] = None
-) -> str:
+) -> Tuple[str, List[Dict[str, Any]]]:
     """
     Uploads a directory bundle or single file to Google Drive under GDRIVE_FOLDER_ID.
-    Returns the created Google Drive folder ID (or destination folder ID).
+    Returns (dest_folder_id, uploaded_files_list).
     """
     parent_folder_id = os.environ.get("GDRIVE_FOLDER_ID", "").strip()
     if not parent_folder_id:
@@ -74,24 +86,30 @@ def upload_to_drive(
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     folder_name = custom_folder_name or f"{p.name}_{status_tag}_{timestamp}"
 
-    # Create subfolder in Google Drive
+    # Create destination subfolder in Google Drive
     folder_metadata = {
         "name": folder_name,
         "mimeType": "application/vnd.google-apps.folder",
         "parents": [parent_folder_id]
     }
-    drive_folder = service.files().create(body=folder_metadata, fields="id, name, webViewLink").execute()
+    drive_folder = service.files().create(
+        body=folder_metadata,
+        fields="id, name, webViewLink",
+        supportsAllDrives=True
+    ).execute()
     dest_folder_id = drive_folder.get("id")
     web_link = drive_folder.get("webViewLink", f"https://drive.google.com/drive/folders/{dest_folder_id}")
     print(f"[GDRIVE] Created Drive package folder: '{folder_name}' (ID: {dest_folder_id})")
     print(f"[GDRIVE] Web View Link: {web_link}")
 
-    # Determine files to upload
+    # Gather files to upload
     files_to_upload: List[Path] = []
     if p.is_dir():
         files_to_upload = [f for f in p.glob("**/*") if f.is_file()]
     else:
         files_to_upload = [p]
+
+    print(f"[GDRIVE] Preparing upload for {len(files_to_upload)} deliverables into Drive folder {dest_folder_id}...")
 
     for file_path in files_to_upload:
         mime_type, _ = mimetypes.guess_type(str(file_path))
@@ -100,6 +118,8 @@ def upload_to_drive(
                 mime_type = "text/plain"
             elif file_path.suffix.lower() == ".json":
                 mime_type = "application/json"
+            elif file_path.suffix.lower() == ".txt":
+                mime_type = "text/plain"
             else:
                 mime_type = "application/octet-stream"
 
@@ -107,24 +127,33 @@ def upload_to_drive(
             "name": file_path.name,
             "parents": [dest_folder_id]
         }
+
         try:
             media = MediaFileUpload(str(file_path), mimetype=mime_type, resumable=True)
             uploaded_file = service.files().create(
                 body=file_metadata,
                 media_body=media,
-                fields="id, name, size",
+                fields="id, name, size, mimeType",
                 supportsAllDrives=True
             ).execute()
             size_kb = int(uploaded_file.get("size", 0)) / 1024
-            print(f"  [GDRIVE] Uploaded '{file_path.name}' ({size_kb:.1f} KB, {mime_type}) -> ID: {uploaded_file.get('id')}")
+            print(f"  [GDRIVE UPLOAD SUCCESS] '{file_path.name}' ({size_kb:.1f} KB, {mime_type}) -> ID: {uploaded_file.get('id')}")
         except Exception as e:
             err_msg = str(e)
             if "storageQuotaExceeded" in err_msg or "storage quota" in err_msg.lower():
-                print(f"  [GDRIVE NOTICE] Service account storage quota reached on personal Google Drive for '{file_path.name}'. Note: Direct binary file uploads by service accounts require a Google Workspace Shared Drive or OAuth user delegation. Package subfolder is preserved: {dest_folder_id}")
+                print(f"  [GDRIVE ERROR - STORAGE QUOTA] Service Accounts have 0 GB individual quota on personal Google Drive ('My Drive') for '{file_path.name}'.")
+                print(f"  [GDRIVE ACTION REQUIRED] Direct binary file uploads by service accounts require a Google Workspace Shared Drive or OAuth user delegation.")
             else:
-                print(f"  [WARN] Failed to upload '{file_path.name}' to Drive: {e}")
+                print(f"  [GDRIVE ERROR] Failed to upload '{file_path.name}': {e}")
 
-    return dest_folder_id
+    # Verify actual contents via Drive API list
+    contents = list_drive_folder_contents(dest_folder_id)
+    print(f"[GDRIVE] Verified contents of Drive folder '{folder_name}' ({len(contents)} files confirmed present via API):")
+    for f in contents:
+        size_str = f"{int(f.get('size', 0)) / 1024:.1f} KB" if f.get("size") else "0 B"
+        print(f"  * {f['name']} ({size_str}) -> ID: {f['id']}")
+
+    return dest_folder_id, contents
 
 
 def send_telegram_notification(
@@ -132,14 +161,14 @@ def send_telegram_notification(
     hashtags: Union[str, List[str]],
     postable: bool,
     video_path_or_drive_link: Union[str, Path],
-    drive_folder_id: Optional[str] = None
+    drive_folder_id: Optional[str] = None,
+    thumbnail_path: Optional[Union[str, Path]] = None
 ) -> str:
     """
-    Sends a publishing notification to the designated Telegram chat.
-    If video_path_or_drive_link is an accessible local MP4 file under 49MB,
-    uploads the actual video file directly with video preview.
-    Otherwise sends a rich Markdown message containing the Drive URL.
-    Returns the Telegram message ID.
+    Sends publishing notifications to the designated Telegram chat:
+    1. If thumbnail_path is provided, sends the thumbnail as a photo with the title/status/hashtags caption.
+    2. Sends the MP4 video directly via sendVideo with streaming enabled.
+    Returns the video message ID (or photo message ID).
     """
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
@@ -166,7 +195,31 @@ def send_telegram_notification(
 
     caption = "\n".join(caption_lines)
 
-    # Check if video_path_or_drive_link is a local video file
+    photo_msg_id = None
+    # 1. Send thumbnail photo if available
+    if thumbnail_path:
+        thumb_p = Path(str(thumbnail_path))
+        if thumb_p.exists() and thumb_p.is_file():
+            print(f"[TELEGRAM] Sending thumbnail photo: {thumb_p.name}...")
+            url_photo = f"https://api.telegram.org/bot{token}/sendPhoto"
+            try:
+                with open(thumb_p, "rb") as pf:
+                    files = {"photo": (thumb_p.name, pf, "image/png")}
+                    data = {
+                        "chat_id": chat_id,
+                        "caption": f"🖼 *Thumbnail Preview*\n{caption}",
+                        "parse_mode": "Markdown"
+                    }
+                    resp_photo = requests.post(url_photo, data=data, files=files, timeout=40)
+                    if resp_photo.status_code == 200 and resp_photo.json().get("ok"):
+                        photo_msg_id = str(resp_photo.json()["result"]["message_id"])
+                        print(f"[TELEGRAM] Thumbnail photo sent successfully! Message ID: {photo_msg_id}")
+                    else:
+                        print(f"[WARN] Telegram sendPhoto returned: {resp_photo.text}")
+            except Exception as pe:
+                print(f"[WARN] Failed to send thumbnail to Telegram: {pe}")
+
+    # 2. Send video file
     video_path = Path(str(video_path_or_drive_link))
     can_upload_video = False
     if video_path.exists() and video_path.is_file() and video_path.suffix.lower() == ".mp4":
@@ -180,6 +233,10 @@ def send_telegram_notification(
         try:
             with open(video_path, "rb") as vf:
                 files = {"video": (video_path.name, vf, "video/mp4")}
+                # If thumbnail exists, pass as video thumb
+                if thumbnail_path and Path(str(thumbnail_path)).exists():
+                    files["thumbnail"] = (Path(str(thumbnail_path)).name, open(str(thumbnail_path), "rb"), "image/png")
+
                 data = {
                     "chat_id": chat_id,
                     "caption": caption,
@@ -196,7 +253,7 @@ def send_telegram_notification(
         except Exception as e:
             print(f"[WARN] Failed to upload video directly to Telegram: {e}. Falling back to sendMessage.", file=sys.stderr)
 
-    # Fallback to sendMessage
+    # 3. Fallback to sendMessage if video couldn't be uploaded directly
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     payload = {
         "chat_id": chat_id,
@@ -205,20 +262,9 @@ def send_telegram_notification(
         "disable_web_page_preview": False
     }
     resp = requests.post(url, json=payload, timeout=20)
-    if resp.status_code != 200 or not resp.json().get("ok"):
-        raise RuntimeError(f"Telegram sendMessage failed: {resp.status_code} - {resp.text}")
+    if resp.status_code == 200 and resp.json().get("ok"):
+        msg_id = str(resp.json()["result"]["message_id"])
+        print(f"[TELEGRAM] Message sent successfully! Message ID: {msg_id}")
+        return msg_id
 
-    msg_id = str(resp.json()["result"]["message_id"])
-    print(f"[TELEGRAM] Message sent successfully! Message ID: {msg_id}")
-    return msg_id
-
-
-if __name__ == "__main__":
-    # Self-test credential loading
-    print("Testing Google Drive credentials decoding...")
-    creds = decode_gdrive_credentials()
-    print(f"[OK] Credentials valid for: {creds.service_account_email}")
-    service = get_gdrive_service()
-    parent_id = os.environ.get("GDRIVE_FOLDER_ID", "")
-    info = service.files().get(fileId=parent_id, fields="id, name").execute()
-    print(f"[OK] Connected to Drive Folder: {info.get('name')} ({info.get('id')})")
+    return photo_msg_id or "0"

@@ -3,10 +3,12 @@
 scripts/pipeline_core.py - Unified Pipeline Execution Engine
 
 Orchestrates the entire video production pipeline from atomic Turso claim
-to multi-vector Deep QA, Google Drive upload, and Telegram notification.
+to multi-vector Deep QA, climax thumbnail extraction, title/hashtags generation,
+Google Drive packaging, and dual Telegram notification (photo + video).
 Used by both the local Windows Task Scheduler runner and the GitHub Actions cloud runner.
 """
 
+import io
 import json
 import os
 import shutil
@@ -14,7 +16,8 @@ import subprocess
 import sys
 import time
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
+from PIL import Image, ImageStat
 
 # Try loading .env if available
 try:
@@ -54,6 +57,128 @@ def run_command_step(cmd: list, desc: str) -> bool:
         return False
     log(f"[SUCCESS] Completed '{desc}' ({dur:.1f}s)")
     return True
+
+
+def extract_climax_thumbnail(video_path: Path, storyboard_path: Path, output_path: Path) -> Path:
+    """
+    Selects the highest-contrast, most legible frame from the climax_impact beat
+    using pixel intensity variance across candidate timestamps.
+    """
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    scenes = []
+    if storyboard_path.exists():
+        try:
+            with open(storyboard_path, "r", encoding="utf-8") as f:
+                sb = json.load(f)
+                scenes = sb.get("scenes", [])
+        except Exception:
+            pass
+
+    # Find climax beat ranges
+    cur_t = 0.0
+    climax_ranges = []
+    for idx, s in enumerate(scenes):
+        dur = float(s.get("target_duration", 3.0))
+        beat = s.get("beat_type", "").lower()
+        if "climax" in beat:
+            climax_ranges.append((cur_t, cur_t + dur, s.get("scene_id", idx + 1)))
+        cur_t += dur
+
+    # Fallback to scenes 8-11 if no explicit climax beat labeled
+    if not climax_ranges and len(scenes) >= 6:
+        cur_t = 0.0
+        for idx, s in enumerate(scenes):
+            dur = float(s.get("target_duration", 3.0))
+            if idx >= len(scenes) // 2 and idx < len(scenes) - 2:
+                climax_ranges.append((cur_t, cur_t + dur, s.get("scene_id", idx + 1)))
+            cur_t += dur
+
+    if not climax_ranges:
+        climax_ranges = [(15.0, 25.0, 1)]
+
+    candidates = []
+    for start, end, sid in climax_ranges:
+        dur = max(end - start, 0.5)
+        for ratio in [0.25, 0.5, 0.75]:
+            candidates.append((start + dur * ratio, sid))
+
+    best_score = -1.0
+    best_bytes = None
+    best_t = candidates[0][0]
+
+    for t, sid in candidates:
+        cmd = [
+            "ffmpeg", "-y", "-ss", f"{t:.3f}",
+            "-i", str(video_path.resolve()),
+            "-vframes", "1",
+            "-f", "image2pipe",
+            "-vcodec", "png", "-"
+        ]
+        p = subprocess.run(cmd, capture_output=True)
+        if p.returncode == 0 and p.stdout:
+            try:
+                img = Image.open(io.BytesIO(p.stdout)).convert("L")
+                stat = ImageStat.Stat(img)
+                contrast = stat.stddev[0]
+                if contrast > best_score:
+                    best_score = contrast
+                    best_bytes = p.stdout
+                    best_t = t
+            except Exception:
+                pass
+
+    if best_bytes:
+        with open(output_path, "wb") as f:
+            f.write(best_bytes)
+        log(f"[THUMBNAIL] Selected highest-contrast climax frame at t={best_t:.2f}s (score: {best_score:.2f}) -> {output_path.name}")
+    else:
+        # Emergency frame capture
+        subprocess.run(["ffmpeg", "-y", "-ss", "10.0", "-i", str(video_path), "-vframes", "1", str(output_path)], capture_output=True)
+        log(f"[THUMBNAIL] Extracted default thumbnail at t=10.0s -> {output_path.name}")
+
+    return output_path
+
+
+def generate_title_and_hashtags(topic: Dict[str, Any], release_dir: Path) -> Tuple[str, str]:
+    """Generates platform-compressed title.txt and categorized hashtags.txt."""
+    hook = topic.get("hook_hookline", "").strip()
+    title = topic.get("title", "").strip()
+    cat = topic.get("category") or topic.get("category_id", "tactical_anomaly")
+    era = topic.get("historical_era", "")
+
+    # Format platform title under 75 chars
+    if hook and len(hook) <= 75:
+        short_title = hook
+    elif title and len(title) <= 75:
+        short_title = title
+    else:
+        first_clause = (hook or title).split(".")[0].split("—")[0].strip()
+        short_title = first_clause[:75].strip()
+
+    title_file = release_dir / "title.txt"
+    with open(title_file, "w", encoding="utf-8") as f:
+        f.write(short_title + "\n")
+    log(f"[METADATA] Generated {title_file.name}: '{short_title}'")
+
+    # Format hashtags
+    tags = ["#MilitaryHistory", "#TacticalWarfare", "#HistoryShorts", "#Shorts"]
+    cat_tag = "#" + "".join(c for c in cat.replace("_", " ").title() if c.isalnum())
+    if cat_tag:
+        tags.append(cat_tag)
+    era_tag = "#" + "".join(c for c in era.split("(")[0].replace("-", " ").title() if c.isalnum())
+    if era_tag:
+        tags.append(era_tag)
+    tid_tag = "#" + "".join(c for c in topic.get("id", "").replace("-", " ").title() if c.isalnum())
+    if tid_tag:
+        tags.append(tid_tag)
+
+    hashtags_str = " ".join(tags)
+    hashtags_file = release_dir / "hashtags.txt"
+    with open(hashtags_file, "w", encoding="utf-8") as f:
+        f.write(hashtags_str + "\n")
+    log(f"[METADATA] Generated {hashtags_file.name}: '{hashtags_str}'")
+
+    return short_title, hashtags_str
 
 
 def execute_pipeline_for_topic(
@@ -193,11 +318,23 @@ def execute_pipeline_for_topic(
     is_postable = qa_passed and not is_degraded
     log(f"[QA VERDICT] Topic '{topic_id}': QA Passed={qa_passed}, Degraded={is_degraded} -> Postable={is_postable}")
 
-    # 8. Archive Release Bundle
+    # 8. Archive & Bundle Deliverables
     release_dir = out_dir / "releases" / topic_id
     release_dir.mkdir(parents=True, exist_ok=True)
+
+    # Required deliverable 1: final_short.mp4
     if out_video.exists():
+        shutil.copy2(out_video, release_dir / "final_short.mp4")
         shutil.copy2(out_video, release_dir / f"{topic_id}.mp4")
+
+    # Required deliverable 2: thumbnail.png (highest-contrast climax frame)
+    thumbnail_file = release_dir / "thumbnail.png"
+    extract_climax_thumbnail(out_video, storyboard_file, thumbnail_file)
+
+    # Required deliverables 3 & 4: title.txt and hashtags.txt
+    short_title, hashtags_str = generate_title_and_hashtags(topic, release_dir)
+
+    # Additional archival artifacts
     if contact_sheet_path.exists():
         shutil.copy2(contact_sheet_path, release_dir / "storyboard_grid.png")
     if storyboard_file.exists():
@@ -219,22 +356,23 @@ def execute_pipeline_for_topic(
     # 9. Deliver via Google Drive & Telegram
     drive_folder_id = None
     telegram_message_id = None
+
+    log(f"[DELIVERY] Uploading 4 deliverables (final_short.mp4, thumbnail.png, title.txt, hashtags.txt) + metadata to Google Drive...")
     try:
-        log("[DELIVERY] Uploading release package to Google Drive...")
-        drive_folder_id = upload_to_drive(release_dir, postable=is_postable)
-        log(f"[DELIVERY] Uploaded to Google Drive Folder: {drive_folder_id}")
+        drive_folder_id, uploaded_items = upload_to_drive(release_dir, postable=is_postable)
+        log(f"[DELIVERY] Upload process complete. Destination folder ID: {drive_folder_id}")
     except Exception as de:
-        log(f"[WARN] Google Drive upload encountered an error: {de}")
+        log(f"[WARN] Google Drive delivery encountered an issue: {de}")
 
     try:
-        log("[DELIVERY] Sending notification to Telegram...")
-        hashtags = ["#MilitaryHistory", "#TacticalWarfare", f"#{category.replace('_', '')}", "#Shorts"]
+        log("[DELIVERY] Sending notification with photo thumbnail and video to Telegram...")
         telegram_message_id = send_telegram_notification(
-            title=title,
-            hashtags=hashtags,
+            title=short_title or title,
+            hashtags=hashtags_str,
             postable=is_postable,
-            video_path_or_drive_link=release_dir / f"{topic_id}.mp4",
-            drive_folder_id=drive_folder_id
+            video_path_or_drive_link=release_dir / "final_short.mp4",
+            drive_folder_id=drive_folder_id,
+            thumbnail_path=thumbnail_file
         )
         log(f"[DELIVERY] Telegram notification sent (Message ID: {telegram_message_id})")
     except Exception as te:
