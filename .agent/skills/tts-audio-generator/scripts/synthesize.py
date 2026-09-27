@@ -8,6 +8,7 @@ and exports word-level aligned timestamps (timestamps.json) and voiceover.wav.
 
 import argparse
 import asyncio
+import io
 import json
 import os
 import re
@@ -16,13 +17,51 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 
+# Primary TTS Engine: Kokoro-82M
+HAS_KOKORO = False
+KOKORO_IMPORT_ERROR = None
+try:
+    from kokoro import KPipeline
+    import soundfile as sf
+    HAS_KOKORO = True
+except Exception as e:
+    HAS_KOKORO = False
+    KOKORO_IMPORT_ERROR = str(e)
+
+# Fallback TTS Engine: Edge-TTS
+HAS_EDGE_TTS = False
 try:
     import edge_tts
     HAS_EDGE_TTS = True
 except ImportError:
     HAS_EDGE_TTS = False
+
+KOKORO_VOICES = {
+    "am_adam", "bm_george", "am_michael", "bm_lewis",
+    "af_heart", "af_bella", "af_nicole", "af_sarah", "af_sky"
+}
+
+def resolve_kokoro_voice(voice: str) -> str:
+    v = (voice or "").lower().strip()
+    if v in KOKORO_VOICES:
+        return v
+    if "ryan" in v or "george" in v or "british" in v:
+        return "bm_george"
+    return "am_adam"
+
+
+def resolve_edge_voice(voice: str) -> str:
+    v = (voice or "").lower().strip()
+    if "ryan" in v or "george" in v or "bm_" in v:
+        return "en-GB-RyanNeural"
+    if "heart" in v or "bella" in v or "af_" in v:
+        return "en-US-JennyNeural"
+    if "neural" in v:
+        return voice
+    return "en-US-ChristopherNeural"
 
 
 # Coarse beat-type driven prosody variation (rate offset and pitch)
@@ -194,12 +233,58 @@ async def synthesize_scene_edge_tts(text: str, voice: str, rate: str = "+0%", pi
     raise RuntimeError(f"Failed to synthesize audio after {max_retries} attempts.")
 
 
-async def synthesize_storyboard_edge_tts(
+def synthesize_scene_kokoro(pipeline, text: str, voice: str = "am_adam", speed: float = 1.15) -> Tuple[bytes, List[Dict[str, Any]]]:
+    """
+    Synthesizes a single text block using Kokoro-82M on CPU.
+    Returns (wav_bytes, words).
+    """
+    generator = pipeline(text, voice=voice, speed=speed)
+    audio_chunks = []
+    for gs, ps, audio in generator:
+        if hasattr(audio, "numpy"):
+            audio_np = audio.numpy()
+        elif isinstance(audio, np.ndarray):
+            audio_np = audio
+        else:
+            audio_np = np.array(audio)
+        audio_chunks.append(audio_np)
+
+    if not audio_chunks:
+        raise RuntimeError(f"Kokoro produced empty audio for: '{text[:40]}...'")
+
+    full_audio_np = np.concatenate(audio_chunks, axis=0)
+    audio_dur = len(full_audio_np) / 24000.0
+
+    buf = io.BytesIO()
+    sf.write(buf, full_audio_np, 24000, format='WAV', subtype='PCM_16')
+    wav_bytes = buf.getvalue()
+
+    words_list = text.split()
+    words = []
+    if words_list:
+        char_counts = [max(len(w.strip(".,!?;:\"'")), 1) for w in words_list]
+        total_chars = sum(char_counts)
+        curr = 0.04
+        usable_dur = max(audio_dur - 0.15, 0.5)
+        for w, cnt in zip(words_list, char_counts):
+            w_dur = (cnt / total_chars) * usable_dur
+            words.append({
+                "word": w,
+                "start": round(curr, 3),
+                "end": round(curr + w_dur * 0.92, 3)
+            })
+            curr += w_dur
+
+    return wav_bytes, words
+
+
+async def synthesize_storyboard(
     storyboard: dict,
     storyboard_path: Path,
     output_audio: Path,
     output_timestamps: Path,
-    voice: str = "en-US-ChristopherNeural",
+    engine: str = "auto",
+    voice: str = "am_adam",
     rate: str = "+14%"
 ):
     scenes = storyboard.get("scenes", [])
@@ -207,7 +292,7 @@ async def synthesize_storyboard_edge_tts(
         raise ValueError("Storyboard contains no scenes.")
 
     ffmpeg_bin = get_ffmpeg_bin()
-    temp_dir = Path(tempfile.mkdtemp(prefix="tts_edge_"))
+    temp_dir = Path(tempfile.mkdtemp(prefix="tts_audio_"))
     
     scene_records = []
     current_time_offset = 0.0
@@ -218,7 +303,38 @@ async def synthesize_storyboard_edge_tts(
     base_rate_val = int(base_rate_match.group()) if base_rate_match else 20
     base_rate_val = max(0, min(25, base_rate_val))
 
-    print(f"[INFO] Synthesizing {len(scenes)} scenes with edge-tts (Voice: {voice}, Base Rate: +{base_rate_val}%)...")
+    # Determine resolved engine
+    resolved_engine = engine
+    kokoro_pipeline = None
+
+    if engine in ["auto", "kokoro"]:
+        if HAS_KOKORO:
+            try:
+                print(f"[INFO] Initializing Primary TTS Engine: Kokoro-82M on CPU...")
+                kokoro_pipeline = KPipeline(lang_code='a')
+                resolved_engine = "kokoro"
+                print(f"[SUCCESS] Kokoro-82M pipeline loaded successfully!")
+            except Exception as ke:
+                print(f"[WARN] Failed to load Kokoro-82M pipeline: {ke}", file=sys.stderr)
+                if engine == "kokoro":
+                    raise RuntimeError(f"Forced TTS engine 'kokoro' failed to initialize: {ke}")
+                resolved_engine = "edge-tts"
+        else:
+            if engine == "kokoro":
+                raise RuntimeError(f"Forced TTS engine 'kokoro' unavailable: {KOKORO_IMPORT_ERROR}")
+            print(f"[NOTICE] Kokoro-82M not available ({KOKORO_IMPORT_ERROR}). Falling back to Edge-TTS...")
+            resolved_engine = "edge-tts"
+    elif engine == "edge-tts":
+        resolved_engine = "edge-tts"
+
+    kokoro_voice = resolve_kokoro_voice(voice)
+    edge_voice = resolve_edge_voice(voice)
+
+    if resolved_engine == "kokoro":
+        base_speed = max(0.9, min(1.3, 1.0 + (base_rate_val / 100.0)))
+        print(f"[INFO] Synthesizing {len(scenes)} scenes with Kokoro-82M (Voice: {kokoro_voice}, Base Speed: {base_speed:.2f}x)...")
+    else:
+        print(f"[INFO] Synthesizing {len(scenes)} scenes with Edge-TTS (Voice: {edge_voice}, Base Rate: +{base_rate_val}%)...")
 
     try:
         for idx, scene in enumerate(scenes):
@@ -236,10 +352,69 @@ async def synthesize_storyboard_edge_tts(
             scene_pitch = beat_prosody.get("pitch", "+0Hz")
 
             narration_spoken = apply_phonetics(narration_raw)
-            print(f"[INFO] Synthesizing Scene {scene_id} [{beat_type} (rate={scene_rate}, pitch={scene_pitch})]: \"{narration_raw[:45]}...\"")
-            audio_bytes, words = await synthesize_scene_edge_tts(
-                narration_spoken, voice=voice, rate=scene_rate, pitch=scene_pitch
-            )
+
+            if resolved_engine == "kokoro":
+                kokoro_speed = max(0.85, min(1.35, 1.0 + (eff_rate_val / 100.0)))
+                print(f"[INFO] Synthesizing Scene {scene_id} [Kokoro {beat_type} (speed={kokoro_speed:.2f}x, voice={kokoro_voice})]: \"{narration_raw[:45]}...\"")
+                wav_bytes, words = synthesize_scene_kokoro(
+                    kokoro_pipeline, narration_spoken, voice=kokoro_voice, speed=kokoro_speed
+                )
+                scene_raw_wav = temp_dir / f"scene_{scene_id}_raw.wav"
+                with open(scene_raw_wav, "wb") as f:
+                    f.write(wav_bytes)
+
+                # Pass 1: Clean conversion to 24kHz mono WAV (strip leading digital silence so voice starts at t=0)
+                scene_wav = temp_dir / f"scene_{scene_id}.wav"
+                trim_cmd = [
+                    ffmpeg_bin, "-y", "-hide_banner",
+                    "-i", str(scene_raw_wav),
+                    "-af", "silenceremove=start_periods=1:start_duration=0.01:start_threshold=-50dB",
+                    "-ar", "24000", "-ac", "1",
+                    str(scene_wav)
+                ]
+                trim_res = subprocess.run(trim_cmd, capture_output=True, text=True)
+                target_audio = scene_wav if (trim_res.returncode == 0 and scene_wav.exists()) else scene_raw_wav
+            else:
+                print(f"[INFO] Synthesizing Scene {scene_id} [Edge-TTS {beat_type} (rate={scene_rate}, pitch={scene_pitch})]: \"{narration_raw[:45]}...\"")
+                audio_bytes, words = await synthesize_scene_edge_tts(
+                    narration_spoken, voice=edge_voice, rate=scene_rate, pitch=scene_pitch
+                )
+
+                # Save temporary scene MP3
+                scene_mp3 = temp_dir / f"scene_{scene_id}.mp3"
+                with open(scene_mp3, "wb") as f:
+                    f.write(audio_bytes)
+
+                # Pass 1: Clean conversion to 24kHz mono WAV (strip leading digital silence so voice starts at t=0)
+                scene_wav = temp_dir / f"scene_{scene_id}.wav"
+                trim_cmd = [
+                    ffmpeg_bin, "-y", "-hide_banner",
+                    "-i", str(scene_mp3),
+                    "-af", "silenceremove=start_periods=1:start_duration=0.01:start_threshold=-50dB",
+                    "-ar", "24000", "-ac", "1",
+                    str(scene_wav)
+                ]
+                trim_res = subprocess.run(trim_cmd, capture_output=True, text=True)
+                target_audio = scene_wav if (trim_res.returncode == 0 and scene_wav.exists()) else scene_mp3
+
+                # Calculate leading silence offset between scene_mp3 and scene_wav using numpy cross-correlation
+                lead_silence_sec = 0.0
+                if words and scene_wav.exists():
+                    try:
+                        p1 = subprocess.run([ffmpeg_bin, "-i", str(scene_mp3), "-f", "s16le", "-ar", "24000", "-ac", "1", "-t", "0.6", "-"], capture_output=True)
+                        p2 = subprocess.run([ffmpeg_bin, "-i", str(scene_wav), "-f", "s16le", "-ar", "24000", "-ac", "1", "-t", "0.6", "-"], capture_output=True)
+                        s1 = np.frombuffer(p1.stdout, dtype=np.int16).astype(np.float64)
+                        s2 = np.frombuffer(p2.stdout, dtype=np.int16).astype(np.float64)
+                        if len(s1) > 0 and len(s2) > 0:
+                            offset_samples = np.argmax(np.correlate(s1, s2[:min(len(s2), int(0.25*24000))], mode='valid'))
+                            lead_silence_sec = offset_samples / 24000.0
+                    except Exception:
+                        lead_silence_sec = 0.0
+
+                if lead_silence_sec > 0.0:
+                    for w in words:
+                        w["start"] = max(0.0, round(w["start"] - lead_silence_sec, 3))
+                        w["end"] = max(w["start"] + 0.05, round(w["end"] - lead_silence_sec, 3))
 
             # Map authentic historical display words back to timestamps so subtitles display correctly
             orig_words = narration_raw.split()
@@ -247,65 +422,12 @@ async def synthesize_storyboard_edge_tts(
                 for w_obj, orig_w in zip(words, orig_words):
                     w_obj["word"] = orig_w
 
-            # Save temporary scene MP3
-            scene_mp3 = temp_dir / f"scene_{scene_id}.mp3"
-            with open(scene_mp3, "wb") as f:
-                f.write(audio_bytes)
-
-            # Pass 1: Clean conversion to 24kHz mono WAV (strip leading digital silence so voice starts at t=0)
-            scene_wav = temp_dir / f"scene_{scene_id}.wav"
-            trim_cmd = [
-                ffmpeg_bin, "-y", "-hide_banner",
-                "-i", str(scene_mp3),
-                "-af", "silenceremove=start_periods=1:start_duration=0.01:start_threshold=-50dB",
-                "-ar", "24000", "-ac", "1",
-                str(scene_wav)
-            ]
-            trim_res = subprocess.run(trim_cmd, capture_output=True, text=True)
-            target_audio = scene_wav if (trim_res.returncode == 0 and scene_wav.exists()) else scene_mp3
-
-            # Calculate leading silence offset between scene_mp3 and scene_wav using numpy cross-correlation
-            lead_silence_sec = 0.0
-            if words and scene_wav.exists():
-                try:
-                    p1 = subprocess.run([ffmpeg_bin, "-i", str(scene_mp3), "-f", "s16le", "-ar", "24000", "-ac", "1", "-t", "0.6", "-"], capture_output=True)
-                    p2 = subprocess.run([ffmpeg_bin, "-i", str(scene_wav), "-f", "s16le", "-ar", "24000", "-ac", "1", "-t", "0.6", "-"], capture_output=True)
-                    s1 = np.frombuffer(p1.stdout, dtype=np.int16).astype(np.float64)
-                    s2 = np.frombuffer(p2.stdout, dtype=np.int16).astype(np.float64)
-                    if len(s1) > 0 and len(s2) > 0:
-                        offset_samples = np.argmax(np.correlate(s1, s2[:min(len(s2), int(0.25*24000))], mode='valid'))
-                        lead_silence_sec = offset_samples / 24000.0
-                except Exception:
-                    lead_silence_sec = 0.0
-
-            # Shift raw WordBoundary timestamps by stripped leading silence
-            if lead_silence_sec > 0.0:
-                for w in words:
-                    w["start"] = max(0.0, round(w["start"] - lead_silence_sec, 3))
-                    w["end"] = max(w["start"] + 0.05, round(w["end"] - lead_silence_sec, 3))
-
             # Measure exact audible speech duration from post-processed audio using probe_audio_duration
             raw_audio_dur = probe_audio_duration(target_audio)
             if raw_audio_dur <= 0:
                 raw_audio_dur = float(scene.get("target_duration", 3.0))
 
-            # Fallback word boundary interpolation if edge-tts did not yield WordBoundary
-            words_list = narration_raw.split()
-            if not words and words_list:
-                char_counts = [max(len(w.strip(".,!?;:\"'")), 1) for w in words_list]
-                total_chars = sum(char_counts)
-                curr = 0.05
-                usable_dur = max(raw_audio_dur - 0.40, 1.0)
-                for w, cnt in zip(words_list, char_counts):
-                    w_dur = (cnt / total_chars) * usable_dur
-                    words.append({
-                        "word": w,
-                        "start": round(curr, 3),
-                        "end": round(curr + w_dur * 0.9, 3)
-                    })
-                    curr += w_dur
-
-            # Fix 1: Calibrated vocal decay (120ms) + explicit breath gap (200ms of pure digital silence)
+            # Calibrated vocal decay (120ms) + explicit breath gap (200ms of pure digital silence)
             last_word_end = words[-1]["end"] if words else raw_audio_dur
             decay_dur = 0.120
             decay_end = round(last_word_end + decay_dur, 3)
@@ -433,7 +555,8 @@ async def synthesize_storyboard_edge_tts(
             "audio_file": str(output_audio.name),
             "total_duration": total_duration,
             "sample_rate": 24000,
-            "voice": voice,
+            "engine": resolved_engine,
+            "voice": kokoro_voice if resolved_engine == "kokoro" else edge_voice,
             "rate": f"+{base_rate_val}%",
             "scenes": scene_records
         }
@@ -443,7 +566,7 @@ async def synthesize_storyboard_edge_tts(
             json.dump(timestamp_data, f, indent=2, ensure_ascii=False)
 
         total_extracted_words = sum(len(s.get("words", [])) for s in scene_records)
-        print(f"[SUCCESS] Synthesized voiceover: {output_audio.resolve()} ({total_duration}s)")
+        print(f"[SUCCESS] Synthesized voiceover via {resolved_engine.upper()}: {output_audio.resolve()} ({total_duration}s)")
         print(f"[SUCCESS] Aligned timestamps written: {output_timestamps.resolve()} ({total_extracted_words} words)")
 
         # Synchronize exact spoken sentence endpoints into storyboard.json
@@ -462,13 +585,13 @@ async def synthesize_storyboard_edge_tts(
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Synthesize voiceover using edge-tts.")
+    parser = argparse.ArgumentParser(description="Synthesize voiceover using Kokoro-82M with Edge-TTS fallback.")
     parser.add_argument("--storyboard", type=str, default="state/storyboard.json", help="Path to input storyboard JSON.")
     parser.add_argument("--output-audio", type=str, default="assets/audio/voiceover.wav", help="Destination WAV file.")
     parser.add_argument("--output-timestamps", type=str, default="assets/audio/timestamps.json", help="Destination JSON file.")
-    parser.add_argument("--voice", type=str, default="en-US-ChristopherNeural", help="Voice model identifier.")
-    parser.add_argument("--rate", type=str, default="+18%", help="Speech rate modification.")
-
+    parser.add_argument("--engine", type=str, default="auto", choices=["auto", "kokoro", "edge-tts"], help="TTS engine preference.")
+    parser.add_argument("--voice", type=str, default="am_adam", help="Voice model identifier.")
+    parser.add_argument("--rate", type=str, default="+20%", help="Speech rate modification.")
 
     args = parser.parse_args()
 
@@ -480,11 +603,12 @@ def main():
     with open(sb_path, "r", encoding="utf-8") as f:
         storyboard = json.load(f)
 
-    asyncio.run(synthesize_storyboard_edge_tts(
+    asyncio.run(synthesize_storyboard(
         storyboard=storyboard,
         storyboard_path=sb_path,
         output_audio=Path(args.output_audio),
         output_timestamps=Path(args.output_timestamps),
+        engine=args.engine,
         voice=args.voice,
         rate=args.rate
     ))
@@ -492,3 +616,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

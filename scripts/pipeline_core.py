@@ -226,8 +226,9 @@ def execute_pipeline_for_topic(
         "--storyboard", str(storyboard_file),
         "--output-audio", str(voiceover_wav),
         "--output-timestamps", str(timestamps_json),
-        "--voice", "en-US-ChristopherNeural",
-        "--rate", "+20%"
+        "--engine", "auto",
+        "--voice", "am_adam",
+        "--rate", "+14%"
     ]
     if not run_command_step(cmd_tts, "Voiceover Narration Synthesis"):
         mark_topic_failed(topic_id)

@@ -37,15 +37,20 @@ jobs:
           cache: 'pip'
           cache-dependency-path: 'requirements.txt'
 
-      - name: Install System Dependencies (FFmpeg & Fonts)
+      - name: Install System Dependencies (FFmpeg, Fonts, espeak-ng)
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg fonts-liberation fonts-dejavu-core
+          sudo apt-get install -y ffmpeg fonts-liberation fonts-dejavu-core espeak-ng
 
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install -r requirements.txt
+
+      - name: Warm Kokoro-82M TTS Model
+        run: |
+          python -c "from kokoro import KPipeline; p = KPipeline(lang_code='a'); print('Kokoro-82M successfully loaded on CPU!')"
 
       - name: Verify Environment Secrets Configuration
         env:
